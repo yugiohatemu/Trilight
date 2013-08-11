@@ -33,7 +33,7 @@ void Light::render(std::vector<Rect>& objects) {
     //divide the light into 361 rays, for each ray, check intersection of rects
     //feels like ray lighting
     
-    
+
     for(int i = - range/2; i < range/2 ; i++) {
         float angle = (i + rotate_angle) * 3.14159 / 180;
         

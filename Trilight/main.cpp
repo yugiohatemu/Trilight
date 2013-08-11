@@ -131,29 +131,51 @@ int main( int argc, char *argv[] ){
     StopWatch fps(0.2);
     fps.start();
 	//Wait for user exit
+
+    bool press[4] = {false,false,false,false};
+    
 	while( quit == false ){
-        render();
+        
 		while( SDL_PollEvent( &event ) ){
 			if( event.type == SDL_QUIT )quit = true;
-		}
-        
-        int x = 0, y = 0;
-        SDL_GetMouseState( &x, &y );
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
+            if (event.type == SDL_KEYDOWN) {
+                
+                if (event.key.keysym.sym == SDLK_w) press[0] = true;
+                else if(event.key.keysym.sym == SDLK_a) press[1] = true;
+                else if(event.key.keysym.sym == SDLK_s) press[2] = true;
+                else if(event.key.keysym.sym == SDLK_d) press[3] = true;
+                
+            }else if(event.type == SDL_KEYUP){
+                
+                if (event.key.keysym.sym == SDLK_w) press[0] = false;
+                else if(event.key.keysym.sym == SDLK_a) press[1] = false;
+                else if(event.key.keysym.sym == SDLK_s) press[2] = false;
+                else if(event.key.keysym.sym == SDLK_d) press[3] = false;
 
-        l1.render(rectangles);
-        l1.rotate(x, y);
-        l2.render(rectangles);
-        //Render rectangles
-        for(int i = 0; i < rectangles.size(); i++) {
-            //Render rect
-            rectangles[i].render();
-        }
-        
+            }
+		}
         if (fps.is_timeup()) {
+            int x = 0, y = 0;
+            SDL_GetMouseState( &x, &y );
+            if (x < 0) x = 0;
+            if (y < 0) y = 0;
+            render();
+            l1.render(rectangles);
+            l1.rotate(x, y);
+            l2.render(rectangles);
+            //Render rectangles
+            for(int i = 0; i < rectangles.size(); i++) {
+                //Render rect
+                rectangles[i].render();
+            }
+            
             update();
-           
+            
+            if(press[0]) l1.position.y -=2;
+            else if(press[1]) l1.position.x -= 2;
+            else if(press[2]) l1.position.y += 2;
+            else if(press[3]) l1.position.x += 2;
+            
             //Update screen
             SDL_GL_SwapBuffers();
             
