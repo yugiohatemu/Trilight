@@ -9,6 +9,10 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_opengl.h"
 #include "stopWatch.h"
+#include "rect.h"
+#include "light.h"
+#include <vector>
+
 //Screen attributes
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -20,11 +24,7 @@ const int FRAMES_PER_SECOND = 60;
 //Event handler
 SDL_Event event;
 
-//Rendering flag
-bool renderQuad = true;
-
-bool initGL()
-{
+bool initGL(){
     //Initialize Projection Matrix
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
@@ -66,19 +66,14 @@ bool init(){
 }
 
 void handleKeys( unsigned char key, int x, int y ){
-    //Toggle quad
-    if( key == 'q' ){
-        renderQuad = !renderQuad;
-    }
-}
-
-void update()
-{
     
 }
 
-void render()
-{
+void update(){
+    
+}
+
+void render(){
     //Clear color buffer
     
     glEnable (GL_BLEND);
@@ -90,19 +85,7 @@ void render()
     glOrtho(0,SCREEN_WIDTH,SCREEN_HEIGHT,0,-1,1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    //Render quad
-    if( renderQuad == true )
-    {
-        glBegin( GL_QUADS );
-        glVertex2f( -0.5f, -0.5f );
-        glVertex2f(  0.5f, -0.5f );
-        glVertex2f(  0.5f,  0.5f );
-        glVertex2f( -0.5f,  0.5f );
-        glEnd();
-    }
-    
-    //Update screen
-    SDL_GL_SwapBuffers();
+ 
     
     
 }
@@ -113,34 +96,62 @@ void clean_up(){
 }
 
 
-int main( int argc, char *argv[] )
-{
+int main( int argc, char *argv[] ){
+    srand(time(0));
     //Quit flag
     bool quit = false;
     
     //Initialize
     if( init() == false ) return 1;
     
+    std::vector<Rect> rectangles;
+    
+	//Randomly create loads of small rectangles
+	for(int i = 11; i > 0; i--) {
+		Rect rectangle((int) (rand() % 350)+75,  (int) (rand() % 300)+75, 25 + (int) (rand() % 30), 25 + int(rand() % 30));
+		rectangles.push_back(rectangle);
+	}
+    
+	//Create light
+	Light l1;
+	l1.position.x = 250;
+	l1.position.y = 260;
+	l1.specular.setRGBA(0x00FF0055);
+	l1.size = 150.0f;
     StopWatch fps(0.2);
     fps.start();
 	//Wait for user exit
 	while( quit == false ){
-        
+        render();
 		while( SDL_PollEvent( &event ) ){
             
 			if( event.type == SDL_QUIT ){
                 quit = true;
             }else if( event.type == SDL_KEYDOWN ){
                 //Handle keypress with current mouse position
-                int x = 0, y = 0;
-                SDL_GetMouseState( &x, &y );
-                handleKeys( event.key.keysym.unicode, x, y );
+                
             }
 		}
+        int x = 0, y = 0;
+        SDL_GetMouseState( &x, &y );
+        l1.position.x = x;
+        l1.position.y = y;
+        //Render light rays
+        l1.render(rectangles);
+        
+        //Render rectangles
+        for(int i = 0; i < rectangles.size(); i++) {
+            //Render rect
+            rectangles[i].render();
+        }
         
         if (fps.is_timeup()) {
             update();
-            render();
+           
+            //Update screen
+            SDL_GL_SwapBuffers();
+            
+            
         }
 	}
     
