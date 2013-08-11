@@ -77,6 +77,7 @@ void render(){
     //Clear color buffer
     
     glEnable (GL_BLEND);
+    //glEnable(GL_MULTISAMPLE_ARB);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     //clear color and depth
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -84,6 +85,7 @@ void render(){
     glLoadIdentity();
     glOrtho(0,SCREEN_WIDTH,SCREEN_HEIGHT,0,-1,1);
     glMatrixMode(GL_MODELVIEW);
+    glShadeModel(GL_SMOOTH);
     glLoadIdentity();
  
     
@@ -107,38 +109,42 @@ int main( int argc, char *argv[] ){
     std::vector<Rect> rectangles;
     
 	//Randomly create loads of small rectangles
-	for(int i = 11; i > 0; i--) {
+	for(int i = 5; i > 0; i--) {
 		Rect rectangle((int) (rand() % 350)+75,  (int) (rand() % 300)+75, 25 + (int) (rand() % 30), 25 + int(rand() % 30));
 		rectangles.push_back(rectangle);
 	}
     
 	//Create light
-	Light l1;
+	Light l1(90);
 	l1.position.x = 250;
 	l1.position.y = 260;
-	l1.specular.setRGBA(0x00FF0055);
-	l1.size = 150.0f;
+	l1.specular.setRGBA(0xFFFF0055);
+	l1.size = 300.0f;
+    
+    
+    Light l2(90);
+    l2.position.x = 100;
+    l2.position.y = 260;
+    l2.specular.setRGBA(0xFFFFFF60);
+    l2.size = 100.0f;
+    
     StopWatch fps(0.2);
     fps.start();
 	//Wait for user exit
 	while( quit == false ){
         render();
 		while( SDL_PollEvent( &event ) ){
-            
-			if( event.type == SDL_QUIT ){
-                quit = true;
-            }else if( event.type == SDL_KEYDOWN ){
-                //Handle keypress with current mouse position
-                
-            }
+			if( event.type == SDL_QUIT )quit = true;
 		}
+        
         int x = 0, y = 0;
         SDL_GetMouseState( &x, &y );
-        l1.position.x = x;
-        l1.position.y = y;
-        //Render light rays
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+
         l1.render(rectangles);
-        
+        l1.rotate(x, y);
+        l2.render(rectangles);
         //Render rectangles
         for(int i = 0; i < rectangles.size(); i++) {
             //Render rect

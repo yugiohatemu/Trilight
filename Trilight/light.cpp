@@ -9,6 +9,20 @@
 #include "light.h"
 #include "SDL/SDL_opengl.h"
 #include <math.h>
+#include <iostream>
+Light::Light(int range){
+    this->range = range;
+    rotate_angle = 0;
+}
+
+void Light::rotate(int x, int y){
+    float dx = x - position.x;
+    float dy = y - position.y;
+    rotate_angle = atan2f(dy,dx) * 180 / 3.14159;
+    
+//    std::cout<<rotate_angle<<std::endl;
+    //now makes it the center
+}
 
 void Light::render(std::vector<Rect>& objects) {
     //Shoot rays and determine objects
@@ -16,8 +30,12 @@ void Light::render(std::vector<Rect>& objects) {
     glColor4f(specular.r, specular.g, specular.b, specular.a);
     
     glVertex2f(position.x, position.y);
-    for(int i = 0; i < 361 ; i++) {
-        float angle = i * 3.14159 / 180;
+    //divide the light into 361 rays, for each ray, check intersection of rects
+    //feels like ray lighting
+    
+    
+    for(int i = - range/2; i < range/2 ; i++) {
+        float angle = (i + rotate_angle) * 3.14159 / 180;
         
         //Some variables for direction and time, 1 unit per second
         float dx = cos(angle);
@@ -35,22 +53,18 @@ void Light::render(std::vector<Rect>& objects) {
                 //A * B = c
                 //A = [slope 1]
                 //B = [x y]
-                float ax;
-                float ay;
+                float ax, ay;
                 
                 float rise = (edge.ey - edge.y);
                 float run = (edge.ex - edge.x);
                 //float slope = 0;
-                if(rise <= 0.0f) {
-                    //Vertical line
+                if(rise <= 0.0f) {//Vertical line
                     ay = 1;
                     ax = 0;
-                } else if(run <= 0.0f) {
-                    //Horozontal line
+                } else if(run <= 0.0f) {//Horozontal line
                     ay = 0;
                     ax = 1;
-                } else {
-                    //Slope
+                } else {  //Slope
                     ax = rise / run;
                     ay = 1;
                 }

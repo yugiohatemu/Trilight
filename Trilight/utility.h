@@ -38,6 +38,7 @@ struct Line {
 	}
 };
 
-bool hitTestBoundf(Point min, Point max, Point point) ;
+bool hitTestBoundf(Point min, Point max, Point point);
+float disOfPoints(Point A, Point B);
 
 #endif /* defined(__Trilight__utility__) */

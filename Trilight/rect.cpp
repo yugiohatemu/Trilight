@@ -23,11 +23,20 @@ Rect::Rect(int dx, int dy, int dwidth, int dheight) {
 
 void Rect::render() {
     glBegin(GL_LINE_LOOP);
-    glColor3f(1.0f, 1.0f, 1.0f);
+    glColor3f(0.0f, 0.0f, 0.0f);
     glVertex2f(position.x, position.y);
     glVertex2f(position.x, position.y + size.y);
     glVertex2f(position.x + size.x, position.y + size.y);
     glVertex2f(position.x + size.x, position.y);
+    glEnd();
+    
+    glBegin(GL_QUADS);
+    glColor4f(1.0f, 1.0f, 0, .5f);
+    glVertex2f(position.x, position.y);
+    glVertex2f(position.x, position.y + size.y);
+    glVertex2f(position.x + size.x, position.y + size.y);
+    glVertex2f(position.x + size.x, position.y);
+    
     glEnd();
 }
 

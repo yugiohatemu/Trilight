@@ -15,11 +15,16 @@
 #include "rect.h"
 
 class Light {
+    int range;
+    float rotate_angle;
 public:
+    Light(int range);
 	Point position;
 	Color specular;
 	float size;
+    
     void render(std::vector<Rect>& objects);
+    void rotate(int x, int y);
 };
 
 #endif /* defined(__Trilight__light__) */

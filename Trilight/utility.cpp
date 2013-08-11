@@ -7,7 +7,7 @@
 //
 
 #include "utility.h"
-
+#include <math.h>
 bool hitTestBoundf(Point min, Point max, Point point) {
 	if(point.x >= min.x) {
 		if(point.y >= min.y) {
@@ -19,4 +19,10 @@ bool hitTestBoundf(Point min, Point max, Point point) {
 		}
 	}
 	return false;
+}
+
+float disOfPoints(Point A, Point B){
+    float dx = A.x - B.x;
+    float dy = A.y - B.y;
+    return sqrtf(dx * dx + dy * dy);
 }
