@@ -99,7 +99,6 @@ void clean_up(){
 
 
 int main( int argc, char *argv[] ){
-    srand(time(0));
     //Quit flag
     bool quit = false;
     
@@ -108,26 +107,20 @@ int main( int argc, char *argv[] ){
     
     std::vector<Rect> rectangles;
     
-	//Randomly create loads of small rectangles
-	for(int i = 5; i > 0; i--) {
-		Rect rectangle((int) (rand() % 350)+75,  (int) (rand() % 300)+75, 25 + (int) (rand() % 30), 25 + int(rand() % 30));
-		rectangles.push_back(rectangle);
-	}
+    Rect rect1(100,100,200,200); rect1.color.setRGBA(0xFF0000FF);
+    Rect rect2(150,150,50,50); rect2.color.setRGBA(0xFF000010);
+    rectangles.push_back(rect1);
+    rectangles.push_back(rect2);
+    
     
 	//Create light
-	Light l1(90);
-	l1.position.x = 250;
+	Light l1(91);
+	l1.position.x = 150;
 	l1.position.y = 260;
-	l1.specular.setRGBA(0xFFFF0055);
+	l1.specular.setRGBA(0xFFFFFF66);
 	l1.size = 300.0f;
     
-    
-    Light l2(90);
-    l2.position.x = 100;
-    l2.position.y = 260;
-    l2.specular.setRGBA(0xFFFFFF60);
-    l2.size = 100.0f;
-    
+       
     StopWatch fps(0.2);
     fps.start();
 	//Wait for user exit
@@ -160,15 +153,15 @@ int main( int argc, char *argv[] ){
             if (x < 0) x = 0;
             if (y < 0) y = 0;
             render();
-            l1.render(rectangles);
-            l1.rotate(x, y);
-            l2.render(rectangles);
-            //Render rectangles
             for(int i = 0; i < rectangles.size(); i++) {
                 //Render rect
                 rectangles[i].render();
             }
+
             
+            l1.render(rectangles);
+            l1.rotate(x, y);
+                        
             update();
             
             if(press[0]) l1.position.y -=2;

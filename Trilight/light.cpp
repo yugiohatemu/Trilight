@@ -10,6 +10,7 @@
 #include "SDL/SDL_opengl.h"
 #include <math.h>
 #include <iostream>
+
 Light::Light(int range){
     this->range = range;
     rotate_angle = 0;
@@ -43,7 +44,9 @@ void Light::render(std::vector<Rect>& objects) {
         float t = size;
         //Check intersection on objects
         for(int j = 0; j < objects.size(); j++) {
-            
+            if (objects[j].is_block() == false) {
+                continue ;
+            }
             //Get all lines which make up the objects structure
             std::vector<Line> lines = objects[j].getEdges();
             for(int edges = 0; edges < lines.size(); edges++) {
@@ -106,4 +109,35 @@ void Light::render(std::vector<Rect>& objects) {
     }
     glEnd();
     
+}
+
+
+void Light::reflect_render(std::vector<Rect> & objects){
+    glBegin(GL_POLYGON);
+    //wait, let just do two rays
+    Line ray1;
+    Line ray2;
+    for(int j = 0; j < objects.size(); j++) {
+        std::vector<Line> lines = objects[j].getEdges();
+        std::vector<Point> points1;
+        std::vector<Point> points2;
+        for(int edges = 0; edges < lines.size(); edges++) {
+            //Check the ray intersects with this line
+            Line edge = lines[edges];
+            Point inter1;
+            if(getIntersetPoint(inter1, edge, ray1)){
+                points1.push_back(inter1);
+                glVertex2f(inter1.x, inter1.y);
+            }
+            Point inter2;
+            if (getIntersetPoint(inter2, edge, ray2)) {
+                points2.push_back(inter2);
+                glVertex2f(inter2.x, inter2.y);
+            }
+        }
+        //we can tell based on edge
+        //how to allocate the points now?
+        
+    }
+    glEnd();
 }

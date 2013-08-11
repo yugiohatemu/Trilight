@@ -19,6 +19,14 @@ struct Point {
 		x = xx;
 		y = yy;
 	}
+    Point operator+(Point p);
+    Point operator-(Point p);
+    Point operator*(float s);
+    Point operator/(float s);
+    Point& operator= (const Point &p);
+    void normalize();
+    float dot(Point p);
+    
 };
 
 
@@ -27,18 +35,12 @@ struct Line {
 	float y;
 	float ex;
 	float ey;
-	Line() {
-		x = y = ex = ey = 0;
-	}
-	Line(float startx, float starty, float endx, float endy) {
-		x = startx;
-		y = starty;
-		ex = endx;
-		ey = endy;
-	}
+    float a, b; //ax + by = 1
+	Line() ;
+	Line(float startx, float starty, float endx, float endy) ;
 };
 
 bool hitTestBoundf(Point min, Point max, Point point);
 float disOfPoints(Point A, Point B);
-
+bool getIntersetPoint(Point & p, Line A, Line B);
 #endif /* defined(__Trilight__utility__) */

@@ -11,17 +11,21 @@
 
 #include "utility.h"
 #include <vector>
-
+#include "color.h"
 class Rect {
 
 	Point position;
 	Point size;
-
+    bool block;
 public:
+    
 	Rect() ;
 	Rect(int dx, int dy, int dwidth, int dheight);
 	void render() ;
     std::vector<Line> getEdges();
+    bool is_block();
+    void set_block(bool b);
+    Color color;
 };
 
 #endif /* defined(__Trilight__Rect__) */

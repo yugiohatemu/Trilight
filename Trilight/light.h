@@ -25,6 +25,7 @@ public:
     
     void render(std::vector<Rect>& objects);
     void rotate(int x, int y);
+    void reflect_render(std::vector<Rect> & objects);
 };
 
 #endif /* defined(__Trilight__light__) */

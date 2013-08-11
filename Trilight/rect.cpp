@@ -18,20 +18,28 @@ Rect::Rect(int dx, int dy, int dwidth, int dheight) {
     position.y = dy;
     size.x = dwidth;
     size.y = dheight;
+    block = true;
 }
 
+bool Rect::is_block(){
+    return block;
+}
+
+void Rect::set_block(bool b){
+    block = b;
+}
 
 void Rect::render() {
-    glBegin(GL_LINE_LOOP);
-    glColor3f(0.0f, 0.0f, 0.0f);
-    glVertex2f(position.x, position.y);
-    glVertex2f(position.x, position.y + size.y);
-    glVertex2f(position.x + size.x, position.y + size.y);
-    glVertex2f(position.x + size.x, position.y);
-    glEnd();
+//    glBegin(GL_LINE_LOOP);
+//    glColor3f(0.0f, 0.0f, 0.0f);
+//    glVertex2f(position.x, position.y);
+//    glVertex2f(position.x, position.y + size.y);
+//    glVertex2f(position.x + size.x, position.y + size.y);
+//    glVertex2f(position.x + size.x, position.y);
+//    glEnd();
     
     glBegin(GL_QUADS);
-    glColor4f(1.0f, 1.0f, 0, .5f);
+    glColor4f(color.r,color.g,color.b,color.a);
     glVertex2f(position.x, position.y);
     glVertex2f(position.x, position.y + size.y);
     glVertex2f(position.x + size.x, position.y + size.y);
