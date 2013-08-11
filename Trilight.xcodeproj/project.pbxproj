@@ -1,0 +1,243 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B601582517B7CC57003C8FCD /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601582417B7CC57003C8FCD /* main.cpp */; };
+		B601582717B7CC57003C8FCD /* Trilight.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = B601582617B7CC57003C8FCD /* Trilight.1 */; };
+		B601582F17B7CC92003C8FCD /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = B601582E17B7CC92003C8FCD /* SDLMain.m */; };
+		B601583817B7CD43003C8FCD /* SDL_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583417B7CD43003C8FCD /* SDL_image.framework */; };
+		B601583917B7CD43003C8FCD /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583517B7CD43003C8FCD /* SDL.framework */; };
+		B601583A17B7CD43003C8FCD /* SDL_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583617B7CD43003C8FCD /* SDL_ttf.framework */; };
+		B601583B17B7CD43003C8FCD /* SDL_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583717B7CD43003C8FCD /* SDL_mixer.framework */; };
+		B601583D17B7CD51003C8FCD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583C17B7CD51003C8FCD /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B601581E17B7CC57003C8FCD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				B601582717B7CC57003C8FCD /* Trilight.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B601582017B7CC57003C8FCD /* Trilight */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Trilight; sourceTree = BUILT_PRODUCTS_DIR; };
+		B601582417B7CC57003C8FCD /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		B601582617B7CC57003C8FCD /* Trilight.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Trilight.1; sourceTree = "<group>"; };
+		B601582D17B7CC92003C8FCD /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
+		B601582E17B7CC92003C8FCD /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
+		B601583417B7CD43003C8FCD /* SDL_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_image.framework; path = ../../../../Library/Frameworks/SDL_image.framework; sourceTree = "<group>"; };
+		B601583517B7CD43003C8FCD /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = ../../../../Library/Frameworks/SDL.framework; sourceTree = "<group>"; };
+		B601583617B7CD43003C8FCD /* SDL_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_ttf.framework; path = ../../../../Library/Frameworks/SDL_ttf.framework; sourceTree = "<group>"; };
+		B601583717B7CD43003C8FCD /* SDL_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_mixer.framework; path = ../../../../Library/Frameworks/SDL_mixer.framework; sourceTree = "<group>"; };
+		B601583C17B7CD51003C8FCD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B601581D17B7CC57003C8FCD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B601583D17B7CD51003C8FCD /* Cocoa.framework in Frameworks */,
+				B601583817B7CD43003C8FCD /* SDL_image.framework in Frameworks */,
+				B601583917B7CD43003C8FCD /* SDL.framework in Frameworks */,
+				B601583A17B7CD43003C8FCD /* SDL_ttf.framework in Frameworks */,
+				B601583B17B7CD43003C8FCD /* SDL_mixer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B601581517B7CC57003C8FCD = {
+			isa = PBXGroup;
+			children = (
+				B601583C17B7CD51003C8FCD /* Cocoa.framework */,
+				B601583417B7CD43003C8FCD /* SDL_image.framework */,
+				B601583517B7CD43003C8FCD /* SDL.framework */,
+				B601583617B7CD43003C8FCD /* SDL_ttf.framework */,
+				B601583717B7CD43003C8FCD /* SDL_mixer.framework */,
+				B601582317B7CC57003C8FCD /* Trilight */,
+				B601582117B7CC57003C8FCD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B601582117B7CC57003C8FCD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B601582017B7CC57003C8FCD /* Trilight */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B601582317B7CC57003C8FCD /* Trilight */ = {
+			isa = PBXGroup;
+			children = (
+				B601582D17B7CC92003C8FCD /* SDLMain.h */,
+				B601582E17B7CC92003C8FCD /* SDLMain.m */,
+				B601582417B7CC57003C8FCD /* main.cpp */,
+				B601582617B7CC57003C8FCD /* Trilight.1 */,
+			);
+			path = Trilight;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B601581F17B7CC57003C8FCD /* Trilight */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B601582A17B7CC57003C8FCD /* Build configuration list for PBXNativeTarget "Trilight" */;
+			buildPhases = (
+				B601581C17B7CC57003C8FCD /* Sources */,
+				B601581D17B7CC57003C8FCD /* Frameworks */,
+				B601581E17B7CC57003C8FCD /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Trilight;
+			productName = Trilight;
+			productReference = B601582017B7CC57003C8FCD /* Trilight */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B601581717B7CC57003C8FCD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = Yue;
+			};
+			buildConfigurationList = B601581A17B7CC57003C8FCD /* Build configuration list for PBXProject "Trilight" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B601581517B7CC57003C8FCD;
+			productRefGroup = B601582117B7CC57003C8FCD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B601581F17B7CC57003C8FCD /* Trilight */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B601581C17B7CC57003C8FCD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B601582517B7CC57003C8FCD /* main.cpp in Sources */,
+				B601582F17B7CC92003C8FCD /* SDLMain.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B601582817B7CC57003C8FCD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B601582917B7CC57003C8FCD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B601582B17B7CC57003C8FCD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B601582C17B7CC57003C8FCD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B601581A17B7CC57003C8FCD /* Build configuration list for PBXProject "Trilight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B601582817B7CC57003C8FCD /* Debug */,
+				B601582917B7CC57003C8FCD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B601582A17B7CC57003C8FCD /* Build configuration list for PBXNativeTarget "Trilight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B601582B17B7CC57003C8FCD /* Debug */,
+				B601582C17B7CC57003C8FCD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B601581717B7CC57003C8FCD /* Project object */;
+}
