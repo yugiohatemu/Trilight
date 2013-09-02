@@ -21,8 +21,6 @@ void Light::rotate(int x, int y){
     float dy = y - position.y;
     rotate_angle = atan2f(dy,dx) * 180 / 3.14159;
     
-//    std::cout<<rotate_angle<<std::endl;
-    //now makes it the center
 }
 
 void Light::render(std::vector<Rect>& objects) {
@@ -111,6 +109,44 @@ void Light::render(std::vector<Rect>& objects) {
     
 }
 
+
+void Light::test_render(std::vector<Rect>& objects){
+    //use triangle fan
+    glBegin(GL_TRIANGLE_FAN);
+    glColor4f(specular.r, specular.g, specular.b, specular.a);
+    glVertex2f(position.x, position.y);
+    for(int i = - range/2; i < range/2 ; i++) {
+        float angle = (i + rotate_angle) * 3.14159 / 180;
+        float t = 1.0f; //use this to derive alpha
+        
+        Point dir(size * cos(angle), size * sin(angle));
+        Vector ray = position + dir;
+        
+        for(int j = 0; j < objects.size(); j++) {
+            
+            std::vector<Vector> lines = objects[j].getVectorEdges();
+            for(int edges = 0; edges < lines.size(); edges++) {
+                Vector edge = lines[edges];
+                if (!is_vector_parallel(ray, edge)) {//not parallel, so possible for intersection
+                    
+                    //t = (edge.origin-ray.origin) * ray.dir / (edge.r * ray.dir)
+                    float div_up = (edge.origin - ray.origin) * ray.dir;
+                    float div_down = edge.dir.dot(ray.dir);
+                    float new_t = div_up/div_down;
+                    
+                    //within line segment, and less than the previous one, replace it
+                    if (new_t>=0 &&  new_t < t) t= new_t;
+                }
+            }
+            
+        }
+        
+        glColor4f(specular.r, specular.g, specular.b, 1.0f-t);
+        glVertex2f(position.x + dir.x * t, position.y + dir.y * t);
+    }
+    
+    glEnd();
+}
 
 void Light::reflect_render(std::vector<Rect> & objects){
     glBegin(GL_POLYGON);

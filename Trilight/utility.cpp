@@ -76,17 +76,17 @@ bool getIntersetPoint(Point & p, Line A , Line B){
     Point a_vect(A.ex - A.x, A.ey - A.y);
     Point b_vect(B.ex - B.x, B.ey - B.y);
     
-    float n = a_vect.dot(b_vect);
-    if (n != 0) {
-        Point dif = a_base - b_base;
-        float t = dif.dot(a_vect)/n;
-        float s = dif.dot(b_vect)/n;
-        if (t <= 1 && s <= 1 && t >= 0 && s >=0) { //if not within range 1 then must not in line segment
-            p.x = t;
-            p.y = s;
-            return true;
-        }
-    }
-    
+//    float n = a_vect.dot(b_vect);
+//    if (n != 0) {
+//        Point dif = a_base - b_base;
+//        float t = dif.dot(a_vect)/n;
+//        float s = dif.dot(b_vect)/n;
+//        if (t <= 1 && s <= 1 && t >= 0 && s >=0) { //if not within range 1 then must not in line segment
+//            p.x = t;
+//            p.y = s;
+//            return true;
+//        }
+//    }
+//    
     return false;
 }

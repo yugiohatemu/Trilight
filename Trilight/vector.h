@@ -18,10 +18,16 @@ struct Vector{
     Point dir;
     
     Vector();
-    Vector(Point o);
+    Vector(Point d);
     Vector(Point o, Point d);
+    Vector(float ax, float ay, float bx, float by);
     
+    float operator*(Vector vec);
+    Point get_point();
 };
 
+Vector operator+ (const Point &a, const Point &b);
+Vector operator- (const Point &a, const Point &b);
+bool is_vector_parallel(Vector a, Vector b);
 
 #endif /* defined(__Trilight__vector__) */

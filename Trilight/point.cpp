@@ -10,7 +10,8 @@
 #include <math.h>
 
 Point::Point() {
-    x = y = 0;
+    x = 0;
+    y = 0;
 }
 
 Point::Point(float xx, float yy){
@@ -18,13 +19,18 @@ Point::Point(float xx, float yy){
     y = yy;
 }
 
-Point Point::operator+(Point p){
-    return Point(x + p.x, y + p.y);
+Point::Point (Point const &p){
+    x = p.x;
+    y = p.y;
 }
 
-Point Point::operator-(Point p){
-    return Point(x - p.x, y-p.y);
-}
+//Point Point::operator+(Point p){
+//    return Point(x + p.x, y + p.y);
+//}
+//
+//Point Point::operator-(Point p){
+//    return Point(x - p.x, y-p.y);
+//}
 
 Point Point::operator*(float s){
     return Point(x*s,y*s);
