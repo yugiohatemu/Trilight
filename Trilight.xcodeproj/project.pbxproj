@@ -21,6 +21,8 @@
 		B601585517B7DAD8003C8FCD /* rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585317B7DAD8003C8FCD /* rect.cpp */; };
 		B601585817B7DB2D003C8FCD /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585617B7DB2D003C8FCD /* utility.cpp */; };
 		B601585B17B7DC6B003C8FCD /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585917B7DC6B003C8FCD /* light.cpp */; };
+		B6CC488417D4D4A500A6508F /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488217D4D4A500A6508F /* vector.cpp */; };
+		B6CC488817D4D4D100A6508F /* point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488617D4D4D100A6508F /* point.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +60,10 @@
 		B601585717B7DB2D003C8FCD /* utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
 		B601585917B7DC6B003C8FCD /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = light.cpp; sourceTree = "<group>"; };
 		B601585A17B7DC6B003C8FCD /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = light.h; sourceTree = "<group>"; };
+		B6CC488217D4D4A500A6508F /* vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector.cpp; sourceTree = "<group>"; };
+		B6CC488317D4D4A500A6508F /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
+		B6CC488617D4D4D100A6508F /* point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point.cpp; sourceTree = "<group>"; };
+		B6CC488717D4D4D100A6508F /* point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +122,10 @@
 				B601585717B7DB2D003C8FCD /* utility.h */,
 				B601585917B7DC6B003C8FCD /* light.cpp */,
 				B601585A17B7DC6B003C8FCD /* light.h */,
+				B6CC488217D4D4A500A6508F /* vector.cpp */,
+				B6CC488317D4D4A500A6508F /* vector.h */,
+				B6CC488617D4D4D100A6508F /* point.cpp */,
+				B6CC488717D4D4D100A6508F /* point.h */,
 			);
 			path = Trilight;
 			sourceTree = "<group>";
@@ -178,6 +188,8 @@
 				B601585517B7DAD8003C8FCD /* rect.cpp in Sources */,
 				B601585817B7DB2D003C8FCD /* utility.cpp in Sources */,
 				B601585B17B7DC6B003C8FCD /* light.cpp in Sources */,
+				B6CC488417D4D4A500A6508F /* vector.cpp in Sources */,
+				B6CC488817D4D4D100A6508F /* point.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

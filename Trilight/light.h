@@ -13,6 +13,8 @@
 #include "color.h"
 #include <vector>
 #include "rect.h"
+#include "vector.h"
+
 
 class Light {
     int range;
@@ -24,6 +26,7 @@ public:
 	float size;
     
     void render(std::vector<Rect>& objects);
+    
     void rotate(int x, int y);
     void reflect_render(std::vector<Rect> & objects);
 };

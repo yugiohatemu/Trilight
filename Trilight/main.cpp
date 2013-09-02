@@ -101,16 +101,22 @@ void clean_up(){
 int main( int argc, char *argv[] ){
     //Quit flag
     bool quit = false;
-    
+    srand(time(0));
     //Initialize
     if( init() == false ) return 1;
     
     std::vector<Rect> rectangles;
     
-    Rect rect1(100,100,200,200); rect1.color.setRGBA(0xFF0000FF);
-    Rect rect2(150,150,50,50); rect2.color.setRGBA(0xFF000010);
-    rectangles.push_back(rect1);
-    rectangles.push_back(rect2);
+    for(int i = 11; i > 0; i--) {
+		Rect rectangle((int) (rand() % 350)+75,  (int) (rand() % 300)+75, 25 + (int) (rand() % 30), 25 + int(rand() % 30));
+		rectangles.push_back(rectangle);
+	}
+    
+    
+//    Rect rect1(100,100,200,200); rect1.color.setRGBA(0xFF0000FF);
+//    Rect rect2(150,150,50,50); rect2.color.setRGBA(0xFF000010);
+//    rectangles.push_back(rect1);
+//    rectangles.push_back(rect2);
     
     
 	//Create light
@@ -153,6 +159,7 @@ int main( int argc, char *argv[] ){
             if (x < 0) x = 0;
             if (y < 0) y = 0;
             render();
+            
             for(int i = 0; i < rectangles.size(); i++) {
                 //Render rect
                 rectangles[i].render();

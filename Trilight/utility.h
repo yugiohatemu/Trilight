@@ -9,25 +9,7 @@
 #ifndef __Trilight__utility__
 #define __Trilight__utility__
 
-struct Point {
-	float x;
-	float y;
-	Point() {
-		x = y = 0;
-	}
-	Point(float xx, float yy) {
-		x = xx;
-		y = yy;
-	}
-    Point operator+(Point p);
-    Point operator-(Point p);
-    Point operator*(float s);
-    Point operator/(float s);
-    Point& operator= (const Point &p);
-    void normalize();
-    float dot(Point p);
-    
-};
+#include "point.h"
 
 
 struct Line {
