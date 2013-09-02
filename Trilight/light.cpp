@@ -115,12 +115,14 @@ void Light::test_render(std::vector<Rect>& objects){
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(specular.r, specular.g, specular.b, specular.a);
     glVertex2f(position.x, position.y);
+    
     for(int i = - range/2; i < range/2 ; i++) {
         float angle = (i + rotate_angle) * 3.14159 / 180;
         float t = 1.0f; //use this to derive alpha
         
         Point dir(size * cos(angle), size * sin(angle));
         Vector ray = position + dir;
+        //need to have a more careful definition
         
         for(int j = 0; j < objects.size(); j++) {
             
@@ -128,12 +130,12 @@ void Light::test_render(std::vector<Rect>& objects){
             for(int edges = 0; edges < lines.size(); edges++) {
                 Vector edge = lines[edges];
                 if (!is_vector_parallel(ray, edge)) {//not parallel, so possible for intersection
-                    
+//                   std::cout<<"1"<<std::endl;
                     //t = (edge.origin-ray.origin) * ray.dir / (edge.r * ray.dir)
-                    float div_up = (edge.origin - ray.origin) * ray.dir;
-                    float div_down = edge.dir.dot(ray.dir);
+                    float div_up = Point(edge.origin.x - ray.origin.x, edge.origin.y - ray.origin.y).cross(ray.dir);
+                    float div_down = edge.dir.cross(ray.dir);
                     float new_t = div_up/div_down;
-                    
+//                    std::cout<<new_t<<std::end;
                     //within line segment, and less than the previous one, replace it
                     if (new_t>=0 &&  new_t < t) t= new_t;
                 }

@@ -19,9 +19,10 @@ Vector::Vector(Point d){
 Vector::Vector(Point o, Point d){
     origin = o;
     dir = d;
+    //Point(d.x - o.x , d.y - o.y);
 }
 
-Vector::Vector(float ax, float ay, float bx, float by):origin(ax,ay), dir(bx,by){
+Vector::Vector(float ax, float ay, float bx, float by):origin(ax,ay), dir(bx - ax,by - ay){
     
 }
 
@@ -46,12 +47,12 @@ Vector operator- (const Point &a, const Point &b){
 
 //get normalize direction
 bool is_vector_parallel(Vector a, Vector b){
-    Point an = a.dir;
-    Point bn = b.dir;
-    an.normalize();
-    bn.normalize();
+//    Point an = a.dir;
+//    Point bn = b.dir;
+//    an.normalize();
+//    bn.normalize();
     
-    return (an.dot(bn) != 0);
+    return (a.dir.cross(b.dir) == 0);
 }
 
 

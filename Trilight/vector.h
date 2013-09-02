@@ -12,6 +12,8 @@
 //used for lighting calculation
 #include "point.h"
 
+//need to change vector definition
+//this one is wrong
 struct Vector{
     //origin + t * dir
     Point origin;

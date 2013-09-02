@@ -25,6 +25,7 @@ struct Point{
     
     void normalize();
     float dot(Point p);
+    float cross(Point p);
 };
 
 #endif /* defined(__Trilight__point__) */

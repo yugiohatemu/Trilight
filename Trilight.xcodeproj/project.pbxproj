@@ -23,6 +23,7 @@
 		B601585B17B7DC6B003C8FCD /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585917B7DC6B003C8FCD /* light.cpp */; };
 		B6CC488417D4D4A500A6508F /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488217D4D4A500A6508F /* vector.cpp */; };
 		B6CC488817D4D4D100A6508F /* point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488617D4D4D100A6508F /* point.cpp */; };
+		B6CC488F17D501DD00A6508F /* algebra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488D17D501DD00A6508F /* algebra.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,6 +65,8 @@
 		B6CC488317D4D4A500A6508F /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
 		B6CC488617D4D4D100A6508F /* point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point.cpp; sourceTree = "<group>"; };
 		B6CC488717D4D4D100A6508F /* point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point.h; sourceTree = "<group>"; };
+		B6CC488D17D501DD00A6508F /* algebra.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = algebra.cpp; sourceTree = "<group>"; };
+		B6CC488E17D501DD00A6508F /* algebra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = algebra.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,7 @@
 		B601582317B7CC57003C8FCD /* Trilight */ = {
 			isa = PBXGroup;
 			children = (
+				B6CC489117D501E700A6508F /* algebra */,
 				B601584917B7D4BC003C8FCD /* stopWatch.cpp */,
 				B601584A17B7D4BC003C8FCD /* stopWatch.h */,
 				B601582D17B7CC92003C8FCD /* SDLMain.h */,
@@ -122,12 +126,21 @@
 				B601585717B7DB2D003C8FCD /* utility.h */,
 				B601585917B7DC6B003C8FCD /* light.cpp */,
 				B601585A17B7DC6B003C8FCD /* light.h */,
+			);
+			path = Trilight;
+			sourceTree = "<group>";
+		};
+		B6CC489117D501E700A6508F /* algebra */ = {
+			isa = PBXGroup;
+			children = (
 				B6CC488217D4D4A500A6508F /* vector.cpp */,
 				B6CC488317D4D4A500A6508F /* vector.h */,
 				B6CC488617D4D4D100A6508F /* point.cpp */,
 				B6CC488717D4D4D100A6508F /* point.h */,
+				B6CC488D17D501DD00A6508F /* algebra.cpp */,
+				B6CC488E17D501DD00A6508F /* algebra.h */,
 			);
-			path = Trilight;
+			name = algebra;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +203,7 @@
 				B601585B17B7DC6B003C8FCD /* light.cpp in Sources */,
 				B6CC488417D4D4A500A6508F /* vector.cpp in Sources */,
 				B6CC488817D4D4D100A6508F /* point.cpp in Sources */,
+				B6CC488F17D501DD00A6508F /* algebra.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

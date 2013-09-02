@@ -53,6 +53,11 @@ float Point::dot(Point p){
     return x*p.x + y*p.y;
 }
 
+float Point::cross(Point p){
+    return x*p.y - y * p.x;
+}
+
+
 void Point::normalize(){
     float n = sqrt(x*x + y*y);
     if (n != 0 ){
