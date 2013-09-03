@@ -9,50 +9,37 @@
 #include "vector.h"
 
 Vector::Vector(){
+    x = 0.f;
+    y = 0.f;
+}
+
+Vector::Vector(float x, float y):x(x), y(y){
     
 }
 
-Vector::Vector(Point d){
-    dir = d;
+Vector Vector::operator*(float t){
+    return Vector(t*x,t*y);
 }
 
-Vector::Vector(Point o, Point d){
-    origin = o;
-    dir = d;
-    //Point(d.x - o.x , d.y - o.y);
+Vector Vector::operator+(const Vector &vec){
+    return Vector(x + vec.x, y + vec.y);
 }
 
-Vector::Vector(float ax, float ay, float bx, float by):origin(ax,ay), dir(bx - ax,by - ay){
-    
+Vector Vector::operator=(const Vector & vec){
+    return Vector(vec.x, vec.y);
 }
 
-Point Vector::get_point(){
-    return Point(origin.x+dir.x, origin.y + dir.y);
+float Vector::dot(Vector vec){
+    return x * vec.x + y * vec.y;
 }
 
-float Vector::operator*(Vector vec){
-    return get_point().dot(vec.get_point());
+float Vector::cross(Vector vec){
+    return x * vec.y - y * vec.x;
 }
 
-////////////////////////////////////////////////////////////////////////
-
-Vector operator+ (const Point &a, const Point &b){
-    return Vector(a,b);
-}
-
-Vector operator- (const Point &a, const Point &b){
-    Point c(-b.x,-b.y);
-    return Vector(a,c);
-}
-
-//get normalize direction
+//////////////////////////////////////////
 bool is_vector_parallel(Vector a, Vector b){
-//    Point an = a.dir;
-//    Point bn = b.dir;
-//    an.normalize();
-//    bn.normalize();
-    
-    return (a.dir.cross(b.dir) == 0);
+    return a.cross(b) == 0;
 }
 
 

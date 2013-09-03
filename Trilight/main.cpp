@@ -107,7 +107,7 @@ int main( int argc, char *argv[] ){
     
     std::vector<Rect> rectangles;
     
-    for(int i = 1; i > 0; i--) {
+    for(int i = 5; i > 0; i--) {
 		Rect rectangle((int) (rand() % 350)+75,  (int) (rand() % 300)+75, 25 + (int) (rand() % 30), 25 + int(rand() % 30));
 		rectangles.push_back(rectangle);
 	}
@@ -166,7 +166,7 @@ int main( int argc, char *argv[] ){
             }
 
             
-            l1.test_render(rectangles);
+            l1.render(rectangles);
             l1.rotate(x, y);
                         
             update();

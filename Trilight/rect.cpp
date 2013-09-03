@@ -64,16 +64,28 @@ std::vector<Line> Rect::getEdges() {
     return vec;
 }
 
-std::vector<Vector> Rect::getVectorEdges(){
-    Vector top(position.x, position.y, position.x + size.x, position.y);
-    Vector bottom(position.x, position.y + size.y, position.x + size.x, position.y + size.y);
-    Vector right(position.x + size.x, position.y, position.x + size.x, position.y + size.y);
-    Vector left(position.x, position.y, position.x, position.y + size.y);
-    
-    std::vector<Vector> vec;
-    vec.push_back(bottom);
-    vec.push_back(left);
-    vec.push_back(right);
-    vec.push_back(top);
+
+std::vector<Point> Rect::getPoints(){
+    //counter clock wise order
+    std::vector<Point> vec;
+    vec.push_back(Point(position.x, position.y));
+    vec.push_back(Point(position.x, position.y + size.y));
+    vec.push_back(Point(position.x + size.x, position.y + size.y));
+    vec.push_back(Point(position.x + size.x, position.y ));
     return vec;
 }
+
+//std::vector<Vector> Rect::getVectorEdges(){
+//    Vector top(position.x, position.y, position.x + size.x, position.y);
+//    Vector bottom(position.x, position.y + size.y, position.x + size.x, position.y + size.y);
+//    Vector right(position.x + size.x, position.y, position.x + size.x, position.y + size.y);
+//    Vector left(position.x, position.y, position.x, position.y + size.y);
+//    
+//    std::vector<Vector> vec;
+//    vec.push_back(bottom);
+//    vec.push_back(left);
+//    vec.push_back(right);
+//    vec.push_back(top);
+//    return vec;
+//}
+

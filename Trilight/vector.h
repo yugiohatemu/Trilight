@@ -10,26 +10,24 @@
 #define __Trilight__vector__
 
 //used for lighting calculation
-#include "point.h"
 
 //need to change vector definition
 //this one is wrong
 struct Vector{
-    //origin + t * dir
-    Point origin;
-    Point dir;
+    float x, y;
     
     Vector();
-    Vector(Point d);
-    Vector(Point o, Point d);
-    Vector(float ax, float ay, float bx, float by);
+    Vector(float x, float y);
     
-    float operator*(Vector vec);
-    Point get_point();
+    float dot(Vector vec);
+    float cross(Vector vec);
+    
+    Vector operator*(float t);
+    Vector operator+(const Vector &vec);
+    Vector operator=(const Vector & vec);
 };
 
-Vector operator+ (const Point &a, const Point &b);
-Vector operator- (const Point &a, const Point &b);
 bool is_vector_parallel(Vector a, Vector b);
+
 
 #endif /* defined(__Trilight__vector__) */

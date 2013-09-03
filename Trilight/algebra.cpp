@@ -7,3 +7,11 @@
 //
 
 #include "algebra.h"
+
+Vector operator+ (const Point &a, const Point &b){
+    return Vector(a.x + b.x, a.y + b.y);
+}
+
+Vector operator- (const Point &a, const Point &b){
+    return Vector(a.x - b.x, a.y - b.y);
+}

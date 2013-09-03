@@ -12,4 +12,8 @@
 #include "point.h"
 #include "vector.h"
 
+Vector operator+ (const Point &a, const Point &b);
+Vector operator- (const Point &a, const Point &b);
+
+
 #endif /* defined(__Trilight__algebra__) */

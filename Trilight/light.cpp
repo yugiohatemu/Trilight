@@ -10,6 +10,7 @@
 #include "SDL/SDL_opengl.h"
 #include <math.h>
 #include <iostream>
+#include "algebra.h"
 
 Light::Light(int range){
     this->range = range;
@@ -23,7 +24,7 @@ void Light::rotate(int x, int y){
     
 }
 
-void Light::render(std::vector<Rect>& objects) {
+void Light::test_render(std::vector<Rect>& objects) {
     //Shoot rays and determine objects
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(specular.r, specular.g, specular.b, specular.a);
@@ -110,7 +111,7 @@ void Light::render(std::vector<Rect>& objects) {
 }
 
 
-void Light::test_render(std::vector<Rect>& objects){
+void Light::render(std::vector<Rect>& objects){
     //use triangle fan
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(specular.r, specular.g, specular.b, specular.a);
@@ -120,31 +121,41 @@ void Light::test_render(std::vector<Rect>& objects){
         float angle = (i + rotate_angle) * 3.14159 / 180;
         float t = 1.0f; //use this to derive alpha
         
-        Point dir(size * cos(angle), size * sin(angle));
-        Vector ray = position + dir;
-        //need to have a more careful definition
+        Vector ray(size * cos(angle), size * sin(angle));
         
         for(int j = 0; j < objects.size(); j++) {
             
-            std::vector<Vector> lines = objects[j].getVectorEdges();
-            for(int edges = 0; edges < lines.size(); edges++) {
-                Vector edge = lines[edges];
-                if (!is_vector_parallel(ray, edge)) {//not parallel, so possible for intersection
-//                   std::cout<<"1"<<std::endl;
-                    //t = (edge.origin-ray.origin) * ray.dir / (edge.r * ray.dir)
-                    float div_up = Point(edge.origin.x - ray.origin.x, edge.origin.y - ray.origin.y).cross(ray.dir);
-                    float div_down = edge.dir.cross(ray.dir);
-                    float new_t = div_up/div_down;
-//                    std::cout<<new_t<<std::end;
+            std::vector<Point> points = objects[j].getPoints();
+            points.push_back(points[0]); //for recursive
+            
+            for (int p = 0; p < points.size()-1; p+=1) { //need -1
+                Vector edge = points[p+1] - points[p];
+                
+                //not parallel, so must intersect
+                if (!is_vector_parallel(edge, ray)) {
+                    //t && u should both between 0 and 1, and do not replace unless new_t is smaller
+                    //http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
+                    
+                    float t_up = (points[p] - position).cross(edge);
+                    float u_up = (position - points[p]).cross(ray);
+                    
+                    float div_down = ray.cross(edge);
+                    
+                    float new_t = t_up / div_down;
+                    float u = - u_up / div_down;
+                    
                     //within line segment, and less than the previous one, replace it
-                    if (new_t>=0 &&  new_t < t) t= new_t;
+                    if (new_t >= 0 &&  new_t < t && u >= 0 && u <= 1) {
+                        t = new_t;
+                    }
+                    
+
                 }
             }
-            
         }
         
-        glColor4f(specular.r, specular.g, specular.b, 1.0f-t);
-        glVertex2f(position.x + dir.x * t, position.y + dir.y * t);
+        glColor4f(specular.r, specular.g, specular.b, 1.0f - t);
+        glVertex2f(position.x + ray.x * t, position.y + ray.y * t);
     }
     
     glEnd();
