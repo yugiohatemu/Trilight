@@ -15,3 +15,11 @@ Vector operator+ (const Point &a, const Point &b){
 Vector operator- (const Point &a, const Point &b){
     return Vector(a.x - b.x, a.y - b.y);
 }
+
+Point operator+ (const Vector &a, const Point &b){
+    return Point(a.x + b.x, a.y + b.y);
+}
+
+Point operator+ (const Point &b, const Vector &a){
+    return Point(a.x + b.x, a.y + b.y);
+}

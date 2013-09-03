@@ -14,6 +14,7 @@
 
 Vector operator+ (const Point &a, const Point &b);
 Vector operator- (const Point &a, const Point &b);
-
+Point operator+ (const Vector &a, const Point &b);
+Point operator+ (const Point &b, const Vector &a);
 
 #endif /* defined(__Trilight__algebra__) */

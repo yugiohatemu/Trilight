@@ -161,32 +161,44 @@ void Light::render(std::vector<Rect>& objects){
     glEnd();
 }
 
-void Light::reflect_render(std::vector<Rect> & objects){
+void Light::render_clip(Rect object){
+    //get the fan, maybe reuse it from render
+    std::vector<Point> clip_points;
+    clip_points.push_back(position);
+    for(int i = - range/2; i < range/2 ; i++) {
+        float angle = (i + rotate_angle) * 3.14159 / 180;
+        Point p = position + Vector(cos(angle),sin(angle)) * size;
+        clip_points.push_back(p);
+    }
+    clip_points.push_back(position);
+    
+//    std::vector<Point> output;
+    
     glBegin(GL_POLYGON);
-    //wait, let just do two rays
-    Line ray1;
-    Line ray2;
-    for(int j = 0; j < objects.size(); j++) {
-        std::vector<Line> lines = objects[j].getEdges();
-        std::vector<Point> points1;
-        std::vector<Point> points2;
-        for(int edges = 0; edges < lines.size(); edges++) {
-            //Check the ray intersects with this line
-            Line edge = lines[edges];
-            Point inter1;
-            if(getIntersetPoint(inter1, edge, ray1)){
-                points1.push_back(inter1);
-                glVertex2f(inter1.x, inter1.y);
-            }
-            Point inter2;
-            if (getIntersetPoint(inter2, edge, ray2)) {
-                points2.push_back(inter2);
-                glVertex2f(inter2.x, inter2.y);
+    glColor4f(1.0f, 1.0f, 1.0f, specular.a);
+    std::vector<Point> points = object.getPoints();
+    points.push_back(points[0]); //for recursive
+    for (int i = 0; i < points.size() - 1; i += 1) {
+        Vector edge = points[i + 1] - points[i];
+        //we are already given light?
+        for (int j = 0; j < clip_points.size()-1; j += 1) {
+            Vector clip_edge = clip_points[j + 1] - clip_points[j];
+            if (!is_vector_parallel(edge, clip_edge)) {
+                float t_up = (points[i] - clip_points[j]).cross(clip_edge);
+                float u_up = (clip_points[j] - points[i]).cross(edge);
+                
+                float div_down = edge.cross(clip_edge);
+                
+                float t = t_up / div_down;
+                float u = - u_up / div_down;
+                
+                if (0 <= t && t <= 1 && 0 <= u && u <= 1) {
+                    Point p = edge * t + points[i];
+                    glVertex2f(p.x, p.y);
+                }
             }
         }
-        //we can tell based on edge
-        //how to allocate the points now?
-        
     }
+    
     glEnd();
 }
