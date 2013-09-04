@@ -9,11 +9,11 @@
 #ifndef __Trilight__Rect__
 #define __Trilight__Rect__
 
-#include "utility.h"
-#include "point.h"
+
 #include <vector>
 #include "color.h"
-#include "vector.h"
+#include "algebra.h"
+#include "edge.h"
 
 class Rect {
 
@@ -25,7 +25,7 @@ public:
 	Rect() ;
 	Rect(int dx, int dy, int dwidth, int dheight);
 	void render() ;
-    std::vector<Line> getEdges();
+    std::vector<Edge> getEdges();
     std::vector<Point> getPoints();
 //    std::vector<Vector> getVectorEdges();
     bool is_block();

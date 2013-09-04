@@ -48,15 +48,15 @@ void Rect::render() {
     glEnd();
 }
 
-std::vector<Line> Rect::getEdges() {
+std::vector<Edge> Rect::getEdges() {
     //Define edges
-    Line top(position.x, position.y, position.x + size.x, position.y);
-    Line bottom(position.x, position.y + size.y, position.x + size.x, position.y + size.y);
-    Line right(position.x + size.x, position.y, position.x + size.x, position.y + size.y);
-    Line left(position.x, position.y, position.x, position.y + size.y);
+    Edge top(position.x, position.y, position.x + size.x, position.y);
+    Edge bottom(position.x, position.y + size.y, position.x + size.x, position.y + size.y);
+    Edge right(position.x + size.x, position.y, position.x + size.x, position.y + size.y);
+    Edge left(position.x, position.y, position.x, position.y + size.y);
     
     //Push all elements into a vector
-    std::vector<Line> vec;
+    std::vector<Edge> vec;
     vec.push_back(bottom);
     vec.push_back(left);
     vec.push_back(right);

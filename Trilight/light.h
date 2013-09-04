@@ -26,7 +26,6 @@ public:
 	float size;
     
     void render(std::vector<Rect>& objects);
-    void test_render(std::vector<Rect>& objects);
     void rotate(int x, int y);
     void render_clip(Rect object);
 };
