@@ -137,12 +137,12 @@ void Light::render(std::vector<Rect>& objects){
                     //http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
                     
                     float t_up = (points[p] - position).cross(edge);
-                    float u_up = (position - points[p]).cross(ray);
+                    float u_up = (points[p] - position).cross(ray);
                     
                     float div_down = ray.cross(edge);
                     
                     float new_t = t_up / div_down;
-                    float u = - u_up / div_down;
+                    float u =  u_up / div_down;
                     
                     //within line segment, and less than the previous one, replace it
                     if (new_t >= 0 &&  new_t < t && u >= 0 && u <= 1) {
@@ -175,26 +175,32 @@ void Light::render_clip(Rect object){
 //    std::vector<Point> output;
     
     glBegin(GL_POLYGON);
-    glColor4f(1.0f, 1.0f, 1.0f, specular.a);
+    glColor4f(1.0f, 0.0f, 0.0f, specular.a);
     std::vector<Point> points = object.getPoints();
     points.push_back(points[0]); //for recursive
-    for (int i = 0; i < points.size() - 1; i += 1) {
+    
+    for (int i = 0; i < points.size() - 1; i += 1) { //-1 for recursive
         Vector edge = points[i + 1] - points[i];
-        //we are already given light?
-        for (int j = 0; j < clip_points.size()-1; j += 1) {
+        
+        for (int j = 0; j < clip_points.size()-1; j += 1) { //-1 for recursive
+            
             Vector clip_edge = clip_points[j + 1] - clip_points[j];
             if (!is_vector_parallel(edge, clip_edge)) {
-                float t_up = (points[i] - clip_points[j]).cross(clip_edge);
-                float u_up = (clip_points[j] - points[i]).cross(edge);
+                float t_up = (clip_points[i] - points[j]).cross(clip_edge);
+                float u_up = (clip_points[i] - points[j]).cross(edge);
                 
-                float div_down = edge.cross(clip_edge);
+                float div_down = -edge.cross(clip_edge);
                 
                 float t = t_up / div_down;
-                float u = - u_up / div_down;
+                float u = u_up / div_down;
+                //need to consider inside case
                 
                 if (0 <= t && t <= 1 && 0 <= u && u <= 1) {
-                    Point p = edge * t + points[i];
+                    Point p = edge * u + points[i];
+//                    std::cout<<t<<std::endl;
                     glVertex2f(p.x, p.y);
+                }else{
+                    
                 }
             }
         }
