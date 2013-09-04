@@ -20,6 +20,12 @@ Edge::Edge(float sx, float sy, float ex, float ey): start(sx, sy), end(ex, ey){
     vec = end - start;
 }
 
+Edge::Edge(Edge const & e){
+    start = e.start;
+    end = e.end;
+    vec = end - start;
+}
+
 void Edge::set_start(Point s){
     start = s;
     vec = end - start;

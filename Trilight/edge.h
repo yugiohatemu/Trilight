@@ -19,6 +19,7 @@ public:
     Edge();
     Edge(Point start, Point end);
     Edge(float sx, float sy, float ex, float ey);
+    Edge(Edge const & e);
     void set_start(Point s);
     void set_end(Point e);
     Point get_start();

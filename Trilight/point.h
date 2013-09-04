@@ -22,6 +22,8 @@ struct Point{
     Point operator*(float s);
     Point operator/(float s);
     Point& operator= (const Point &p);
+    bool operator== (const Point &p);
+    bool operator!= (const Point &p);
     
     void normalize();
     float dot(Point p);

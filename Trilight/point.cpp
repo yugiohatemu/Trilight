@@ -24,14 +24,7 @@ Point::Point (Point const &p){
     y = p.y;
 }
 
-//Point Point::operator+(Point p){
-//    return Point(x + p.x, y + p.y);
-//}
-//
-//Point Point::operator-(Point p){
-//    return Point(x - p.x, y-p.y);
-//}
-
+////////////////////////////////////////////////////
 Point Point::operator*(float s){
     return Point(x*s,y*s);
 }
@@ -41,13 +34,21 @@ Point Point::operator/(float s){
     else return Point(x/s,y/s);
 }
 
-
 Point& Point::operator= (const Point &p){
     x = p.x;
     y = p.y;
     return *this;
 }
 
+bool Point::operator== (const Point &p){
+    return x == p.x && y == p.y;
+}
+
+bool Point::operator!= (const Point &p){
+    return x != p.x || y != p.y;
+}
+
+////////////////////////////////////////////////////
 //dot multiply
 float Point::dot(Point p){
     return x*p.x + y*p.y;
@@ -56,7 +57,6 @@ float Point::dot(Point p){
 float Point::cross(Point p){
     return x*p.y - y * p.x;
 }
-
 
 void Point::normalize(){
     float n = sqrt(x*x + y*y);

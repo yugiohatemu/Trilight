@@ -12,6 +12,7 @@
 #include <vector>
 #include "point.h"
 #include "color.h"
+#include "edge.h"
 
 class Polygon{
     std::vector<Point> points;
@@ -19,6 +20,8 @@ public:
     Polygon();
     Polygon(std::vector<Point> points);
     void add_point(Point point);
+    void clear_point();
+    std::vector<Edge> getEdges();
     Color color;
 };
 

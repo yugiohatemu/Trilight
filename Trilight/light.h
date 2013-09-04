@@ -9,16 +9,17 @@
 #ifndef __Trilight__light__
 #define __Trilight__light__
 
-#include "utility.h"
+
 #include "color.h"
 #include <vector>
 #include "rect.h"
 #include "vector.h"
-
+#include "polygon.h"
 
 class Light {
     int range;
     float rotate_angle;
+    Polygon fan;
 public:
     Light(int range);
 	Point position;
