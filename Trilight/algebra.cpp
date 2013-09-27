@@ -8,6 +8,10 @@
 
 #include "algebra.h"
 
+Vector operator* (float t, const Vector & a){
+    return t*a;
+}
+
 Vector operator+ (const Point &a, const Point &b){
     return Vector(a.x + b.x, a.y + b.y);
 }

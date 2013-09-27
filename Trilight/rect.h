@@ -27,7 +27,7 @@ public:
 	void render() ;
     std::vector<Edge> getEdges();
     std::vector<Point> getPoints();
-//    std::vector<Vector> getVectorEdges();
+    bool is_inside(Point p);
     bool is_block();
     void set_block(bool b);
     Color color;

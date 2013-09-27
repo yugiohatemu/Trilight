@@ -12,6 +12,7 @@
 #include "point.h"
 #include "vector.h"
 
+Vector operator* (float t, const Vector & a);
 Vector operator+ (const Point &a, const Point &b);
 Vector operator- (const Point &a, const Point &b);
 Point operator+ (const Vector &a, const Point &b);

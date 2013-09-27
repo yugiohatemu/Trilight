@@ -76,20 +76,57 @@ void Light::render(std::vector<Rect>& objects){
         glColor4f(specular.r, specular.g, specular.b, 1.0f - t);
         glVertex2f(position.x + ray.x * t, position.y + ray.y * t);
     }
-    
+    fan.add_point(position);
     glEnd();
 }
+
+//sutherland - holander algorithm
 
 void Light::render_clip(Rect object){
     //get the fan, reuse it from render
     std::vector<Edge> clip_edges = fan.getEdges();
     std::vector<Edge> rect_edges = object.getEdges();
+    //std::vector<Point> output;
     
-    //need to use cross product to calculate if one is inside or outside
+    for (int i = 0; i < rect_edges.size(); i++) {
+        //erase(iter++)
+        for (std::vector<Edge>::iterator it = clip_edges.begin(); it != clip_edges.end(); it++) {
+            //test cross product (V_(i+1) - V_i) x (P - V_i)
+            
+            //test for intersection directly, then find the point that is inside
+            
+            //dirty inside test
+            bool s_in =  object.is_inside((*it).get_start());
+            bool e_in = object.is_inside((*it).get_end());
+            //replace it
+            if (!s_in && !e_in) {
+                clip_edges.erase(it++);
+//                std::cout<<"1"<<std::endl;
+            }else if(!s_in || !e_in){
+                float t_up = (rect_edges[i].get_start() - (*it).get_start()).cross(rect_edges[i].get_vector());
+                float div_down = rect_edges[i].get_vector().cross((*it).get_vector());
+                if (div_down == 0) div_down = 1;
+                
+                float t = t_up / div_down;
+                Point p = (*it).get_start() + t* (*it).get_vector();
+                
+                if (s_in) (*it).set_end(p);
+                else (*it).set_start(p);
+            }
+            
+            
+            
+        }
+    }
     
     
     glBegin(GL_POLYGON);
     glColor4f(1.0f, 0.0f, 0.0f, specular.a);
+    
+    for (int i = 0; i < clip_edges.size(); i++) {
+        glVertex2f(clip_edges[i].get_start().x, clip_edges[i].get_start().y);
+        glVertex2f(clip_edges[i].get_end().x, clip_edges[i].get_end().y);
+    }
     
     glEnd();
 }

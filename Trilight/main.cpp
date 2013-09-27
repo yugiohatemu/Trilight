@@ -167,7 +167,7 @@ int main( int argc, char *argv[] ){
 
             
             l1.render(rectangles);
-            l1.render_clip(rectangles[0]);
+            //l1.render_clip(rectangles[0]);
             l1.rotate(x, y);
             
             

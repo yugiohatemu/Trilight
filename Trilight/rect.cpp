@@ -75,17 +75,7 @@ std::vector<Point> Rect::getPoints(){
     return vec;
 }
 
-//std::vector<Vector> Rect::getVectorEdges(){
-//    Vector top(position.x, position.y, position.x + size.x, position.y);
-//    Vector bottom(position.x, position.y + size.y, position.x + size.x, position.y + size.y);
-//    Vector right(position.x + size.x, position.y, position.x + size.x, position.y + size.y);
-//    Vector left(position.x, position.y, position.x, position.y + size.y);
-//    
-//    std::vector<Vector> vec;
-//    vec.push_back(bottom);
-//    vec.push_back(left);
-//    vec.push_back(right);
-//    vec.push_back(top);
-//    return vec;
-//}
-
+//dirty
+bool Rect::is_inside(Point p){
+    return p.x >= position.x && p.x <= position.x + size.x && p.y >= position.y && p.y <= position.y + size.y;
+}
