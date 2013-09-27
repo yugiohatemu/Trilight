@@ -75,7 +75,7 @@ std::vector<Point> Rect::getPoints(){
     return vec;
 }
 
-//dirty
+//dirty, if on edge or point, still consdiered as inside
 bool Rect::is_inside(Point p){
     return p.x >= position.x && p.x <= position.x + size.x && p.y >= position.y && p.y <= position.y + size.y;
 }

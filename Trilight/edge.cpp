@@ -47,3 +47,4 @@ Point Edge::get_end(){
 Vector Edge::get_vector(){
     return vec;
 }
+
