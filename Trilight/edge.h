@@ -9,8 +9,7 @@
 #ifndef __Trilight__edge__
 #define __Trilight__edge__
 
-#include "point.h"
-#include "vector.h"
+#include "algebra.h"
 
 class Edge{
     Point start;
@@ -26,8 +25,10 @@ public:
     Point get_start();
     Point get_end();
     Vector get_vector();
-    
     //get intersection point on the line segment
 };
+
+bool get_line_intersect(Edge p, Edge q, Point &r);
+bool get_vector_intersect(Edge p, Edge q, float &p_t, float &q_t);
 
 #endif /* defined(__Trilight__edge__) */

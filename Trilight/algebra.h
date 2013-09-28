@@ -11,14 +11,12 @@
 
 #include "point.h"
 #include "vector.h"
-#include "edge.h"
+
 
 Vector operator* (float t, const Vector & a);
-Vector operator+ (const Point &a, const Point &b);
 Vector operator- (const Point &a, const Point &b);
 Point operator+ (const Vector &a, const Point &b);
 Point operator+ (const Point &b, const Vector &a);
-bool get_line_intersect(Edge p, Edge q, Point &r);
-bool get_vector_intersect(Edge p, Edge q, float &p_t, float &q_t);
+
 
 #endif /* defined(__Trilight__algebra__) */

@@ -15,10 +15,7 @@ struct Point{
 	Point();
 	Point(float xx, float yy);
     Point (Point const &p);
-    //overwrite operator for convenience
-    
-//    Point operator+(Point p);
-//    Point operator-(Point p);
+
     Point operator*(float s);
     Point operator/(float s);
     Point& operator= (const Point &p);

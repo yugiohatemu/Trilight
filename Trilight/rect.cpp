@@ -63,7 +63,15 @@ std::vector<Edge> Rect::getEdges() {
     vec.push_back(top);
     return vec;
 }
-
+//normal facing inside responds to get_edges
+std::vector<Vector> Rect::getNormals(){
+    std::vector<Vector> vec;
+    vec.push_back(Vector(0, 1));
+    vec.push_back(Vector(0, -1));
+    vec.push_back(Vector(-1, 0));
+    vec.push_back(Vector(1, 0));
+    return vec;
+}
 
 std::vector<Point> Rect::getPoints(){
     //counter clock wise order
@@ -74,6 +82,8 @@ std::vector<Point> Rect::getPoints(){
     vec.push_back(Point(position.x + size.x, position.y ));
     return vec;
 }
+
+
 
 //dirty, if on edge or point, still consdiered as inside
 bool Rect::is_inside(Point p){

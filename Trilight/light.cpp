@@ -32,15 +32,14 @@ void Light::render(std::vector<Rect>& objects){
     glVertex2f(position.x, position.y);
     
     //recreat fan polygon for clipping surface usage
-    fan.clear_point();
-    fan.add_point(position);
+    
     
     for(int i = - range/2; i < range/2 ; i++) {
         float angle = (i + rotate_angle) * 3.14159 / 180;
         float t = 1.0f; //use this to derive alpha
         
         Vector ray(size * cos(angle), size * sin(angle));
-        fan.add_point(position + ray);
+        
         
         for(int j = 0; j < objects.size(); j++) {
             
@@ -76,56 +75,52 @@ void Light::render(std::vector<Rect>& objects){
         glColor4f(specular.r, specular.g, specular.b, 1.0f - t);
         glVertex2f(position.x + ray.x * t, position.y + ray.y * t);
     }
-    fan.add_point(position);
+   
     glEnd();
+    fan.clear_point();
+    fan.add_point(position);
+    fan.add_point(position + Vector(size * cos((- range/2 + rotate_angle) * 3.14159 / 180), size * sin((- range/2 + rotate_angle) * 3.14159 / 180)));
+    fan.add_point(position + Vector(size * cos((range/2 + rotate_angle) * 3.14159 / 180), size * sin((range/2 + rotate_angle) * 3.14159 / 180)));
+    fan.add_point(position);
 }
 
-//sutherland - holander algorithm
+//sutherland - holander algorithm, check wikipedia page for pusedo implementation
 
 void Light::render_clip(Rect object){
     //get the fan, reuse it from render
     std::vector<Edge> clip_edges = fan.getEdges();
     std::vector<Edge> rect_edges = object.getEdges();
-    //std::vector<Point> output;
+    std::vector<Vector> noraml_inside = object.getNormals();
     
     for (int i = 0; i < rect_edges.size(); i++) {
-        //erase(iter++)
-        for (std::vector<Edge>::iterator it = clip_edges.begin(); it != clip_edges.end(); it++) {
-            //test cross product (V_(i+1) - V_i) x (P - V_i)
-            
-            //test for intersection directly, then find the point that is inside
-            
-            //dirty inside test
-            bool s_in =  object.is_inside((*it).get_start());
-            bool e_in = object.is_inside((*it).get_end());
-            //replace it
-            if (!s_in && !e_in) {
-                clip_edges.erase(it++);
-//                std::cout<<"1"<<std::endl;
-            }else if(!s_in || !e_in){
-                float t_up = (rect_edges[i].get_start() - (*it).get_start()).cross(rect_edges[i].get_vector());
-                float div_down = rect_edges[i].get_vector().cross((*it).get_vector());
-                if (div_down == 0) div_down = 1;
-                
-                float t = t_up / div_down;
-                Point p = (*it).get_start() + t* (*it).get_vector();
-                
-                if (s_in) (*it).set_end(p);
-                else (*it).set_start(p);
+        
+        for (int j = 0; j < clip_edges.size(); j++) {
+            float wec_s = (clip_edges[j].get_start() - rect_edges[i].get_start()).cross(noraml_inside[i]);
+            float wec_e = (clip_edges[j].get_end() - rect_edges[i].get_start()).cross(noraml_inside[i]);
+            if (wec_s < 0 && wec_s < 0) {
+                std::vector<Edge>::iterator it = clip_edges.begin() + j;
+                clip_edges.erase(it);
+            }else if(wec_s >= 0 && wec_e >= 0){
+                float t = wec_s / (wec_s - wec_e);
+                Point intersect = clip_edges[i].get_start() + t * clip_edges[i].get_vector();
+                if (wec_s < 0) clip_edges[i].set_start(intersect);
+                else clip_edges[i].set_end(intersect);
             }
-            
-            
-            
         }
     }
     
+    //now we need to recreat a new polygon, summarize the list
+    std::vector<Point> clip_points;
+    for (int i = 0; i < clip_edges.size(); i++) {
+        clip_points.push_back(clip_edges[i].get_start());
+        clip_points.push_back(clip_edges[i].get_end());
+    }
     
-    glBegin(GL_POLYGON);
+    glBegin(GL_LINE_LOOP);
     glColor4f(1.0f, 0.0f, 0.0f, specular.a);
     
-    for (int i = 0; i < clip_edges.size(); i++) {
-        glVertex2f(clip_edges[i].get_start().x, clip_edges[i].get_start().y);
-        glVertex2f(clip_edges[i].get_end().x, clip_edges[i].get_end().y);
+    for (int i = 0; i < clip_points.size(); i++) {
+        glVertex2f(clip_points[i].x, clip_points[i].y);
     }
     
     glEnd();

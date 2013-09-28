@@ -13,8 +13,14 @@ Vector::Vector(){
     y = 0.f;
 }
 
-Vector::Vector(float x, float y):x(x), y(y){
-    
+Vector::Vector(float xx, float yy){
+    x = xx;
+    y = yy;
+}
+
+Vector::Vector(Vector const & vec){
+    x = vec.x;
+    y = vec.y;
 }
 
 Vector Vector::operator*(float t){
@@ -26,7 +32,9 @@ Vector Vector::operator+(const Vector &vec){
 }
 
 Vector Vector::operator=(const Vector & vec){
-    return Vector(vec.x, vec.y);
+    x = vec.x;
+    y = vec.y;
+    return *this;
 }
 
 float Vector::dot(Vector vec){

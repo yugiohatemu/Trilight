@@ -17,8 +17,8 @@ struct Vector{
     float x, y;
     
     Vector();
-    Vector(float x, float y);
-    
+    Vector(float xx, float yy);
+    Vector(Vector const & vec);
     float dot(Vector vec);
     float cross(Vector vec);
     
