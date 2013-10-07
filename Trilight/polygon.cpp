@@ -26,7 +26,7 @@ void Polygon::clear_point(){
 
 std::vector<Edge> Polygon::getEdges(){
     std::vector<Edge> vec;
-    for (int i = 0; i < points.size(); i++) {
+    for (int i = 0; i < points.size()-1; i++) {
         vec.push_back(Edge(points[i], points[i+1]));
     }
     vec.push_back(Edge(points[points.size()-1], points[0]));

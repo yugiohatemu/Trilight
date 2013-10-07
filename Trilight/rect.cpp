@@ -38,14 +38,14 @@ void Rect::render() {
     glVertex2f(position.x + size.x, position.y);
     glEnd();
     
-    glBegin(GL_QUADS);
-    glColor4f(1.0f,1.0f,0,0.5f);
-    glVertex2f(position.x, position.y);
-    glVertex2f(position.x, position.y + size.y);
-    glVertex2f(position.x + size.x, position.y + size.y);
-    glVertex2f(position.x + size.x, position.y);
-    
-    glEnd();
+//    glBegin(GL_QUADS);
+//    glColor4f(1.0f,1.0f,0,0.5f);
+//    glVertex2f(position.x, position.y);
+//    glVertex2f(position.x, position.y + size.y);
+//    glVertex2f(position.x + size.x, position.y + size.y);
+//    glVertex2f(position.x + size.x, position.y);
+//    
+//    glEnd();
 }
 
 std::vector<Edge> Rect::getEdges() {
@@ -66,10 +66,10 @@ std::vector<Edge> Rect::getEdges() {
 //normal facing inside responds to get_edges
 std::vector<Vector> Rect::getNormals(){
     std::vector<Vector> vec;
-    vec.push_back(Vector(0, 1));
-    vec.push_back(Vector(0, -1));
-    vec.push_back(Vector(-1, 0));
-    vec.push_back(Vector(1, 0));
+    vec.push_back(Vector(0, -1)); //bottom
+    vec.push_back(Vector(1, 0)); //left
+    vec.push_back(Vector(-1, 0)); //right
+    vec.push_back(Vector(0, 1)); //top
     return vec;
 }
 

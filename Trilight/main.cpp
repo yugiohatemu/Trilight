@@ -132,7 +132,7 @@ int main( int argc, char *argv[] ){
 	//Wait for user exit
 
     bool press[4] = {false,false,false,false};
-    
+    bool pause = false;
 	while( quit == false ){
         
 		while( SDL_PollEvent( &event ) ){
@@ -143,6 +143,7 @@ int main( int argc, char *argv[] ){
                 else if(event.key.keysym.sym == SDLK_a) press[1] = true;
                 else if(event.key.keysym.sym == SDLK_s) press[2] = true;
                 else if(event.key.keysym.sym == SDLK_d) press[3] = true;
+                else if(event.key.keysym.sym == SDLK_p) pause = !pause;
                 
             }else if(event.type == SDL_KEYUP){
                 
@@ -153,11 +154,12 @@ int main( int argc, char *argv[] ){
 
             }
 		}
-        if (fps.is_timeup()) {
+        if (fps.is_timeup() && !pause) {
             int x = 0, y = 0;
             SDL_GetMouseState( &x, &y );
             if (x < 0) x = 0;
             if (y < 0) y = 0;
+            
             render();
             
             for(int i = 0; i < rectangles.size(); i++) {
@@ -166,7 +168,7 @@ int main( int argc, char *argv[] ){
             }
 
             
-            l1.render(rectangles);
+            //l1.render(rectangles);
             l1.render_clip(rectangles[0]);
             l1.rotate(x, y);
             
@@ -174,9 +176,9 @@ int main( int argc, char *argv[] ){
             update();
             
             if(press[0]) l1.position.y -=2;
-            else if(press[1]) l1.position.x -= 2;
-            else if(press[2]) l1.position.y += 2;
-            else if(press[3]) l1.position.x += 2;
+            if(press[1]) l1.position.x -= 2;
+            if(press[2]) l1.position.y += 2;
+            if(press[3]) l1.position.x += 2;
             
             //Update screen
             SDL_GL_SwapBuffers();

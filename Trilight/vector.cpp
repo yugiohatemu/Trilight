@@ -32,6 +32,9 @@ Vector Vector::operator+(const Vector &vec){
 }
 
 Vector Vector::operator=(const Vector & vec){
+    if (this == &vec) {
+        return *this;
+    }
     x = vec.x;
     y = vec.y;
     return *this;

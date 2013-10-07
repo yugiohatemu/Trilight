@@ -32,6 +32,20 @@ Edge::Edge(Edge const & e){
     vec = end - start;
 }
 
+Edge& Edge::operator= (const Edge &e){
+    if (this == &e) {
+        return *this;
+    }
+    //override for array erase
+    this->start= e.start;
+    this->end = e.end;
+    this->vec = e.vec;
+    
+    return *this;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 void Edge::set_start(Point s){
     start = s;
     vec = end - start;
@@ -53,7 +67,13 @@ Point Edge::get_end(){
 Vector Edge::get_vector(){
     return vec;
 }
+///////////////////////////////////////////////////////////////////////////////////////////
 
+bool is_edge_connect(Edge p, Edge q){
+    if (p.get_start() == q.get_start() || p.get_start() == q.get_end()) return true;
+    else if(p.get_end() == q.get_start() || p.get_end() == q.get_start()) return true;
+    else return false;
+}
 
 bool get_line_intersect(Edge clip, Edge intersect, Point &r){
     float p_t, q_t;

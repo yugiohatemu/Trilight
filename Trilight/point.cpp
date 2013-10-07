@@ -35,6 +35,9 @@ Point Point::operator/(float s){
 }
 
 Point& Point::operator= (const Point &p){
+    if (this == &p) {
+        return *this;
+    }
     x = p.x;
     y = p.y;
     return *this;
