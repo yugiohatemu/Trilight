@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trilight/light.cpp"
-            timestampString = "402938334.156806"
+            timestampString = "402938878.565415"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "Light::render_clip(Rect object)"
             landmarkType = "5">
             <Locations>

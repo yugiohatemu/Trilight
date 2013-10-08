@@ -151,10 +151,11 @@ void Light::render_clip(Rect object){
     }
     
     glBegin(GL_TRIANGLE_FAN);
-    glColor4f(1.0f, 0.0f, 1.0f, 0.5f);
     
+    glColor4f(specular.r, specular.g, specular.b, specular.a);
     for (int i = 0; i < clip_edges.size(); i++) {
         glVertex2f(clip_edges[i].get_start().x, clip_edges[i].get_start().y);
+        glColor4f(1.0f, 0.0f, 1.0f, 0.5f);
     }
     glEnd();
 }
