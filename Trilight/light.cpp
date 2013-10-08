@@ -31,12 +31,15 @@ void Light::render(std::vector<Rect>& objects){
     glColor4f(specular.r, specular.g, specular.b, specular.a);
     glVertex2f(position.x, position.y);
     
+    fan.clear_point();
+    fan.add_point(position);
+    
     for(int i = - range/2; i < range/2 ; i++) {
         float angle = (i + rotate_angle) * 3.14159 / 180;
         float t = 1.0f; //use this to derive alpha
         
         Vector ray(size * cos(angle), size * sin(angle));
-        
+        fan.add_point(position + ray);
         for(int j = 0; j < objects.size(); j++) {
             
             std::vector<Point> points = objects[j].getPoints();
@@ -71,41 +74,21 @@ void Light::render(std::vector<Rect>& objects){
     }
    
     glEnd();
-    
-    //create triangular shape
-    
-    
+ 
 }
 
 //sutherland - holander algorithm, check wikipedia page for pusedo implementation
 //reference CS488 course note
 
 void Light::render_clip(Rect object){
-    fan.clear_point();
-    fan.add_point(position);
-    fan.add_point(position + Vector(size * cos((- range/2 + rotate_angle) * 3.14159 / 180), size * sin((- range/2 + rotate_angle) * 3.14159 / 180)));
-    fan.add_point(position + Vector(size * cos((range/2 + rotate_angle) * 3.14159 / 180), size * sin((range/2 + rotate_angle) * 3.14159 / 180)));
-//    Point p1 = position + Vector(size * cos((range/2 + rotate_angle) * 3.14159 / 180), size * sin((range/2 + rotate_angle) * 3.14159 / 180));
     
     //get the fan, reuse it from render
     std::vector<Edge> clip_edges = fan.getEdges();
     std::vector<Edge> rect_edges = object.getEdges();
     std::vector<Vector> noraml_inside = object.getNormals();
     
-    glBegin(GL_LINES);
-    glColor4f(1.0f, 0.0f, 0.0f, specular.a);
-    
-    for (int i = 0; i < clip_edges.size(); i++) {
-        glVertex2f(clip_edges[i].get_start().x, clip_edges[i].get_start().y);
-        glVertex2f(clip_edges[i].get_end().x, clip_edges[i].get_end().y);
-
-    }
-    
-    glEnd();
-    
-    
-     for (int i = 0; i < rect_edges.size(); i++) {
-         
+    for (int i = 0; i < rect_edges.size(); i++) {
+         //calculate clipping area
          for (std::vector<Edge>::iterator it = clip_edges.begin(); it != clip_edges.end(); ) {
         
             float wec_s = ((*it).get_start() - rect_edges[i].get_start()).dot(noraml_inside[i]);
@@ -128,11 +111,11 @@ void Light::render_clip(Rect object){
         }
          
          if (clip_edges.size() == 0) {
-             break ;
+             break ; //or just return, since not drawing anything
          }
          
          std::vector<Point> output;
-         //connect the missing edge and make it a complete polygon
+         //connect the missing edge and make it a complete polygon for latter calculation
          for (std::vector<Edge>::iterator it = clip_edges.begin(); it != clip_edges.end(); it++){
              output.push_back((*it).get_start());
              output.push_back((*it).get_end());
@@ -167,15 +150,11 @@ void Light::render_clip(Rect object){
         return ;
     }
     
-    glBegin(GL_LINES);
-    glColor4f(1.0f, 0.0f, 1.0f, specular.a);
+    glBegin(GL_TRIANGLE_FAN);
+    glColor4f(1.0f, 0.0f, 1.0f, 0.5f);
     
     for (int i = 0; i < clip_edges.size(); i++) {
         glVertex2f(clip_edges[i].get_start().x, clip_edges[i].get_start().y);
-        glVertex2f(clip_edges[i].get_end().x, clip_edges[i].get_end().y);
-        
     }
-    
     glEnd();
-    
 }
