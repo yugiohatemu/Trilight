@@ -104,7 +104,7 @@ void Light::render_clip(Rect object){
     glEnd();
     
     
-     for (int i = 0; i < 1; i++) {
+     for (int i = 0; i < rect_edges.size(); i++) {
          
          for (std::vector<Edge>::iterator it = clip_edges.begin(); it != clip_edges.end(); ) {
         
@@ -126,64 +126,56 @@ void Light::render_clip(Rect object){
                 ++it;
             }
         }
-        
-        //we can ge list of points directly
-//         for (int j = 0; j < clip_edges.size()-1; j++) {
-//             if (!is_edge_connect(clip_edges[j], clip_edges[j+1])) {
-//                 //insert one
-//                 clip_edges.insert(clip_edges.begin()+j,Edge(clip_edges[j].get_end(),clip_edges[j+1].get_start() ));
-//             }
-//         }
-//         
-//         if (!is_edge_connect(clip_edges[clip_edges.size()-1], clip_edges[0])) {
-//             clip_edges.push_back(Edge(clip_edges[clip_edges.size()-1].get_end(),clip_edges[0].get_start()));
-//         }
-         //use another one then
+         
+         if (clip_edges.size() == 0) {
+             break ;
+         }
+         
+         std::vector<Point> output;
+         //connect the missing edge and make it a complete polygon
+         for (std::vector<Edge>::iterator it = clip_edges.begin(); it != clip_edges.end(); it++){
+             output.push_back((*it).get_start());
+             output.push_back((*it).get_end());
+         }
+         
+         for (std::vector<Point>::iterator it = output.begin(); it != output.end(); ) {
+             if (it == output.end()-1) {
+                 if (*it == output[0]) {
+                     output.erase(output.begin());
+                 }
+                 break ;
+             }else if ((*it) == (*(it+1))) {
+                 it=output.erase(it);
+             }else{
+                 ++it;
+             }
+         }
+         
+         clip_edges.clear();
+         for(std::vector<Point>::iterator it = output.begin(); it != output.end();it++){
+             if (it == output.end()-1) {
+                 clip_edges.push_back(Edge(*it, output[0]));
+             }else{
+                 clip_edges.push_back(Edge(*it,*(it+1)));
+             }
+         }
+         
     }
     
-    glBegin(GL_LINES);
-    glColor4f(1.0f, 0.0f, 1.0f, specular.a);
-    for (int i = 0; i < 1; i++) {
-        glVertex2f(rect_edges[i].get_start().x, rect_edges[i].get_start().y);
-        glVertex2f(rect_edges[i].get_end().x, rect_edges[i].get_end().y);
 
-    }
-    glEnd();
-    
-    
-//    std::vector<Point> output;
-//    for (int i = 0; i < clip_edges.size(); i++) {
-//        output.push_back(clip_edges[i].get_start());
-//        output.push_back(clip_edges[i].get_end());
-//    }
-//
-//    for (int i = 0; i < output.size() -1; i++) {
-//        if(output[i] == output[i+1]){
-//            output.erase(output.begin()+i);
-//        }
-//    }
     if (clip_edges.size() == 0) {
         return ;
     }
     
     glBegin(GL_LINES);
-    glColor4f(1.0f, 1.0f, 1.0f, specular.a);
+    glColor4f(1.0f, 0.0f, 1.0f, specular.a);
     
     for (int i = 0; i < clip_edges.size(); i++) {
         glVertex2f(clip_edges[i].get_start().x, clip_edges[i].get_start().y);
         glVertex2f(clip_edges[i].get_end().x, clip_edges[i].get_end().y);
         
     }
-    //glVertex2f(clip_edges[clip_edges.size()-1].get_start().x, clip_edges[clip_edges.size()-1].get_start().y);
     
     glEnd();
     
-//    glBegin(GL_LINES);
-//    glColor4f(1.0f, 1.0f, 1.0f, specular.a);
-//    
-//    for (int i = 0; i < output.size(); i++) {
-//        glVertex2f(output[i].x, output[i].y);
-//    }
-//    
-//    glEnd();
 }

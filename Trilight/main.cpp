@@ -144,7 +144,7 @@ int main( int argc, char *argv[] ){
                 else if(event.key.keysym.sym == SDLK_s) press[2] = true;
                 else if(event.key.keysym.sym == SDLK_d) press[3] = true;
                 else if(event.key.keysym.sym == SDLK_p) pause = !pause;
-                
+                else if(event.key.keysym.sym == SDLK_ESCAPE) quit = true;
             }else if(event.type == SDL_KEYUP){
                 
                 if (event.key.keysym.sym == SDLK_w) press[0] = false;
