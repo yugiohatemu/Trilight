@@ -11,7 +11,6 @@
 #include "stopWatch.h"
 #include "rect.h"
 #include "light.h"
-#include "loadPNG.h"
 #include "texture.h"
 #include <vector>
 #include <iostream>
@@ -104,54 +103,6 @@ void clean_up(){
     SDL_Quit();
 }
 
-unsigned int textureID = 0;
-
-void load_file(const char * fileName){
-    unsigned int width = 32;
-    unsigned int height = 32;
-    
-    // Load file and decode image.
-    std::vector<unsigned char> image;
-    unsigned error = lodepng::decode(image, width, height, fileName);
-    if(error != 0){
-        std::cout << "error " << error << ": " << lodepng_error_text(error) << std::endl;
-        return ;
-    }
-    //use image 2, if not being power of two
-    // Texture size must be power of two for the primitive OpenGL version this is written for. Find next power of two.
-//    size_t u2 = 1; while(u2 < width) u2 *= 2;
-//    size_t v2 = 1; while(v2 < height) v2 *= 2;
-//    // Ratio for power of two version compared to actual version, to render the non power of two image with proper size.
-//    
-//    // Make power of two version of the image.
-//    std::vector<unsigned char> image2(u2 * v2 * 4);
-//    for(size_t y = 0; y < height; y++)
-//        for(size_t x = 0; x < width; x++)
-//            for(size_t c = 0; c < 4; c++)
-//            {
-//                image2[4 * u2 * y + 4 * x + c] = image[4 * width * y + 4 * x + c];
-//            }
-    
-    glGenTextures(1, &textureID);
-    // "Bind" the newly created texture : all future texture functions will modify this texture
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
-    // Nice trilinear filtering.
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    
-//    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-    
-    GLenum e = glGetError();
-    if( e != GL_NO_ERROR ) std::cout<<gluErrorString(e)<<std::endl;
-    std::cout<<textureID<<std::endl;
-    
-    
-    //unbind texture
-    //glBindTexture( GL_TEXTURE_2D, NULL );
-    
-}
 
 
 int main( int argc, char *argv[] ){
@@ -176,8 +127,7 @@ int main( int argc, char *argv[] ){
 	l1.size = 300.0f;
     
     //test texture
-//    Texture *text = new Texture("/Users/wei/Desktop/Trilight/Trilight/white.png",32,32);
-    load_file("/Users/wei/Desktop/Trilight/Trilight/white.png");
+    Texture *text = new Texture("/Users/wei/Desktop/Trilight/Trilight/white.png",32,32);
     
     StopWatch fps(0.2);
     fps.start();
@@ -228,15 +178,7 @@ int main( int argc, char *argv[] ){
             glDisable(GL_BLEND);
             glPushMatrix();
             
-//            text->render();
-            glBindTexture( GL_TEXTURE_2D, textureID );
-            
-            glBegin(GL_QUADS);
-            glTexCoord2f(0.0f, 0.0f); glVertex2f(0.0f, 0.0f);
-            glTexCoord2f(1.0f, 0.0f); glVertex2f(50.0f, 0.0f);
-            glTexCoord2f(1.0f, 1.0f); glVertex2f(50.0f, 50.0f);
-            glTexCoord2f(0.0f, 1.0f); glVertex2f(0.0f, 50.0f);
-            glEnd();
+            text->render();
 
             glPopMatrix();
             glBindTexture( GL_TEXTURE_2D,0);
@@ -254,7 +196,7 @@ int main( int argc, char *argv[] ){
     
 	clean_up();
     
-//    delete text;
+    delete text;
     
 	return 0;
 }

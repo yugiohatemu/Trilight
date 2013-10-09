@@ -14,8 +14,8 @@
 #include <string>
 
 class Texture{
-    int height;
-    int width;
+    unsigned int height;
+    unsigned int width;
     GLuint textureID;
     bool load_file(const char * fileName);
 public:
