@@ -1,7 +1,7 @@
 Trilight
 ========
 
-Lighting puzzle based on camouflage
+Lighting puzzle based on camouflage  
 Library: SDL, SDL_image, SDL_ttf, COCOA,openGL, openGLSL  
 Language: C++  
   

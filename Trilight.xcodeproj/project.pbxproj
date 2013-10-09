@@ -20,11 +20,14 @@
 		B601585217B7D982003C8FCD /* color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585017B7D982003C8FCD /* color.cpp */; };
 		B601585517B7DAD8003C8FCD /* rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585317B7DAD8003C8FCD /* rect.cpp */; };
 		B601585B17B7DC6B003C8FCD /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585917B7DC6B003C8FCD /* light.cpp */; };
+		B6666C83180467420002CBBF /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6666C81180467420002CBBF /* texture.cpp */; };
+		B6666C8818046FD00002CBBF /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6666C8618046FD00002CBBF /* utility.cpp */; };
 		B6CC488417D4D4A500A6508F /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488217D4D4A500A6508F /* vector.cpp */; };
 		B6CC488817D4D4D100A6508F /* point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488617D4D4D100A6508F /* point.cpp */; };
 		B6CC488F17D501DD00A6508F /* algebra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488D17D501DD00A6508F /* algebra.cpp */; };
 		B6CC489917D6439900A6508F /* polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489717D6439800A6508F /* polygon.cpp */; };
 		B6CC489C17D6C01600A6508F /* edge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489A17D6C01600A6508F /* edge.cpp */; };
+		B6E08F751805B159001ACCB6 /* loadPNG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F731805B159001ACCB6 /* loadPNG.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +63,11 @@
 		B601585417B7DAD8003C8FCD /* rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rect.h; sourceTree = "<group>"; };
 		B601585917B7DC6B003C8FCD /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = light.cpp; sourceTree = "<group>"; };
 		B601585A17B7DC6B003C8FCD /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = light.h; sourceTree = "<group>"; };
+		B6666C81180467420002CBBF /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
+		B6666C82180467420002CBBF /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
+		B6666C8518046B880002CBBF /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
+		B6666C8618046FD00002CBBF /* utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utility.cpp; sourceTree = "<group>"; };
+		B6666C8718046FD00002CBBF /* utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
 		B6CC488217D4D4A500A6508F /* vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector.cpp; sourceTree = "<group>"; };
 		B6CC488317D4D4A500A6508F /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
 		B6CC488617D4D4D100A6508F /* point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point.cpp; sourceTree = "<group>"; };
@@ -70,6 +78,8 @@
 		B6CC489817D6439900A6508F /* polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polygon.h; sourceTree = "<group>"; };
 		B6CC489A17D6C01600A6508F /* edge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = edge.cpp; sourceTree = "<group>"; };
 		B6CC489B17D6C01600A6508F /* edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edge.h; sourceTree = "<group>"; };
+		B6E08F731805B159001ACCB6 /* loadPNG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadPNG.cpp; sourceTree = "<group>"; };
+		B6E08F741805B159001ACCB6 /* loadPNG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadPNG.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +124,8 @@
 		B601582317B7CC57003C8FCD /* Trilight */ = {
 			isa = PBXGroup;
 			children = (
+				B6666C8418046B6E0002CBBF /* image */,
+				B6666C801804672C0002CBBF /* light */,
 				B6CC489117D501E700A6508F /* geometry */,
 				B601584917B7D4BC003C8FCD /* stopWatch.cpp */,
 				B601584A17B7D4BC003C8FCD /* stopWatch.h */,
@@ -122,11 +134,32 @@
 				B601582617B7CC57003C8FCD /* Trilight.1 */,
 				B601585017B7D982003C8FCD /* color.cpp */,
 				B601585117B7D982003C8FCD /* color.h */,
-				B601585917B7DC6B003C8FCD /* light.cpp */,
-				B601585A17B7DC6B003C8FCD /* light.h */,
 				B601582417B7CC57003C8FCD /* main.cpp */,
+				B6E08F731805B159001ACCB6 /* loadPNG.cpp */,
+				B6E08F741805B159001ACCB6 /* loadPNG.h */,
+				B6666C81180467420002CBBF /* texture.cpp */,
+				B6666C82180467420002CBBF /* texture.h */,
+				B6666C8618046FD00002CBBF /* utility.cpp */,
+				B6666C8718046FD00002CBBF /* utility.h */,
 			);
 			path = Trilight;
+			sourceTree = "<group>";
+		};
+		B6666C801804672C0002CBBF /* light */ = {
+			isa = PBXGroup;
+			children = (
+				B601585917B7DC6B003C8FCD /* light.cpp */,
+				B601585A17B7DC6B003C8FCD /* light.h */,
+			);
+			name = light;
+			sourceTree = "<group>";
+		};
+		B6666C8418046B6E0002CBBF /* image */ = {
+			isa = PBXGroup;
+			children = (
+				B6666C8518046B880002CBBF /* white.png */,
+			);
+			name = image;
 			sourceTree = "<group>";
 		};
 		B6CC489117D501E700A6508F /* geometry */ = {
@@ -202,12 +235,15 @@
 				B601582517B7CC57003C8FCD /* main.cpp in Sources */,
 				B601582F17B7CC92003C8FCD /* SDLMain.m in Sources */,
 				B601584B17B7D4BC003C8FCD /* stopWatch.cpp in Sources */,
+				B6E08F751805B159001ACCB6 /* loadPNG.cpp in Sources */,
 				B601585217B7D982003C8FCD /* color.cpp in Sources */,
 				B601585517B7DAD8003C8FCD /* rect.cpp in Sources */,
 				B601585B17B7DC6B003C8FCD /* light.cpp in Sources */,
+				B6666C8818046FD00002CBBF /* utility.cpp in Sources */,
 				B6CC488417D4D4A500A6508F /* vector.cpp in Sources */,
 				B6CC488817D4D4D100A6508F /* point.cpp in Sources */,
 				B6CC488F17D501DD00A6508F /* algebra.cpp in Sources */,
+				B6666C83180467420002CBBF /* texture.cpp in Sources */,
 				B6CC489917D6439900A6508F /* polygon.cpp in Sources */,
 				B6CC489C17D6C01600A6508F /* edge.cpp in Sources */,
 			);

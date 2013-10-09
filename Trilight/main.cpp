@@ -11,8 +11,12 @@
 #include "stopWatch.h"
 #include "rect.h"
 #include "light.h"
+#include "loadPNG.h"
+#include "texture.h"
 #include <vector>
 #include <iostream>
+#include <fstream>
+//#include "texture.h"
 //Screen attributes
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -77,24 +81,76 @@ void render(){
     //Clear color buffer
     
     glEnable (GL_BLEND);
-    //glEnable(GL_MULTISAMPLE_ARB);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     //clear color and depth
+    glEnable(GL_COLOR_MATERIAL);
+    //enable texture
+    glEnable( GL_TEXTURE_2D );
+    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0, 0, 0, 0);
+    //orthogonal mode
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0,SCREEN_WIDTH,SCREEN_HEIGHT,0,-1,1);
     glMatrixMode(GL_MODELVIEW);
     glShadeModel(GL_SMOOTH);
     glLoadIdentity();
- 
-    
     
 }
 
 void clean_up(){
     //Quit SDL
     SDL_Quit();
+}
+
+unsigned int textureID = 0;
+
+void load_file(const char * fileName){
+    unsigned int width = 32;
+    unsigned int height = 32;
+    
+    // Load file and decode image.
+    std::vector<unsigned char> image;
+    unsigned error = lodepng::decode(image, width, height, fileName);
+    if(error != 0){
+        std::cout << "error " << error << ": " << lodepng_error_text(error) << std::endl;
+        return ;
+    }
+    //use image 2, if not being power of two
+    // Texture size must be power of two for the primitive OpenGL version this is written for. Find next power of two.
+//    size_t u2 = 1; while(u2 < width) u2 *= 2;
+//    size_t v2 = 1; while(v2 < height) v2 *= 2;
+//    // Ratio for power of two version compared to actual version, to render the non power of two image with proper size.
+//    
+//    // Make power of two version of the image.
+//    std::vector<unsigned char> image2(u2 * v2 * 4);
+//    for(size_t y = 0; y < height; y++)
+//        for(size_t x = 0; x < width; x++)
+//            for(size_t c = 0; c < 4; c++)
+//            {
+//                image2[4 * u2 * y + 4 * x + c] = image[4 * width * y + 4 * x + c];
+//            }
+    
+    glGenTextures(1, &textureID);
+    // "Bind" the newly created texture : all future texture functions will modify this texture
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
+    // Nice trilinear filtering.
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    
+//    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+    
+    GLenum e = glGetError();
+    if( e != GL_NO_ERROR ) std::cout<<gluErrorString(e)<<std::endl;
+    std::cout<<textureID<<std::endl;
+    
+    
+    //unbind texture
+    //glBindTexture( GL_TEXTURE_2D, NULL );
+    
 }
 
 
@@ -107,17 +163,10 @@ int main( int argc, char *argv[] ){
     
     std::vector<Rect> rectangles;
     
-    for(int i = 1; i > 0; i--) {
+    for(int i = 2; i > 0; i--) {
 		Rect rectangle((int) (rand() % 350)+75,  (int) (rand() % 300)+75, 25 + (int) (rand() % 80), 25 + int(rand() % 80));
 		rectangles.push_back(rectangle);
 	}
-    
-    
-//    Rect rect1(100,100,200,200); rect1.color.setRGBA(0xFF0000FF);
-//    Rect rect2(150,150,50,50); rect2.color.setRGBA(0xFF000010);
-//    rectangles.push_back(rect1);
-//    rectangles.push_back(rect2);
-    //how to do test?
     
 	//Create light
 	Light l1(91);
@@ -126,7 +175,10 @@ int main( int argc, char *argv[] ){
 	l1.specular.setRGBA(0xFFFFFF66);
 	l1.size = 300.0f;
     
-       
+    //test texture
+//    Texture *text = new Texture("/Users/wei/Desktop/Trilight/Trilight/white.png",32,32);
+    load_file("/Users/wei/Desktop/Trilight/Trilight/white.png");
+    
     StopWatch fps(0.2);
     fps.start();
 	//Wait for user exit
@@ -172,9 +224,24 @@ int main( int argc, char *argv[] ){
             l1.render_clip(rectangles[0]);
             l1.rotate(x, y);
             
+            glEnable( GL_TEXTURE_2D );
+            glDisable(GL_BLEND);
+            glPushMatrix();
             
-            update();
+//            text->render();
+            glBindTexture( GL_TEXTURE_2D, textureID );
             
+            glBegin(GL_QUADS);
+            glTexCoord2f(0.0f, 0.0f); glVertex2f(0.0f, 0.0f);
+            glTexCoord2f(1.0f, 0.0f); glVertex2f(50.0f, 0.0f);
+            glTexCoord2f(1.0f, 1.0f); glVertex2f(50.0f, 50.0f);
+            glTexCoord2f(0.0f, 1.0f); glVertex2f(0.0f, 50.0f);
+            glEnd();
+
+            glPopMatrix();
+            glBindTexture( GL_TEXTURE_2D,0);
+            glDisable(GL_TEXTURE_2D);
+            glEnable(GL_BLEND);
             if(press[0]) l1.position.y -=2;
             if(press[1]) l1.position.x -= 2;
             if(press[2]) l1.position.y += 2;
@@ -186,6 +253,8 @@ int main( int argc, char *argv[] ){
 	}
     
 	clean_up();
+    
+//    delete text;
     
 	return 0;
 }
