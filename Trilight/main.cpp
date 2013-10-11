@@ -15,6 +15,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+
+
 //#include "texture.h"
 //Screen attributes
 const int SCREEN_WIDTH = 640;
@@ -127,7 +129,9 @@ int main( int argc, char *argv[] ){
 	l1.size = 300.0f;
     
     //test texture
-    Texture *text = new Texture("/Users/wei/Desktop/Trilight/Trilight/white.png",32,32);
+    if(Texture::Instance()->load_file("/Users/wei/Desktop/Trilight/Trilight/white.png",64,64) < 0){
+        return 1;
+    }
     
     StopWatch fps(0.2);
     fps.start();
@@ -174,16 +178,8 @@ int main( int argc, char *argv[] ){
             l1.render_clip(rectangles[0]);
             l1.rotate(x, y);
             
-            glEnable( GL_TEXTURE_2D );
-            glDisable(GL_BLEND);
-            glPushMatrix();
             
-            text->render();
-
-            glPopMatrix();
-            glBindTexture( GL_TEXTURE_2D,0);
-            glDisable(GL_TEXTURE_2D);
-            glEnable(GL_BLEND);
+           
             if(press[0]) l1.position.y -=2;
             if(press[1]) l1.position.x -= 2;
             if(press[2]) l1.position.y += 2;
@@ -193,10 +189,9 @@ int main( int argc, char *argv[] ){
             SDL_GL_SwapBuffers();
         }
 	}
-    
+    //do all the cleaning, singelton and ect
 	clean_up();
-    
-    delete text;
+    Texture::Instance()->clean_texture();
     
 	return 0;
 }

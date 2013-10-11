@@ -11,23 +11,36 @@
 #include "utility.h"
 #include "loadPNG.h"
 
-Texture::Texture(std::string fileName,int height, int width){
-    this->width = width;
-    this->height = height;
-    textureID = 0;
-    
-    if (!load_file(fileName.c_str())) {
-        error("Load Texture Fail");
-    }
+Texture* Texture::m_Instance = NULL;
+
+Texture::Texture(){
 }
 
-bool Texture::load_file(const char * fileName){
+Texture::Texture(Texture const&){
+    
+}
+// copy constructor is private
+Texture& Texture::operator=(Texture const&){
+    return *m_Instance;
+}
+
+Texture* Texture::Instance(){
+    if (m_Instance == NULL) {
+        m_Instance = new Texture();
+    }
+    return m_Instance;
+}
+
+////////////////////////////////////////////////////////////////////////
+
+
+int Texture::load_file(const char * fileName,unsigned int width, unsigned int height){
  
     std::vector<unsigned char> image;
     unsigned  error = lodepng::decode(image, width, height, fileName);
     if(error != 0){
         std::cout << "error " << error << ": " << lodepng_error_text(error) << std::endl;
-        return false;
+        return -1;
     }
     
     glGenTextures(1, &textureID);
@@ -40,11 +53,11 @@ bool Texture::load_file(const char * fileName){
     GLenum e = glGetError();
     if( e != GL_NO_ERROR ) std::cout<<gluErrorString(e)<<std::endl;
     
-    
-    //unbind texture
+    //unbind
     glBindTexture( GL_TEXTURE_2D, NULL );
-    return true;
+    return 1;
 }
+
 
 //use image 2, if not being power of two
 // Texture size must be power of two for the primitive OpenGL version this is written for. Find next power of two.
@@ -62,21 +75,11 @@ bool Texture::load_file(const char * fileName){
 //            }
 
 
-Texture::~Texture(){
+void Texture::clean_texture(){
     glDeleteTextures(1, &textureID);
 }
 
-void Texture::render(){
-    
-    
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 0.0f); glVertex2f(0.0f, 0.0f);
-    glTexCoord2f(1.0f, 0.0f); glVertex2f(50.0f, 0.0f);
-    glTexCoord2f(1.0f, 1.0f); glVertex2f(50.0f, 50.0f);
-    glTexCoord2f(0.0f, 1.0f); glVertex2f(0.0f, 50.0f);
-    glEnd();
-    
-}
 
+GLuint Texture::get_texture(){
+    return textureID;
+}

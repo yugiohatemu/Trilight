@@ -13,17 +13,26 @@
 #include "SDL/SDL_opengl.h"
 #include <string>
 
+//singelton texture for controlling all the texture loading
+
+
 class Texture{
+private:
+    Texture();  // Private so that it can  not be called
+    Texture(Texture const&);             // copy constructor is private
+    Texture& operator=(Texture const&);  // assignment operator is private
+    static Texture* m_Instance;
+
     unsigned int height;
     unsigned int width;
     GLuint textureID;
-    bool load_file(const char * fileName);
+    
 public:
-    Texture(std::string fileName,int height, int width);
-    ~Texture();
-    void render();
+    static Texture * Instance();
+    int load_file(const char * fileName,unsigned int width,unsigned int height);
+    void clean_texture();
+    GLuint get_texture();
+    //static void unbind_texture();
 };
-
-GLuint load_texture(const char * imagepath);
 
 #endif /* defined(__Trilight__texture__) */
