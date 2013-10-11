@@ -9,6 +9,7 @@
 #include "sprite.h"
 #include "SDL/SDL_opengl.h"
 #include "texture.h"
+#include "utility.h"
 
 Sprite::Sprite(int x , int y ){
     box.x = x;
@@ -44,27 +45,28 @@ void Sprite::set_clip(){
 }
 
 void Sprite::update(){
-    frame += 1;
-    if (frame == TOTAL_CLIPS) {
-        frame = 0;
-    }
+//    frame += 1;
+//    if (frame == TOTAL_CLIPS) {
+//        frame = 0;
+//    }
 }
 
 void Sprite::render(){
+   
     glPushMatrix();
-    //get texture from texture pack?
-    GLuint texture_ID = Texture::Instance()->get_texture();
     
+    GLuint texture_ID = Texture::Instance()->get_texture();
     glBindTexture(GL_TEXTURE_2D, texture_ID);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
     
     glBegin(GL_QUADS);
-    glVertex2f(box.x, box.y); glVertex2f(clips[frame].x, clips[frame].y);
-    glVertex2f(box.x, box.y+ box.h); glVertex2f(clips[frame].x, clips[frame].y + clips[frame].y + clips[frame].h);
-    glVertex2f(box.x + box.w, box.y + box.h); glVertex2f(clips[frame].x + clips[frame].w, clips[frame].y + clips[frame].h);
-    glVertex2f(box.x + box.w, box.y); glVertex2f(clips[frame].x + clips[frame].w, clips[frame].y);
+    glVertex2f(box.x, box.y); glTexCoord2f(clips[frame].x, clips[frame].y);
+    glVertex2f(box.x, box.y+ box.h); glTexCoord2f(clips[frame].x, clips[frame].y + clips[frame].y + clips[frame].h);
+    glVertex2f(box.x + box.w, box.y + box.h); glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y + clips[frame].h);
+    glVertex2f(box.x + box.w, box.y); glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y);
     glEnd();
     
-    glBindTexture(GL_TEXTURE_2D, 0);
     
+    glBindTexture(GL_TEXTURE_2D, 0);
     glPopMatrix();
 }

@@ -31,6 +31,7 @@ public:
     static Texture * Instance();
     int load_file(const char * fileName,unsigned int width,unsigned int height);
     void clean_texture();
+//    void use_texture();
     GLuint get_texture();
     //static void unbind_texture();
 };

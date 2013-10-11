@@ -12,6 +12,7 @@
 #include "rect.h"
 #include "light.h"
 #include "texture.h"
+#include "sprite.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -101,7 +102,7 @@ void render(){
 }
 
 void clean_up(){
-    //Quit SDL
+    Texture::Instance()->clean_texture();
     SDL_Quit();
 }
 
@@ -133,10 +134,14 @@ int main( int argc, char *argv[] ){
         return 1;
     }
     
+    //fps
     StopWatch fps(0.2);
     fps.start();
 	//Wait for user exit
 
+    //sprite list
+    Sprite * eyeball = new Sprite(320,240);
+    
     bool press[4] = {false,false,false,false};
     bool pause = false;
 	while( quit == false ){
@@ -178,20 +183,24 @@ int main( int argc, char *argv[] ){
             l1.render_clip(rectangles[0]);
             l1.rotate(x, y);
             
+            eyeball->render();
             
+            //update
            
             if(press[0]) l1.position.y -=2;
             if(press[1]) l1.position.x -= 2;
             if(press[2]) l1.position.y += 2;
             if(press[3]) l1.position.x += 2;
             
-            //Update screen
+            eyeball->update();
+            
+            
             SDL_GL_SwapBuffers();
         }
 	}
     //do all the cleaning, singelton and ect
 	clean_up();
-    Texture::Instance()->clean_texture();
+    delete eyeball;
     
 	return 0;
 }

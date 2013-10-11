@@ -83,3 +83,8 @@ void Texture::clean_texture(){
 GLuint Texture::get_texture(){
     return textureID;
 }
+
+//void Texture::use_texture(){
+//    glBindTexture(GL_TEXTURE_2D, textureID);
+//    
+//}
