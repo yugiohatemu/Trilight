@@ -12,6 +12,7 @@
 #include "SDL/SDL.h"
 
 class Sprite{
+protected:
     struct T_Rect{
         float x, y,w,h;
         T_Rect(){ x = y = w = h = 0.0f; }
@@ -24,21 +25,16 @@ class Sprite{
         }
         ~T_Rect(){}
     };
-protected:
-    int frame;
-    void set_clip();
-    enum {
-        HEAD_0, HEAD_1,HEAD_2,HEAD_3,
-        TOTAL_CLIPS,
-    }CLIPS;
-    T_Rect clips[TOTAL_CLIPS];
+
+    int frame = 0;
+    virtual void set_clip() = 0;
 public:
     SDL_Rect box;
-    Sprite(int x = 0, int y = 0);
-    ~Sprite();
-    void set_pos();
-    void render();
-    void update(SDL_Event event);
+    Sprite(int x = 0, int y = 0, int w = 0, int h = 0){box.x = x; box.y = y; box.w = w; box.h = h;}
+    virtual ~Sprite(){};
+
+    virtual void render() = 0;
+    virtual void update(SDL_Event event) = 0;
 };
 
 #endif /* defined(__Trilight__sprite__) */

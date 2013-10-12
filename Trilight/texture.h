@@ -21,14 +21,13 @@ private:
     Texture();  // Private so that it can  not be called
     Texture(Texture const&);             // copy constructor is private
     Texture& operator=(Texture const&);  // assignment operator is private
-    static Texture* m_Instance;
 
     unsigned int height;
     unsigned int width;
     GLuint textureID;
     
 public:
-    static Texture * Instance();
+    static Texture& Instance();
     int load_file(const char * fileName,unsigned int width,unsigned int height);
     void clean_texture();
 //    void use_texture();

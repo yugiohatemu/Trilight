@@ -11,7 +11,6 @@
 #include "utility.h"
 #include "loadPNG.h"
 
-Texture* Texture::m_Instance = NULL;
 
 Texture::Texture(){
 }
@@ -21,13 +20,11 @@ Texture::Texture(Texture const&){
 }
 // copy constructor is private
 Texture& Texture::operator=(Texture const&){
-    return *m_Instance;
+    return *this;
 }
 
-Texture* Texture::Instance(){
-    if (m_Instance == NULL) {
-        m_Instance = new Texture();
-    }
+Texture& Texture::Instance(){
+    static Texture m_Instance;
     return m_Instance;
 }
 

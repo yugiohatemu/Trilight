@@ -101,7 +101,7 @@ void render(){
 }
 
 void clean_up(){
-    Texture::Instance()->clean_texture();
+    Texture::Instance().clean_texture();
     SDL_Quit();
 }
 
@@ -114,10 +114,10 @@ int main( int argc, char *argv[] ){
     //Initialize
     if( init() == false ) return 1;
     
-    Scene * scene = new Scene();
-    
+    Scene &scene = Scene::Instance();
+    scene.create_scene();
     //test texture
-    if(Texture::Instance()->load_file("/Users/wei/Desktop/Trilight/Trilight/white.png",64,64) < 0){
+    if(Texture::Instance().load_file("/Users/wei/Desktop/Trilight/Trilight/white.png",64,64) < 0){
         return 1;
     }
     
@@ -140,9 +140,9 @@ int main( int argc, char *argv[] ){
         if (fps.is_timeup() && !pause) {
             
             render();
-            scene->render();
+            scene.render();
             
-            scene->update(event);
+            scene.update(event);
             
             SDL_GL_SwapBuffers();
         }
@@ -150,7 +150,7 @@ int main( int argc, char *argv[] ){
     
     //do all the cleaning, singelton and ect
 	clean_up();
-
-    delete scene;
+    scene.clear_scene();
+    
 	return 0;
 }

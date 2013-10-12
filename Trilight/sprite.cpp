@@ -26,22 +26,22 @@ Sprite::~Sprite(){
 }
 
 void Sprite::set_clip(){
-    clips[HEAD_0].x = 0.0f;
-    clips[HEAD_0].y = 0.0f;
-    
-    clips[HEAD_1].x = 0.5f;
-    clips[HEAD_1].y = 0.0f;
-    
-    clips[HEAD_2].x = 0.5f;
-    clips[HEAD_2].y = 0.5f;
-    
-    clips[HEAD_3].x = 0.0f;
-    clips[HEAD_3].y = 0.5f;
-    
-    for (int i = HEAD_0; i < TOTAL_CLIPS; i++) {
-        clips[i].w = 0.5f;
-        clips[i].h = 0.5f;
-    }
+//    clips[HEAD_0].x = 0.0f;
+//    clips[HEAD_0].y = 0.0f;
+//    
+//    clips[HEAD_1].x = 0.5f;
+//    clips[HEAD_1].y = 0.0f;
+//    
+//    clips[HEAD_2].x = 0.5f;
+//    clips[HEAD_2].y = 0.5f;
+//    
+//    clips[HEAD_3].x = 0.0f;
+//    clips[HEAD_3].y = 0.5f;
+//    
+//    for (int i = HEAD_0; i < TOTAL_CLIPS; i++) {
+//        clips[i].w = 0.5f;
+//        clips[i].h = 0.5f;
+//    }
 }
 
 void Sprite::update(SDL_Event event){

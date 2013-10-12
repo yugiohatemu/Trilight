@@ -28,8 +28,8 @@
 		B6CC489917D6439900A6508F /* polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489717D6439800A6508F /* polygon.cpp */; };
 		B6CC489C17D6C01600A6508F /* edge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489A17D6C01600A6508F /* edge.cpp */; };
 		B6E08F751805B159001ACCB6 /* loadPNG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F731805B159001ACCB6 /* loadPNG.cpp */; };
-		B6E08F7D18084BDD001ACCB6 /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F7B18084BDD001ACCB6 /* sprite.cpp */; };
 		B6E08F811808815D001ACCB6 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F7F1808815D001ACCB6 /* scene.cpp */; };
+		B6E08F841809DA0C001ACCB6 /* octpus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F821809DA0C001ACCB6 /* octpus.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -83,10 +83,11 @@
 		B6E08F731805B159001ACCB6 /* loadPNG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadPNG.cpp; sourceTree = "<group>"; };
 		B6E08F741805B159001ACCB6 /* loadPNG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadPNG.h; sourceTree = "<group>"; };
 		B6E08F771805EC6B001ACCB6 /* font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font.ttf; sourceTree = "<group>"; };
-		B6E08F7B18084BDD001ACCB6 /* sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sprite.cpp; sourceTree = "<group>"; };
 		B6E08F7C18084BDD001ACCB6 /* sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sprite.h; sourceTree = "<group>"; };
 		B6E08F7F1808815D001ACCB6 /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
 		B6E08F801808815D001ACCB6 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
+		B6E08F821809DA0C001ACCB6 /* octpus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = octpus.cpp; sourceTree = "<group>"; };
+		B6E08F831809DA0C001ACCB6 /* octpus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = octpus.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +132,7 @@
 		B601582317B7CC57003C8FCD /* Trilight */ = {
 			isa = PBXGroup;
 			children = (
+				B6E08F851809DF16001ACCB6 /* sprite */,
 				B6E08F771805EC6B001ACCB6 /* font.ttf */,
 				B601582417B7CC57003C8FCD /* main.cpp */,
 				B6E08F761805E72F001ACCB6 /* extern */,
@@ -150,8 +152,6 @@
 				B6666C8718046FD00002CBBF /* utility.h */,
 				B6E08F7F1808815D001ACCB6 /* scene.cpp */,
 				B6E08F801808815D001ACCB6 /* scene.h */,
-				B6E08F7B18084BDD001ACCB6 /* sprite.cpp */,
-				B6E08F7C18084BDD001ACCB6 /* sprite.h */,
 			);
 			path = Trilight;
 			sourceTree = "<group>";
@@ -199,6 +199,16 @@
 				B6E08F741805B159001ACCB6 /* loadPNG.h */,
 			);
 			name = extern;
+			sourceTree = "<group>";
+		};
+		B6E08F851809DF16001ACCB6 /* sprite */ = {
+			isa = PBXGroup;
+			children = (
+				B6E08F7C18084BDD001ACCB6 /* sprite.h */,
+				B6E08F821809DA0C001ACCB6 /* octpus.cpp */,
+				B6E08F831809DA0C001ACCB6 /* octpus.h */,
+			);
+			name = sprite;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,12 +272,12 @@
 				B6666C8818046FD00002CBBF /* utility.cpp in Sources */,
 				B6E08F811808815D001ACCB6 /* scene.cpp in Sources */,
 				B6CC488417D4D4A500A6508F /* vector.cpp in Sources */,
+				B6E08F841809DA0C001ACCB6 /* octpus.cpp in Sources */,
 				B6CC488817D4D4D100A6508F /* point.cpp in Sources */,
 				B6CC488F17D501DD00A6508F /* algebra.cpp in Sources */,
 				B6666C83180467420002CBBF /* texture.cpp in Sources */,
 				B6CC489917D6439900A6508F /* polygon.cpp in Sources */,
 				B6CC489C17D6C01600A6508F /* edge.cpp in Sources */,
-				B6E08F7D18084BDD001ACCB6 /* sprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

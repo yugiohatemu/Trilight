@@ -14,17 +14,25 @@
 #include "sprite.h"
 #include "SDL/SDL.h"
 
+//Singelton for easy acess globally
+//Since there can be only one level on a screen at a time
+
 class Scene{
-     //a list of light
+     
+    Scene();
+    Scene(Scene const &);
+    Scene& operator= (Scene const &);
+    
     std::vector<Rect> rectangles;
     Sprite * eyeball;
     Light * light;
 public:
-    Scene();
-    ~Scene();
+    static Scene& Instance();
+   
     void render();
     void update(SDL_Event event);
-    
+    void create_scene();
+    void clear_scene();
 };
 
 #endif /* defined(__Trilight__scene__) */
