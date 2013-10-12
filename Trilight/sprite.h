@@ -38,7 +38,7 @@ public:
     ~Sprite();
     void set_pos();
     void render();
-    void update();
+    void update(SDL_Event event);
 };
 
 #endif /* defined(__Trilight__sprite__) */

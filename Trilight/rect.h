@@ -17,7 +17,8 @@
 
 class Rect {
 
-	Point position;
+	Point position; //left top corner
+    Point center;
 	Point size;
     bool block;
 public:
@@ -31,6 +32,8 @@ public:
     bool is_inside(Point p);
     bool is_block();
     void set_block(bool b);
+    void set_center(Point pos);
+    void set_center(int x, int y);
     Color color;
 };
 

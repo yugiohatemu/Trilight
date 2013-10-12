@@ -19,6 +19,8 @@ Rect::Rect(int dx, int dy, int dwidth, int dheight) {
     size.x = dwidth;
     size.y = dheight;
     block = true;
+    center.x = (dx + dwidth) / 2;
+    center.y = (dy + dheight) / 2;
 }
 
 bool Rect::is_block(){
@@ -29,6 +31,18 @@ void Rect::set_block(bool b){
     block = b;
 }
 
+void Rect::set_center(Point pos){
+    set_center(pos.x,pos.y);
+}
+
+void Rect::set_center(int x, int y){
+    center.x = x;
+    center.y = y;
+    position.x = center.x - size.x/2;
+    position.y = center.y - size.y/2;
+}
+
+
 void Rect::render() {
     glBegin(GL_LINE_LOOP);
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -38,14 +52,14 @@ void Rect::render() {
     glVertex2f(position.x + size.x, position.y);
     glEnd();
     
-//    glBegin(GL_QUADS);
-//    glColor4f(1.0f,1.0f,0,0.5f);
-//    glVertex2f(position.x, position.y);
-//    glVertex2f(position.x, position.y + size.y);
-//    glVertex2f(position.x + size.x, position.y + size.y);
-//    glVertex2f(position.x + size.x, position.y);
-//    
-//    glEnd();
+    glBegin(GL_QUADS);
+    glColor4f(color.r,color.g,color.b,color.a );
+    glVertex2f(position.x, position.y);
+    glVertex2f(position.x, position.y + size.y);
+    glVertex2f(position.x + size.x, position.y + size.y);
+    glVertex2f(position.x + size.x, position.y);
+    
+    glEnd();
 }
 
 std::vector<Edge> Rect::getEdges() {

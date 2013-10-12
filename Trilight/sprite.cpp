@@ -44,7 +44,7 @@ void Sprite::set_clip(){
     }
 }
 
-void Sprite::update(){
+void Sprite::update(SDL_Event event){
 //    frame += 1;
 //    if (frame == TOTAL_CLIPS) {
 //        frame = 0;
