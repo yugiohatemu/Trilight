@@ -44,13 +44,15 @@ void Rect::set_center(int x, int y){
 
 
 void Rect::render() {
-    glBegin(GL_LINE_LOOP);
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glVertex2f(position.x, position.y);
-    glVertex2f(position.x, position.y + size.y);
-    glVertex2f(position.x + size.x, position.y + size.y);
-    glVertex2f(position.x + size.x, position.y);
-    glEnd();
+    glPushMatrix();
+//    
+//    glBegin(GL_LINE_LOOP);
+//    glColor3f(1.0f, 1.0f, 1.0f);
+//    glVertex2f(position.x, position.y);
+//    glVertex2f(position.x, position.y + size.y);
+//    glVertex2f(position.x + size.x, position.y + size.y);
+//    glVertex2f(position.x + size.x, position.y);
+//    glEnd();
     
     glBegin(GL_QUADS);
     glColor4f(color.r,color.g,color.b,color.a );
@@ -60,6 +62,8 @@ void Rect::render() {
     glVertex2f(position.x + size.x, position.y);
     
     glEnd();
+    
+    glPopMatrix();
 }
 
 std::vector<Edge> Rect::getEdges() {

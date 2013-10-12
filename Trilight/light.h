@@ -15,11 +15,13 @@
 #include "rect.h"
 #include "vector.h"
 #include "polygon.h"
+#include "SDL/SDL.h"
 
 class Light {
     int range;
     float rotate_angle;
     Polygon fan;
+    bool pressed[4] = {false};
 public:
     Light(int range);
 	Point position;
@@ -29,6 +31,7 @@ public:
     void render(std::vector<Rect>& objects);
     void rotate(int x, int y);
     void render_clip(Rect object);
+    void update(SDL_Event event);
 };
 
 #endif /* defined(__Trilight__light__) */

@@ -24,8 +24,9 @@ class Scene{
     Scene& operator= (Scene const &);
     
     std::vector<Rect> rectangles;
+    std::vector<Rect> hidden;
     Sprite * eyeball;
-    Light * light;
+//    Light * light;
 public:
     static Scene& Instance();
    
@@ -33,6 +34,9 @@ public:
     void update(SDL_Event event);
     void create_scene();
     void clear_scene();
+    
+    std::vector<Rect>get_hidden();
+    std::vector<Rect>get_rect();
 };
 
 #endif /* defined(__Trilight__scene__) */

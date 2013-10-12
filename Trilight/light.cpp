@@ -159,3 +159,20 @@ void Light::render_clip(Rect object){
     }
     glEnd();
 }
+
+void Light::update(SDL_Event event){
+    if (event.type == SDL_KEYDOWN){
+        if (event.key.keysym.sym == SDLK_w) pressed[0] = true;
+        else if(event.key.keysym.sym == SDLK_a) pressed[1] = true;
+        else if(event.key.keysym.sym == SDLK_s) pressed[2] = true;
+        else if(event.key.keysym.sym == SDLK_d) pressed[3] = true;
+    }else if(event.type == SDL_KEYUP){
+        if (event.key.keysym.sym == SDLK_w) pressed[0] = false;
+        else if(event.key.keysym.sym == SDLK_a) pressed[1] = false;
+        else if(event.key.keysym.sym == SDLK_s) pressed[2] = false;
+        else if(event.key.keysym.sym == SDLK_d) pressed[3] = false;
+    }
+    
+    if (pressed[1]) position.x -= 2;
+    if (pressed[3]) position.x += 2;
+}

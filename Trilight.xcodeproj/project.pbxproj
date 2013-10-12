@@ -10,10 +10,8 @@
 		B601582517B7CC57003C8FCD /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601582417B7CC57003C8FCD /* main.cpp */; };
 		B601582717B7CC57003C8FCD /* Trilight.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = B601582617B7CC57003C8FCD /* Trilight.1 */; };
 		B601582F17B7CC92003C8FCD /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = B601582E17B7CC92003C8FCD /* SDLMain.m */; };
-		B601583817B7CD43003C8FCD /* SDL_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583417B7CD43003C8FCD /* SDL_image.framework */; };
 		B601583917B7CD43003C8FCD /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583517B7CD43003C8FCD /* SDL.framework */; };
 		B601583A17B7CD43003C8FCD /* SDL_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583617B7CD43003C8FCD /* SDL_ttf.framework */; };
-		B601583B17B7CD43003C8FCD /* SDL_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583717B7CD43003C8FCD /* SDL_mixer.framework */; };
 		B601583D17B7CD51003C8FCD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601583C17B7CD51003C8FCD /* Cocoa.framework */; };
 		B601584717B7D43C003C8FCD /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B601584617B7D43C003C8FCD /* OpenGL.framework */; };
 		B601584B17B7D4BC003C8FCD /* stopWatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601584917B7D4BC003C8FCD /* stopWatch.cpp */; };
@@ -27,6 +25,7 @@
 		B6CC488F17D501DD00A6508F /* algebra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488D17D501DD00A6508F /* algebra.cpp */; };
 		B6CC489917D6439900A6508F /* polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489717D6439800A6508F /* polygon.cpp */; };
 		B6CC489C17D6C01600A6508F /* edge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489A17D6C01600A6508F /* edge.cpp */; };
+		B6D186D51809FF8E0073BEB4 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D186D41809FF8E0073BEB4 /* GLUT.framework */; };
 		B6E08F751805B159001ACCB6 /* loadPNG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F731805B159001ACCB6 /* loadPNG.cpp */; };
 		B6E08F811808815D001ACCB6 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F7F1808815D001ACCB6 /* scene.cpp */; };
 		B6E08F841809DA0C001ACCB6 /* octpus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F821809DA0C001ACCB6 /* octpus.cpp */; };
@@ -51,10 +50,8 @@
 		B601582617B7CC57003C8FCD /* Trilight.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Trilight.1; sourceTree = "<group>"; };
 		B601582D17B7CC92003C8FCD /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
 		B601582E17B7CC92003C8FCD /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
-		B601583417B7CD43003C8FCD /* SDL_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_image.framework; path = ../../../../Library/Frameworks/SDL_image.framework; sourceTree = "<group>"; };
 		B601583517B7CD43003C8FCD /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = ../../../../Library/Frameworks/SDL.framework; sourceTree = "<group>"; };
 		B601583617B7CD43003C8FCD /* SDL_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_ttf.framework; path = ../../../../Library/Frameworks/SDL_ttf.framework; sourceTree = "<group>"; };
-		B601583717B7CD43003C8FCD /* SDL_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_mixer.framework; path = ../../../../Library/Frameworks/SDL_mixer.framework; sourceTree = "<group>"; };
 		B601583C17B7CD51003C8FCD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B601584617B7D43C003C8FCD /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		B601584917B7D4BC003C8FCD /* stopWatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stopWatch.cpp; sourceTree = "<group>"; };
@@ -80,6 +77,7 @@
 		B6CC489817D6439900A6508F /* polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polygon.h; sourceTree = "<group>"; };
 		B6CC489A17D6C01600A6508F /* edge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = edge.cpp; sourceTree = "<group>"; };
 		B6CC489B17D6C01600A6508F /* edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edge.h; sourceTree = "<group>"; };
+		B6D186D41809FF8E0073BEB4 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		B6E08F731805B159001ACCB6 /* loadPNG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadPNG.cpp; sourceTree = "<group>"; };
 		B6E08F741805B159001ACCB6 /* loadPNG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadPNG.h; sourceTree = "<group>"; };
 		B6E08F771805EC6B001ACCB6 /* font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font.ttf; sourceTree = "<group>"; };
@@ -97,10 +95,9 @@
 			files = (
 				B601584717B7D43C003C8FCD /* OpenGL.framework in Frameworks */,
 				B601583D17B7CD51003C8FCD /* Cocoa.framework in Frameworks */,
-				B601583817B7CD43003C8FCD /* SDL_image.framework in Frameworks */,
 				B601583917B7CD43003C8FCD /* SDL.framework in Frameworks */,
 				B601583A17B7CD43003C8FCD /* SDL_ttf.framework in Frameworks */,
-				B601583B17B7CD43003C8FCD /* SDL_mixer.framework in Frameworks */,
+				B6D186D51809FF8E0073BEB4 /* GLUT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,12 +107,11 @@
 		B601581517B7CC57003C8FCD = {
 			isa = PBXGroup;
 			children = (
+				B6D186D41809FF8E0073BEB4 /* GLUT.framework */,
 				B601584617B7D43C003C8FCD /* OpenGL.framework */,
 				B601583C17B7CD51003C8FCD /* Cocoa.framework */,
-				B601583417B7CD43003C8FCD /* SDL_image.framework */,
 				B601583517B7CD43003C8FCD /* SDL.framework */,
 				B601583617B7CD43003C8FCD /* SDL_ttf.framework */,
-				B601583717B7CD43003C8FCD /* SDL_mixer.framework */,
 				B601582317B7CC57003C8FCD /* Trilight */,
 				B601582117B7CC57003C8FCD /* Products */,
 			);
