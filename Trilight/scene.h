@@ -25,6 +25,7 @@ class Scene{
     
     std::vector<Rect> rectangles;
     std::vector<Rect> hidden;
+    std::vector<Rect> test_rec;
     Sprite * eyeball;
 //    Light * light;
 public:
@@ -37,6 +38,7 @@ public:
     
     std::vector<Rect>get_hidden();
     std::vector<Rect>get_rect();
+    std::vector<Rect>get_obstacle();
 };
 
 #endif /* defined(__Trilight__scene__) */

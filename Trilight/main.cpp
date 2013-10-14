@@ -24,7 +24,7 @@ const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
 
 //The frame rate
-const int FRAMES_PER_SECOND = 60;
+const int FRAMES_PER_SECOND = 30;
 
 //Event handler
 SDL_Event event;
@@ -122,7 +122,7 @@ int main( int argc, char *argv[] ){
     }
     
     //fps
-    StopWatch fps(0.2);
+    StopWatch fps(0.1);
     fps.start();
 
     //base
@@ -145,6 +145,7 @@ int main( int argc, char *argv[] ){
             scene.update(event);
             
             SDL_GL_SwapBuffers();
+            fps.start();
         }
 	}
     

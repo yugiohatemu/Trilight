@@ -21,6 +21,10 @@ Rect::Rect(int dx, int dy, int dwidth, int dheight) {
     block = true;
     center.x = (dx + dwidth) / 2;
     center.y = (dy + dheight) / 2;
+    x = dx;
+    y = dy;
+    w = dwidth;
+    h = dheight;
 }
 
 bool Rect::is_block(){

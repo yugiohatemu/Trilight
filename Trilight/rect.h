@@ -22,7 +22,7 @@ class Rect {
 	Point size;
     bool block;
 public:
-    
+    int x,y,w,h;
 	Rect() ;
 	Rect(int dx, int dy, int dwidth, int dheight);
 	void render() ;

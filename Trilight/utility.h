@@ -10,8 +10,41 @@
 #define __Trilight__utility__
 
 #include <string>
+#include "SDL/SDL.h"
+#include <iostream>
 
-void debug(std::string s);
-void error(std::string s);
+template<class PRINT>
 
+void debug(PRINT s){
+    std::cout<<"ERROR: "<<s<<std::endl;
+}
+
+template<class A_Rect, class B_Rect>
+
+bool check_collision( A_Rect A, B_Rect B ){
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+    
+    //Calculate the sides of rect A
+    leftA = A.x;
+    rightA = A.x + A.w;
+    topA = A.y;
+    bottomA = A.y + A.h;
+    
+    //Calculate the sides of rect B
+    leftB = B.x;
+    rightB = B.x + B.w;
+    topB = B.y;
+    bottomB = B.y + B.h;
+    
+    //If any of the sides from A are outside of B
+    if( bottomA <= topB || topA >= bottomB || rightA <= leftB || leftA >= rightB)
+        return false;
+    
+    //If none of the sides from A are outside B
+    return true;
+}
 #endif /* defined(__Trilight__utility__) */
