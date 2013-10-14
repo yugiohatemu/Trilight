@@ -11,21 +11,22 @@
 
 #include "SDL/SDL.h"
 
+struct T_Rect{
+    float x, y,w,h;
+    T_Rect(){ x = y = w = h = 0.0f; }
+    T_Rect& operator=(T_Rect t){
+        x = t.x;
+        y = t.y;
+        w = t.w;
+        h = t.h;
+        return *this;
+    }
+    ~T_Rect(){}
+};
+
+
 class Sprite{
 protected:
-    struct T_Rect{
-        float x, y,w,h;
-        T_Rect(){ x = y = w = h = 0.0f; }
-        T_Rect& operator=(T_Rect t){
-            x = t.x;
-            y = t.y;
-            w = t.w;
-            h = t.h;
-            return *this;
-        }
-        ~T_Rect(){}
-    };
-
     int frame = 0;
     virtual void set_clip() = 0;
 public:
@@ -35,6 +36,7 @@ public:
 
     virtual void render() = 0;
     virtual void update(SDL_Event event) = 0;
+    
 };
 
 #endif /* defined(__Trilight__sprite__) */

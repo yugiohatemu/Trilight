@@ -16,7 +16,7 @@
 template<class PRINT>
 
 void debug(PRINT s){
-    std::cout<<"ERROR: "<<s<<std::endl;
+    std::cout<<"DEBUG: "<<s<<std::endl;
 }
 
 template<class A_Rect, class B_Rect>

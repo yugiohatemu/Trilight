@@ -48,7 +48,7 @@ void Octpus::set_clip(){
 void Octpus::render(){
     glPushMatrix();
     
-    GLuint texture_ID = Texture::Instance().get_texture();
+    GLuint texture_ID = Texture::Instance().get_texture(Texture::NPC);
     glBindTexture(GL_TEXTURE_2D, texture_ID);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
     
@@ -60,10 +60,10 @@ void Octpus::render(){
     glTranslatef(-(box.x+box.w/2),-(box.y+box.h/4) , 0);
     
     glBegin(GL_QUADS);
-    glVertex2f(box.x, box.y);   glTexCoord2f(clips[frame].x, clips[frame].y + clips[frame].y + clips[frame].h);
-    glVertex2f(box.x, box.y+ box.h); glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y + clips[frame].h);
-    glVertex2f(box.x + box.w, box.y + box.h); glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y);
-    glVertex2f(box.x + box.w, box.y);glTexCoord2f(clips[frame].x, clips[frame].y);
+    glTexCoord2f(clips[frame].x, clips[frame].y); glVertex2f(box.x, box.y);
+    glTexCoord2f(clips[frame].x, clips[frame].y + clips[frame].h); glVertex2f(box.x, box.y+ box.h);
+    glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y+ clips[frame].h); glVertex2f(box.x + box.w, box.y + box.h);
+    glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y); glVertex2f(box.x + box.w, box.y);
     glEnd();
     
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -124,13 +124,6 @@ void Octpus::update(SDL_Event event){
 //    torch->update(event);
 //    torch->rotate(x, y);
     
-    std::vector<Rect> rects = Scene::Instance().get_obstacle();
-    if (check_collision(box, rects[1])) {
-//        //if collide, then change a orientation
-//        //so we have 4 orientation state
-//        //1st check how to switch orientation first
-//        //do we need to have slope?
-    }
     
 }
 

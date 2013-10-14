@@ -121,6 +121,9 @@ int main( int argc, char *argv[] ){
         return 1;
     }
     
+    if(Texture::Instance().load_file("/Users/wei/Desktop/Trilight/Trilight/tiles.png",128,128) < 0){
+        return 1;
+    }
     //fps
     StopWatch fps(0.1);
     fps.start();

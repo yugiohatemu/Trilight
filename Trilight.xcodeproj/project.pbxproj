@@ -26,6 +26,8 @@
 		B6CC489917D6439900A6508F /* polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489717D6439800A6508F /* polygon.cpp */; };
 		B6CC489C17D6C01600A6508F /* edge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489A17D6C01600A6508F /* edge.cpp */; };
 		B6D186D51809FF8E0073BEB4 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D186D41809FF8E0073BEB4 /* GLUT.framework */; };
+		B6D186DA180C50780073BEB4 /* tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D186D8180C50780073BEB4 /* tile.cpp */; };
+		B6D186DD180C50E50073BEB4 /* tileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D186DB180C50E50073BEB4 /* tileMap.cpp */; };
 		B6E08F751805B159001ACCB6 /* loadPNG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F731805B159001ACCB6 /* loadPNG.cpp */; };
 		B6E08F811808815D001ACCB6 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F7F1808815D001ACCB6 /* scene.cpp */; };
 		B6E08F841809DA0C001ACCB6 /* octpus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F821809DA0C001ACCB6 /* octpus.cpp */; };
@@ -78,6 +80,11 @@
 		B6CC489A17D6C01600A6508F /* edge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = edge.cpp; sourceTree = "<group>"; };
 		B6CC489B17D6C01600A6508F /* edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edge.h; sourceTree = "<group>"; };
 		B6D186D41809FF8E0073BEB4 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		B6D186D6180C4F270073BEB4 /* tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiles.png; sourceTree = "<group>"; };
+		B6D186D8180C50780073BEB4 /* tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tile.cpp; sourceTree = "<group>"; };
+		B6D186D9180C50780073BEB4 /* tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tile.h; sourceTree = "<group>"; };
+		B6D186DB180C50E50073BEB4 /* tileMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tileMap.cpp; sourceTree = "<group>"; };
+		B6D186DC180C50E50073BEB4 /* tileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tileMap.h; sourceTree = "<group>"; };
 		B6E08F731805B159001ACCB6 /* loadPNG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadPNG.cpp; sourceTree = "<group>"; };
 		B6E08F741805B159001ACCB6 /* loadPNG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadPNG.h; sourceTree = "<group>"; };
 		B6E08F771805EC6B001ACCB6 /* font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font.ttf; sourceTree = "<group>"; };
@@ -128,6 +135,7 @@
 		B601582317B7CC57003C8FCD /* Trilight */ = {
 			isa = PBXGroup;
 			children = (
+				B6D186D7180C505D0073BEB4 /* tile */,
 				B6E08F851809DF16001ACCB6 /* sprite */,
 				B6E08F771805EC6B001ACCB6 /* font.ttf */,
 				B601582417B7CC57003C8FCD /* main.cpp */,
@@ -164,6 +172,7 @@
 		B6666C8418046B6E0002CBBF /* image */ = {
 			isa = PBXGroup;
 			children = (
+				B6D186D6180C4F270073BEB4 /* tiles.png */,
 				B6666C8518046B880002CBBF /* white.png */,
 			);
 			name = image;
@@ -186,6 +195,17 @@
 				B6CC489B17D6C01600A6508F /* edge.h */,
 			);
 			name = geometry;
+			sourceTree = "<group>";
+		};
+		B6D186D7180C505D0073BEB4 /* tile */ = {
+			isa = PBXGroup;
+			children = (
+				B6D186D8180C50780073BEB4 /* tile.cpp */,
+				B6D186D9180C50780073BEB4 /* tile.h */,
+				B6D186DB180C50E50073BEB4 /* tileMap.cpp */,
+				B6D186DC180C50E50073BEB4 /* tileMap.h */,
+			);
+			name = tile;
 			sourceTree = "<group>";
 		};
 		B6E08F761805E72F001ACCB6 /* extern */ = {
@@ -263,8 +283,10 @@
 				B601584B17B7D4BC003C8FCD /* stopWatch.cpp in Sources */,
 				B6E08F751805B159001ACCB6 /* loadPNG.cpp in Sources */,
 				B601585217B7D982003C8FCD /* color.cpp in Sources */,
+				B6D186DA180C50780073BEB4 /* tile.cpp in Sources */,
 				B601585517B7DAD8003C8FCD /* rect.cpp in Sources */,
 				B601585B17B7DC6B003C8FCD /* light.cpp in Sources */,
+				B6D186DD180C50E50073BEB4 /* tileMap.cpp in Sources */,
 				B6666C8818046FD00002CBBF /* utility.cpp in Sources */,
 				B6E08F811808815D001ACCB6 /* scene.cpp in Sources */,
 				B6CC488417D4D4A500A6508F /* vector.cpp in Sources */,

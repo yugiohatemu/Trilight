@@ -36,9 +36,11 @@ int Texture::load_file(const char * fileName,unsigned int width, unsigned int he
     std::vector<unsigned char> image;
     unsigned  error = lodepng::decode(image, width, height, fileName);
     if(error != 0){
-        std::cout << "error " << error << ": " << lodepng_error_text(error) << std::endl;
+        debug(lodepng_error_text(error));
         return -1;
     }
+    
+    GLuint textureID = 0;
     
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
@@ -50,10 +52,30 @@ int Texture::load_file(const char * fileName,unsigned int width, unsigned int he
     GLenum e = glGetError();
     if( e != GL_NO_ERROR ) std::cout<<gluErrorString(e)<<std::endl;
     
+    textureList.push_back(textureID);
+    
     //unbind
     glBindTexture( GL_TEXTURE_2D, NULL );
     return 1;
 }
+
+
+void Texture::clean_texture(){
+    for (int i = 0; i < textureList.size(); i++) {
+        glDeleteTextures(1, &textureList[i]);
+    }
+    textureList.clear();
+}
+
+
+GLuint Texture::get_texture(GLuint type){
+    if (type < textureList.size()) {
+        return textureList[type];
+    }else{
+        return 0;
+    }
+}
+
 
 
 //use image 2, if not being power of two
@@ -71,17 +93,3 @@ int Texture::load_file(const char * fileName,unsigned int width, unsigned int he
 //                image2[4 * u2 * y + 4 * x + c] = image[4 * width * y + 4 * x + c];
 //            }
 
-
-void Texture::clean_texture(){
-    glDeleteTextures(1, &textureID);
-}
-
-
-GLuint Texture::get_texture(){
-    return textureID;
-}
-
-//void Texture::use_texture(){
-//    glBindTexture(GL_TEXTURE_2D, textureID);
-//    
-//}

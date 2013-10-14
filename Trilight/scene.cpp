@@ -34,37 +34,27 @@ Scene& Scene::Instance(){
 
 void Scene::create_scene(){
     Rect background(0,80,640,320);
+    //w 20
+    //h 10
     background.color.setRGBA(0xFFFFFFFF);
     rectangles.push_back(background);
-    
-    Rect obstac(400,80,150,100);
-    obstac.color.setRGBA(0X00FF00FF);
-    
-    Rect obstac1(100,300,150,100);
-    obstac1.color.setRGBA(0X00FF00FF);
-    
-    Rect obstac2(0,100,150,120);
-    obstac2.color.setRGBA(0X00FF00FF);
-    
-    Rect obstac3(540,200,100,100);
-    obstac3.color.setRGBA(0X00FF00FF);
-    
-    test_rec.push_back(obstac);
-    test_rec.push_back(obstac1);
-    test_rec.push_back(obstac2);
-    test_rec.push_back(obstac3);
     
     Rect test(150,250,100,150);
     test.color.setRGBA(0xFF0000FF);
     hidden.push_back(test);
     
     eyeball = new Octpus(304,336,32,64);
+    
+    tiles = new TileMap();
 }
 
 void Scene::clear_scene(){
     if (eyeball) delete eyeball;
+    if (tiles) delete tiles;
+    
     if (!rectangles.empty()) rectangles.clear();
     if (!hidden.empty()) hidden.clear();
+    
 }
 
 void Scene::render(){
@@ -73,11 +63,7 @@ void Scene::render(){
         //Render rect
         rectangles[i].render();
     }
-    
-    for (int i = 0; i < test_rec.size(); i++) {
-        test_rec[i].render();
-    }
-    
+    if (tiles) tiles->render();
     if (eyeball) eyeball->render();
 }
 
@@ -92,6 +78,20 @@ std::vector<Rect>Scene::get_rect(){
     return rectangles;
 }
 
-std::vector<Rect>Scene::get_obstacle(){
-    return test_rec;
-}
+/*
+ Rect obstac(400,80,150,100);
+ obstac.color.setRGBA(0X00FF00FF);
+ 
+ Rect obstac1(100,300,150,100);
+ obstac1.color.setRGBA(0X00FF00FF);
+ 
+ Rect obstac2(0,100,150,120);
+ obstac2.color.setRGBA(0X00FF00FF);
+ 
+ Rect obstac3(540,200,100,100);
+ obstac3.color.setRGBA(0X00FF00FF);
+ 
+ test_rec.push_back(obstac);
+ test_rec.push_back(obstac1);
+ test_rec.push_back(obstac2);
+ test_rec.push_back(obstac3);*/
