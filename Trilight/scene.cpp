@@ -59,10 +59,10 @@ void Scene::clear_scene(){
 
 void Scene::render(){
     
-    for(int i = 0; i < rectangles.size(); i++) {
-        //Render rect
-        rectangles[i].render();
-    }
+//    for(int i = 0; i < rectangles.size(); i++) {
+//        //Render rect
+//        rectangles[i].render();
+//    }
     if (tiles) tiles->render();
     if (eyeball) eyeball->render();
 }
@@ -77,6 +77,28 @@ std::vector<Rect>Scene::get_hidden(){
 std::vector<Rect>Scene::get_rect(){
     return rectangles;
 }
+
+Vector Scene::get_next_direction(Vector dir,float angel,SDL_Rect box){
+    //we know the current gravity angel of octupus
+    //getting the direction on box, we can get the next gravity angel
+    //if changed, using matrix multiplication, we can get the next one
+    
+    SDL_Rect next_box = box;
+    next_box.x += dir.x;
+    next_box.y += dir.y;
+    //be careful about overflow, since SDL use unsigned short
+    
+    //TODO: need to add a direction, or gravity angel
+
+    float next_angel =  tiles->get_current_angel(box);
+    Vector next = dir;
+    
+    if (next_angel != angel) {
+        next.rotate(next_angel - angel);
+    }
+    return next;
+}
+
 
 /*
  Rect obstac(400,80,150,100);

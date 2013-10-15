@@ -21,6 +21,11 @@ Octpus::Octpus(int x , int y , int w , int h ):Sprite(x,y,w,h){
     torch->size = 300.0f;
     
     orien = B2T;
+    
+    dir.x = 8;
+    dir.y = 0;
+    
+    angel = 270;
 }
 
 Octpus::~Octpus(){
@@ -97,33 +102,34 @@ void Octpus::update(SDL_Event event){
         if (event.key.keysym.sym == SDLK_d) pressed[3] = false;
         
     }
-    if (orien == B2T || orien == T2B) {
-        if (pressed[0]) box.y -= 5;
-        if (pressed[1]) box.x -= 5;
-        if (pressed[2]) box.y += 5;
-        if (pressed[3]) box.x += 5;
-    }else if(orien == L2R || orien == R2L){
-        if (pressed[0]) box.y -= 5;
-        if (pressed[1]) box.x -= 5;
-        if (pressed[2]) box.y += 5;
-        if (pressed[3]) box.x += 5;
-
-    }
+    Vector cur_dir;
+    int speed = 8;
+    if (pressed[0]) cur_dir.y = -speed;
+    if (pressed[1]) cur_dir.x = -speed;
+    if (pressed[2]) cur_dir.y = speed;
+    if (pressed[3]) cur_dir.x = speed;
+    
+    Vector next_dir = Scene::Instance().get_next_direction(cur_dir, angel, box);
+    
+    //and apply that to the next dir, or next angel?
     
     if (box.x < 0) box.x = 0;
     if (box.x > 640) box.x = 640;
     
-    int x = 0, y = 0;
-    SDL_GetMouseState( &x, &y );
-    if (x < 0) x = 0;
-    if (y < 0) y = 0;
     
     
-    //now based on orientation, start moving
+    
+//    int x = 0, y = 0;
+//    SDL_GetMouseState( &x, &y );
+//    if (x < 0) x = 0;
+//    if (y < 0) y = 0;
     
 //    torch->update(event);
 //    torch->rotate(x, y);
     
+    //give direction eg (1, 0) and current direction, box to the scene
+    //ask the scene to give back the next speed vector
+    //based on different orientation,
     
 }
 

@@ -24,8 +24,8 @@ TileMap::TileMap(){
         for (int j = 0; j < width; j++) {
             file >> type;
             line[j] = createTile(type);
-            line[j]->box.x = j * 32;
-            line[j]->box.y = 80 + i * 32;
+            line[j]->box.x = j * 48;
+            line[j]->box.y = 40 + i * 48;
         }
         tileMap.push_back(line);
     }
@@ -51,33 +51,72 @@ Tile* TileMap::createTile(int tileType){
     clip.w = tile_base;
     clip.h = tile_base;
     
+    Vector gravity;
+    float angel = 0.0f;
     switch (tileType) {
         case EMPTY:
-            clip.x = 0.5 * tile_base; clip.y = 2.5 * tile_base; break;
+            clip.x = 0.5 * tile_base; clip.y = 2.5 * tile_base;
+            break;
         case FLAT_T:
-            clip.x = 0; clip.y = 0; break;
+            clip.x = 0; clip.y = 0;
+            gravity.x = 0; gravity.y = -1;
+            angel = 90;
+            break;
         case FLAT_R:
-            clip.x = tile_base; clip.y = 0; break;
+            clip.x = tile_base; clip.y = 0;
+            gravity.x = 1; gravity.y = 0;
+             angel = 0;
+            break;
         case FLAT_B:
-            clip.x = tile_base; clip.y = tile_base; break;
+            clip.x = tile_base; clip.y = tile_base;
+            gravity.x = 0; gravity.y = 1;
+            angel = 270;
+            break;
         case FLAT_L:
-            clip.x = 0; clip.y = tile_base; break;
+            clip.x = 0; clip.y = tile_base;
+            gravity.x = -1; gravity.y = 0;
+            angel = 180;
+            break;
         case CO_WN:
-            clip.x = tile_base * 2; clip.y = 0; break;
+            clip.x = tile_base * 2; clip.y = 0;
+            gravity.x = -1; gravity.y = -1;
+            angel = 135;
+            break;
         case CO_EN:
-            clip.x = tile_base * 3; clip.y = 0; break;
+            clip.x = tile_base * 3; clip.y = 0;
+            gravity.x = 1; gravity.y = -1;
+            angel = 45;
+            break;
         case CO_ES:
-            clip.x = tile_base * 3; clip.y = tile_base; break;
+            clip.x = tile_base * 3; clip.y = tile_base;
+            gravity.x = 1; gravity.y = 1;
+            angel = 315;
+            break;
         case CO_WE:
-            clip.x = tile_base * 2; clip.y = tile_base; break;
+            clip.x = tile_base * 2; clip.y = tile_base;
+            gravity.x = -1; gravity.y = 1;
+            angel = 225;
+            break;
         case CI_WN:
-            clip.x = 0; clip.y = tile_base * 2; break;
+            clip.x = 0; clip.y = tile_base * 2;
+            gravity.x = 1; gravity.y = 1;
+            angel = 315;
+            break;
         case CI_EN:
-            clip.x = tile_base; clip.y = tile_base * 2; break;
+            clip.x = tile_base; clip.y = tile_base * 2;
+            gravity.x = -1; gravity.y = 1;
+            angel = 225;
+            break;
         case CI_ES:
-            clip.x = tile_base; clip.y = tile_base * 3; break;
+            clip.x = tile_base; clip.y = tile_base * 3;
+            gravity.x = -1; gravity.y = -1;
+            angel = 135;
+            break;
         case CI_WE:
-            clip.x = 0; clip.y = tile_base * 3; break;
+            clip.x = 0; clip.y = tile_base * 3;
+            gravity.x = 1; gravity.y = -1;
+            angel = 45;
+            break;
         case SLOPE_WN:
             clip.x = tile_base * 2; clip.y = tile_base * 2; break;
         case SLOPE_EN:
@@ -91,9 +130,23 @@ Tile* TileMap::createTile(int tileType){
     }
     
     Tile * aTile = new Tile(clip);
+    aTile->set_gravity(gravity);
+    aTile->set_angel(angel);
     return aTile;
 }
 
+float TileMap::get_current_angel(SDL_Rect box){
+    //get center of the box on the bottom?
+    int x = box.x + box.w/2;
+    int y = box.y + box.h/2;
+    int xpos = x /48; // x - offset
+    int ypos = (y - 40)/48; //y - offset
+    //x offset and y offset can be calculated
+    
+    //but based on orienctation, we need to use different bot center?
+    //if x pos and y pos being valid
+    return tileMap[ypos][xpos]->get_angel();
+}
 
 void TileMap::render(){
     //TODO: find out the tiles on the viewport range

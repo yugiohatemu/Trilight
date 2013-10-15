@@ -31,6 +31,8 @@ class Octpus:public Sprite{
     bool pressed[4] = {false};
     Light * torch;
     int orien;
+    Vector dir;
+    float angel;
 public:
     Octpus(int x = 0, int y = 0, int w = 0, int h = 0);
     ~Octpus();

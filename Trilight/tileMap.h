@@ -33,6 +33,7 @@ public:
     ~TileMap();
     void render();
     void update();
+    float get_current_angel(SDL_Rect box); //need to add direction and rotation as well
 //    std::vector<Tile*> getTilesOn(int x, int y);
 };
 

@@ -11,14 +11,31 @@
 
 Tile::Tile(T_Rect clip):Sprite(){
 //    up = down = right = left = NULL;
-    box.w = 32;
-    box.h = 32;
-    
+    box.w = 48;
+    box.h = 48;
+    angel = 0;
     this->clip = clip;
 }
 
 Tile::~Tile(){
     
+}
+
+void Tile::set_gravity(Vector g){
+    gravity = g;
+}
+
+void Tile::set_angel(float a){
+    angel = a;
+}
+
+float Tile::get_angel(){
+    return angel;
+}
+
+
+Vector Tile::get_gravity(){
+    return gravity;
 }
 
 void Tile::render(){

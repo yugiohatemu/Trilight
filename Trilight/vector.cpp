@@ -7,6 +7,7 @@
 //
 
 #include "vector.h"
+#include <math.h>
 
 Vector::Vector(){
     x = 0.f;
@@ -48,9 +49,21 @@ float Vector::cross(Vector vec){
     return x * vec.y - y * vec.x;
 }
 
+Vector Vector::rotate(float angel){
+    angel = angel * 3.14159 / 180;
+    float cos_angel = cosf(angel);
+    float sin_angel = sinf(angel);
+    //[cos -sin ][x]
+    //[sin cos  ][y]
+    return Vector(cos_angel * x - sin_angel * y, sin_angel * x + cos_angel * y );
+}
+
 //////////////////////////////////////////
 bool is_vector_parallel(Vector a, Vector b){
     return a.cross(b) == 0;
 }
 
+Vector get_perpendicular(Vector a){
+    return Vector(-a.y, a.x);
+}
 

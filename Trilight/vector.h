@@ -25,9 +25,10 @@ struct Vector{
     Vector operator*(float t);
     Vector operator+(const Vector &vec);
     Vector operator=(const Vector & vec);
+    Vector rotate(float angel);
 };
 
 bool is_vector_parallel(Vector a, Vector b);
-
+Vector get_perpendicular(Vector a);
 
 #endif /* defined(__Trilight__vector__) */
