@@ -17,6 +17,8 @@
 class TileMap{
     std::vector<Tile **> tileMap;
     Tile* createTile(int tileType);
+    int width, height;
+
 public:
     enum{
         EMPTY,

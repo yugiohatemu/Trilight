@@ -9,25 +9,32 @@
 #include "TileMap.h"
 #include "SDL/SDL_opengl.h"
 #include "utility.h"
+#include <fstream>
+
 
 TileMap::TileMap(){
-    int width = 20;
-    int height = 10;
-   
+    std::ifstream file("/Users/wei/Desktop/Trilight/Trilight/level.txt");
+    
+    file >> width;
+    file >> height;
+    //if valid
+    int type = 0;
     for (int i = 0;i < height ;i++) {
         Tile ** line = new Tile * [width];
         for (int j = 0; j < width; j++) {
-            line[j] = createTile(rand() % CO_WE);
+            file >> type;
+            line[j] = createTile(type);
             line[j]->box.x = j * 32;
             line[j]->box.y = 80 + i * 32;
         }
         tileMap.push_back(line);
     }
     
+    file.close();
 }
 
 TileMap::~TileMap(){
-    int width = 20;
+    
     for (int i = 0; i < tileMap.size(); i++) {
         for (int j = 0; j < width; j++){
             delete tileMap[i][j];
@@ -46,7 +53,7 @@ Tile* TileMap::createTile(int tileType){
     
     switch (tileType) {
         case EMPTY:
-            clip.x = 2.5 * tile_base; clip.y = 0.5 * tile_base; break;
+            clip.x = 0.5 * tile_base; clip.y = 2.5 * tile_base; break;
         case FLAT_T:
             clip.x = 0; clip.y = 0; break;
         case FLAT_R:
@@ -63,7 +70,22 @@ Tile* TileMap::createTile(int tileType){
             clip.x = tile_base * 3; clip.y = tile_base; break;
         case CO_WE:
             clip.x = tile_base * 2; clip.y = tile_base; break;
-            
+        case CI_WN:
+            clip.x = 0; clip.y = tile_base * 2; break;
+        case CI_EN:
+            clip.x = tile_base; clip.y = tile_base * 2; break;
+        case CI_ES:
+            clip.x = tile_base; clip.y = tile_base * 3; break;
+        case CI_WE:
+            clip.x = 0; clip.y = tile_base * 3; break;
+        case SLOPE_WN:
+            clip.x = tile_base * 2; clip.y = tile_base * 2; break;
+        case SLOPE_EN:
+            clip.x = tile_base * 3; clip.y = tile_base * 2; break;
+        case SLOPE_ES:
+            clip.x = tile_base * 3; clip.y = tile_base * 3; break;
+        case SLOPE_WE:
+            clip.x = tile_base * 2; clip.y = tile_base * 3; break;
         default:
             break;
     }
@@ -76,8 +98,6 @@ Tile* TileMap::createTile(int tileType){
 void TileMap::render(){
     //TODO: find out the tiles on the viewport range
     //and ask them to render their selves
-    int width = 20;
-    int height = 10;
     
     glPushMatrix();
     glLoadIdentity();
