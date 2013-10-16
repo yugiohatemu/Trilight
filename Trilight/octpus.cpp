@@ -61,7 +61,7 @@ void Octpus::render(){
     glLoadIdentity();
     //rotate around center, maybe used to implement a utility latter
     glTranslatef(+(box.x+box.w/2),+(box.y+box.h/4) , 0);
-    glRotatef( orien*90,0, 0, 1);
+    glRotatef(angel-270,0, 0, 1);
     glTranslatef(-(box.x+box.w/2),-(box.y+box.h/4) , 0);
     
     glBegin(GL_QUADS);
@@ -89,12 +89,7 @@ void Octpus::update(SDL_Event event){
         if(event.key.keysym.sym == SDLK_a) pressed[1] = true;
         if(event.key.keysym.sym == SDLK_s) pressed[2] = true;
         if(event.key.keysym.sym == SDLK_d) pressed[3] = true;
-        if(event.key.keysym.sym == SDLK_SPACE) {
-            orien += 1;
-            if (orien == 4) {
-                orien = 0;
-            }
-        }
+      
     }else if(event.type == SDL_KEYUP){
         if (event.key.keysym.sym == SDLK_w) pressed[0] = false;
         if (event.key.keysym.sym == SDLK_a) pressed[1] = false;
@@ -117,8 +112,6 @@ void Octpus::update(SDL_Event event){
     if (box.x > 640) box.x = 640;
     
     
-    
-    
 //    int x = 0, y = 0;
 //    SDL_GetMouseState( &x, &y );
 //    if (x < 0) x = 0;
@@ -126,10 +119,6 @@ void Octpus::update(SDL_Event event){
     
 //    torch->update(event);
 //    torch->rotate(x, y);
-    
-    //give direction eg (1, 0) and current direction, box to the scene
-    //ask the scene to give back the next speed vector
-    //based on different orientation,
     
 }
 
