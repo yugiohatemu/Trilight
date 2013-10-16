@@ -8,10 +8,10 @@
 
 #include "path.h"
 #include "SDL/SDL_opengl.h"
-#include <math.h>
 
-Path::Path(Point s, Point e, Vector g):start(s),end(e),gravity(g){
+Path::Path(Point s, Point e):start(s),end(e){
     prev = next = NULL;
+    vec = end - start;
 }
 
 Path::~Path(){
@@ -39,34 +39,41 @@ bool Path::is_point_on_path(Point p ){
 }
 
 Vector Path::get_vec(){
-    return end - start;
+    return vec;
 }
 
-Vector Path::get_point_on(Point p, Vector dir){
-    //return start or end
+Point Path::get_start(){
+    return start;
+}
+
+Point Path::get_end(){
+    return end;
+}
+
+Vector Path::get_direction_on(Point p, Vector dir){
+    Path * currentPath = this;
+    //then cant use recursive?
+    //....fine
     Point anchor = p + dir;
-    
-    Vector vec = end - start;
     if (!is_point_on_path(anchor)) {
         Vector v1 = anchor - start;
         
         if (vec.cross(v1) == 0) { //using the next
             if (next != NULL ) {
                 Vector left = anchor - end;
-                //getting the normal of the next one
-                //get the distance, so we know how many normal we need to move
-                float t = sqrtf(left.x * left.x + left.y * left.y);
+                
+                float t = left.get_norm();
                 dir = next->get_vec() * t;
-                return next->get_point_on(end, dir);
+                return left + next->get_direction_on(end, dir);
             }else{
                 return end-p;
             }
         }else{
             if (prev != NULL) {
                 Vector left = anchor - start;
-                float t = sqrtf(left.x * left.x + left.y * left.y);
+                float t = left.get_norm();
                 dir = prev->get_vec() * t;
-                return prev->get_point_on(start, dir);
+                return left + prev->get_direction_on(start, dir);
             }else{
                 return start - p;
             }

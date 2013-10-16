@@ -51,6 +51,11 @@ bool Point::operator!= (const Point &p){
     return x != p.x || y != p.y;
 }
 
+std::ostream& operator<< (std::ostream& stream, const Point& p){
+    stream<<"[POT] ("<<p.x<<","<<p.y<<")"<<std::endl;
+    return stream;
+}
+
 ////////////////////////////////////////////////////
 //dot multiply
 float Point::dot(Point p){

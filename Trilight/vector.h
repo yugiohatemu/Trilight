@@ -13,6 +13,8 @@
 
 //need to change vector definition
 //this one is wrong
+#include <iostream>
+
 struct Vector{
     float x, y;
     
@@ -29,6 +31,8 @@ struct Vector{
     bool operator!=(const Vector & vec);
     Vector rotate(float angel);
     Vector normalize();
+    float get_norm();
+    friend std::ostream& operator<< (std::ostream& stream, const Vector& vec);
 };
 
 bool is_vector_parallel(Vector a, Vector b);

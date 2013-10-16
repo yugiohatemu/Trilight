@@ -8,6 +8,7 @@
 
 #ifndef __Trilight__point__
 #define __Trilight__point__
+#include <iostream>
 
 struct Point{
     float x;
@@ -21,7 +22,7 @@ struct Point{
     Point& operator= (const Point &p);
     bool operator== (const Point &p);
     bool operator!= (const Point &p);
-    
+    friend std::ostream& operator<< (std::ostream& stream, const Point& p);
     void normalize();
     float dot(Point p);
     float cross(Point p);

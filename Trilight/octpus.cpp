@@ -20,12 +20,19 @@ Octpus::Octpus(int x , int y , int w , int h ):Sprite(x,y,w,h){
     torch->specular.setRGBA(0xFFFF0066);
     torch->size = 300.0f;
     
-    orien = B2T;
+//    dir.x = 8;
+//    dir.y = 0;
+//    
+//    angel = 270;
     
-    dir.x = 8;
-    dir.y = 0;
+    top_left.x = bot_left.x = x;
+    top_left.y = top_right.y = y;
+    top_right.x = bot_right.x = x + w;
+    bot_left.y = bot_right.y = y + h;
     
-    angel = 270;
+    anchor.x = 60;
+    anchor.y = 300;
+    //defined as bot mid
 }
 
 Octpus::~Octpus(){
@@ -60,15 +67,15 @@ void Octpus::render(){
     //notice that texture coordinate is not following th order
     glLoadIdentity();
     //rotate around center, maybe used to implement a utility latter
-    glTranslatef(+(box.x+box.w/2),+(box.y+box.h/4) , 0);
-    glRotatef(angel-270,0, 0, 1);
-    glTranslatef(-(box.x+box.w/2),-(box.y+box.h/4) , 0);
+//    glTranslatef(+(box.x+box.w/2),+(box.y+box.h/4) , 0);
+//    glRotatef(angel-270,0, 0, 1);
+//    glTranslatef(-(box.x+box.w/2),-(box.y+box.h/4) , 0);
     
     glBegin(GL_QUADS);
-    glTexCoord2f(clips[frame].x, clips[frame].y); glVertex2f(box.x, box.y);
-    glTexCoord2f(clips[frame].x, clips[frame].y + clips[frame].h); glVertex2f(box.x, box.y+ box.h);
-    glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y+ clips[frame].h); glVertex2f(box.x + box.w, box.y + box.h);
-    glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y); glVertex2f(box.x + box.w, box.y);
+    glTexCoord2f(clips[frame].x, clips[frame].y); glVertex2f(top_left.x, top_left.y);
+    glTexCoord2f(clips[frame].x, clips[frame].y + clips[frame].h); glVertex2f(bot_left.x, bot_left.y);
+    glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y+ clips[frame].h); glVertex2f(bot_right.x, bot_right.y);
+    glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y); glVertex2f(top_right.x,top_right.y);
     glEnd();
     
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -104,9 +111,21 @@ void Octpus::update(SDL_Event event){
     if (pressed[2]) cur_dir.y = speed;
     if (pressed[3]) cur_dir.x = speed;
     
-    Vector next_dir = Scene::Instance().get_next_direction(cur_dir, angel, box);
+    //so it is worth calculating
+    if (cur_dir != Vector(0, 0)) {
+        Vector next_dir = Scene::Instance().get_next_direction(cur_dir, anchor);
+        //update all the points
+        anchor = anchor + next_dir;
+        top_left = top_left + next_dir;
+        top_right = top_right + next_dir;
+        bot_left = bot_left + next_dir;
+        bot_right = bot_right + next_dir;
+    }
     
-    //and apply that to the next dir, or next angel?
+    
+    
+    //now, we just need to define anchor
+    //anchor must be on the point
     
     if (box.x < 0) box.x = 0;
     if (box.x > 640) box.x = 640;

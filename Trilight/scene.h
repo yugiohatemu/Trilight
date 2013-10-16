@@ -40,7 +40,7 @@ public:
     
     std::vector<Rect>get_hidden();
     std::vector<Rect>get_rect();
-    Vector get_next_direction(Vector dir,float angel,SDL_Rect box);
+    Vector get_next_direction(Vector dir, Point anchor);
 };
 
 #endif /* defined(__Trilight__scene__) */

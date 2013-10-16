@@ -48,14 +48,23 @@ bool Vector::operator==(const Vector & vec){
 bool Vector::operator!=(const Vector & vec){
     return x != vec.x || y != vec.y;
 }
+
+std::ostream& operator<< (std::ostream& stream, const Vector& vec){
+    stream<<"[VEC] ["<<vec.x<<","<<vec.y<<"]"<<std::endl;
+    return stream;
+}
 //////////////////////////////////
 Vector Vector::normalize(){
-    float n = sqrtf(x * x + y * y);
+    float n = get_norm();
     if (n != 0) {
         return Vector(x/n, y/n);
     }else{
         return Vector(); //must be 0 0 then
     }
+}
+
+float Vector::get_norm(){
+    return sqrtf(x * x + y * y);
 }
 
 float Vector::dot(Vector vec){

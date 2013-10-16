@@ -20,19 +20,21 @@ class Octpus:public Sprite{
         TOTAL_CLIPS,
     }CLIPS;
     
-    enum{
-        B2T,
-        R2L,
-        T2B,
-        L2R,
-    }ORIENTATION;
+//    enum{
+//        B2T,
+//        R2L,
+//        T2B,
+//        L2R,
+//    }ORIENTATION;
     
     T_Rect clips[TOTAL_CLIPS];
     bool pressed[4] = {false};
     Light * torch;
     int orien;
-    Vector dir;
+//    Vector dir;
     float angel;
+    Point bot_left, bot_right, top_left, top_right;
+    Point anchor;
 public:
     Octpus(int x = 0, int y = 0, int w = 0, int h = 0);
     ~Octpus();

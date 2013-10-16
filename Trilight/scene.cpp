@@ -43,18 +43,18 @@ void Scene::create_scene(){
     test.color.setRGBA(0xFF0000FF);
     hidden.push_back(test);
     
-    eyeball = new Octpus(304,336,32,64);
+    eyeball = new Octpus(44,236,32,64);
     
     tiles = new TileMap();
     
     int mult = 60;
-    int yoff = 100;
-    path = new Path(Point(1* mult, 0+ yoff), Point(3* mult, 0+ yoff), Vector(0, 1));
-    Path * p1 = new Path(Point(3* mult,0+ yoff), Point(5* mult,2* mult+ yoff), Vector(1,1));
+    int yoff = 300;
+    path = new Path(Point(1* mult, 0+ yoff), Point(3* mult, 0+ yoff));
+    Path * p1 = new Path(Point(3* mult,0+ yoff), Point(5* mult,2* mult+ yoff));
     path->next = p1;
     p1->prev = path;
     
-    Path * p2 = new Path(Point(5* mult,2*mult+ yoff), Point(6* mult,2* mult+ yoff), Vector(1,1));
+    Path * p2 = new Path(Point(5* mult,2*mult+ yoff), Point(6* mult,2* mult+ yoff));
     p1->next = p2;
     p2->prev = p1;
     
@@ -63,11 +63,21 @@ void Scene::create_scene(){
 void Scene::clear_scene(){
     if (eyeball) delete eyeball;
     if (tiles) delete tiles;
-    while (path != NULL) {
-        Path * temp = path->next;
-        delete path;
-        path = temp;
+    
+    Path * prev = path->prev;
+    Path * next = path;
+    
+    while (prev != NULL) {
+        Path * temp = prev->prev;
+        delete prev;
+        prev = temp;
     }
+    while (next != NULL) {
+        Path * temp = next->next;
+        delete next;
+        next = temp;
+    }
+    
     eyeball = NULL;
     tiles = NULL;
     path = NULL;
@@ -80,19 +90,27 @@ void Scene::clear_scene(){
 void Scene::render(){
     
 //    for(int i = 0; i < rectangles.size(); i++) {
-//        //Render rect
 //        rectangles[i].render();
 //    }
-    if (tiles) tiles->render();
+//    if (tiles) tiles->render();
     if (eyeball) eyeball->render();
     if (path){
         glBegin(GL_LINES);
         glColor3f(255, 0, 0);
-        Path * temp = path;
-        while (temp != NULL) {
-            temp->render();
-            temp = temp->next;
+        Path * prev = path->prev;
+        Path * next = path;
+        
+        while (prev != NULL) {
+            Path * temp = prev->prev;
+            prev->render();
+            prev = temp;
         }
+        while (next != NULL) {
+            Path * temp = next->next;
+            next->render();
+            next = temp;
+        }
+
         glEnd();
     }
 }
@@ -108,36 +126,41 @@ std::vector<Rect>Scene::get_rect(){
     return rectangles;
 }
 
-Vector Scene::get_next_direction(Vector dir,float angel,SDL_Rect box){
-    //we know the current gravity angel of octupus
-    //getting the direction on box, we can get the next gravity angel
-    //if changed, using matrix multiplication, we can get the next one
+Vector Scene::get_next_direction(Vector dir, Point anchor){
     
-    SDL_Rect next_box = box;
-    next_box.x += dir.x;
-    next_box.y += dir.y;
-    //be careful about overflow, since SDL use unsigned short
-    
-    //TODO: need to add a direction, or gravity angel
+    Point next_anchor = anchor + dir;
+    Vector vec = path->get_vec();
+    Point start = path->get_start();
+    Point end = path->get_end();
+    if (!path->is_point_on_path(next_anchor)) {
+        Vector v1 = anchor - path->get_start();
+        
+        if (vec.cross(v1) == 0) { //using the next
+            if (path->next != NULL ) {
+                path = path->next;
+                Vector left = anchor - end;
+                
+                float t = left.get_norm();
+                dir = path->get_vec() * t;
+                return left + get_next_direction(dir, end);
+            }else{
+                return end-anchor;
+            }
+        }else{
+            if (path->prev != NULL) {
+                path = path->prev;
+                Vector left = anchor - start;
+                float t = left.get_norm();
+                dir = path->get_vec() * t;
+                return left + get_next_direction(dir, start);
+            }else{
+                return start - anchor;
+            }
+        }
+    }
 
-    float next_angel =  tiles->get_current_angel(box);
-    Vector next = dir;
     
-    if (next_angel != angel) {
-        next.rotate(next_angel - angel);
-    }
-    return next;
-    
-    //given current anchor point,
-    Point anchor(1,0);
-    Path * currentPath;
-    anchor = anchor + dir;
-    if (currentPath->is_point_on_path(anchor)) { //anchor point is on current path, then jsut return it
-        return dir;
-    }else{
-        //completely let the path handle that
-        //get point on current path
-    }
+    return dir;
 }
 
 

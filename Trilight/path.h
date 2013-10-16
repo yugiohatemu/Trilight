@@ -13,21 +13,24 @@
 #include <vector>
 #include "algebra.h"
 
+//double linked list
 class Path{
     
     Point start;
     Point end;
-    Vector gravity; //or float angel
+    Vector vec; //or float angel
     
 public:
-    Path(Point start, Point end, Vector gravity);
+    Path(Point start, Point end);
     Path * prev;
     Path * next;
     ~Path();
     void render(); //use bfs or dfs to render the path
     bool is_point_on_path(Point p );
-    Vector get_point_on(Point p, Vector dir);
+    Vector get_direction_on(Point p, Vector dir);
     Vector get_vec();
+    Point get_start();
+    Point get_end();
 };
 
 
