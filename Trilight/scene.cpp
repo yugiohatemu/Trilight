@@ -46,11 +46,31 @@ void Scene::create_scene(){
     eyeball = new Octpus(304,336,32,64);
     
     tiles = new TileMap();
+    
+    int mult = 60;
+    int yoff = 100;
+    path = new Path(Point(1* mult, 0+ yoff), Point(3* mult, 0+ yoff), Vector(0, 1));
+    Path * p1 = new Path(Point(3* mult,0+ yoff), Point(5* mult,2* mult+ yoff), Vector(1,1));
+    path->next = p1;
+    p1->prev = path;
+    
+    Path * p2 = new Path(Point(5* mult,2*mult+ yoff), Point(6* mult,2* mult+ yoff), Vector(1,1));
+    p1->next = p2;
+    p2->prev = p1;
+    
 }
 
 void Scene::clear_scene(){
     if (eyeball) delete eyeball;
     if (tiles) delete tiles;
+    while (path != NULL) {
+        Path * temp = path->next;
+        delete path;
+        path = temp;
+    }
+    eyeball = NULL;
+    tiles = NULL;
+    path = NULL;
     
     if (!rectangles.empty()) rectangles.clear();
     if (!hidden.empty()) hidden.clear();
@@ -65,6 +85,16 @@ void Scene::render(){
 //    }
     if (tiles) tiles->render();
     if (eyeball) eyeball->render();
+    if (path){
+        glBegin(GL_LINES);
+        glColor3f(255, 0, 0);
+        Path * temp = path;
+        while (temp != NULL) {
+            temp->render();
+            temp = temp->next;
+        }
+        glEnd();
+    }
 }
 
 void Scene::update(SDL_Event event){
@@ -97,6 +127,17 @@ Vector Scene::get_next_direction(Vector dir,float angel,SDL_Rect box){
         next.rotate(next_angel - angel);
     }
     return next;
+    
+    //given current anchor point,
+    Point anchor(1,0);
+    Path * currentPath;
+    anchor = anchor + dir;
+    if (currentPath->is_point_on_path(anchor)) { //anchor point is on current path, then jsut return it
+        return dir;
+    }else{
+        //completely let the path handle that
+        //get point on current path
+    }
 }
 
 

@@ -14,6 +14,7 @@
 #include "sprite.h"
 #include "SDL/SDL.h"
 #include "tileMap.h"
+#include "path.h"
 //Singelton for easy acess globally
 //Since there can be only one level on a screen at a time
 
@@ -28,6 +29,7 @@ class Scene{
     
     Sprite * eyeball;
     TileMap * tiles;
+    Path * path;
 public:
     static Scene& Instance();
    

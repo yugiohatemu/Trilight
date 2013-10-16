@@ -41,6 +41,23 @@ Vector Vector::operator=(const Vector & vec){
     return *this;
 }
 
+bool Vector::operator==(const Vector & vec){
+    return x == vec.x && y == vec.y;
+}
+
+bool Vector::operator!=(const Vector & vec){
+    return x != vec.x || y != vec.y;
+}
+//////////////////////////////////
+Vector Vector::normalize(){
+    float n = sqrtf(x * x + y * y);
+    if (n != 0) {
+        return Vector(x/n, y/n);
+    }else{
+        return Vector(); //must be 0 0 then
+    }
+}
+
 float Vector::dot(Vector vec){
     return x * vec.x + y * vec.y;
 }
