@@ -18,19 +18,20 @@
 
 class Tile:public Sprite{
     T_Rect clip;
-    Vector gravity;
-    float angel;
+//    unsigned int label;
+//    Vector gravity;
+//    float angel;
     void set_clip();
 public:
     Tile(T_Rect clip);
     ~Tile();
-    
+
     void render();
     void update(SDL_Event event);
-    void set_gravity(Vector g);
-    void set_angel(float a);
-    float get_angel();
-    Vector get_gravity();
+//    void set_gravity(Vector g);
+//    void set_angel(float a);
+//    float get_angel();
+//    Vector get_gravity();
     
 };
 

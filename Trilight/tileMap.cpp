@@ -130,8 +130,8 @@ Tile* TileMap::createTile(int tileType){
     }
     
     Tile * aTile = new Tile(clip);
-    aTile->set_gravity(gravity);
-    aTile->set_angel(angel);
+//    aTile->set_gravity(gravity);
+//    aTile->set_angel(angel);
     return aTile;
 }
 
@@ -145,7 +145,8 @@ float TileMap::get_current_angel(SDL_Rect box){
     
     //but based on orienctation, we need to use different bot center?
     //if x pos and y pos being valid
-    return tileMap[ypos][xpos]->get_angel();
+    return 0;
+//    tileMap[ypos][xpos]->get_angel();
 }
 
 void TileMap::render(){
