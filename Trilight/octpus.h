@@ -16,17 +16,18 @@
 class Octpus:public Sprite{
     void set_clip();
     enum {
-        HEAD_0, HEAD_1,HEAD_2,
+        NORMAL,STRETCH,
         TOTAL_CLIPS,
     }CLIPS;
     
     T_Rect clips[TOTAL_CLIPS];
-    bool pressed[4] = {false};
+    bool pressed[5] = {false};
     Light * torch;
 
     float angel;
     Point bot_left, bot_right, top_left, top_right;
     Point anchor;
+    bool stretch;
 public:
     Octpus(int x = 0, int y = 0, int w = 0, int h = 0);
     ~Octpus();

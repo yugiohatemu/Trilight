@@ -28,8 +28,8 @@ Octpus::Octpus(int x , int y , int w , int h ):Sprite(x,y,w,h){
     anchor.x = (bot_left.x + bot_right.x)/2;
     anchor.y = (bot_left.y + bot_right.y)/2;
     
-    
     angel = 0;
+    stretch = false;
 }
 
 Octpus::~Octpus(){
@@ -37,21 +37,16 @@ Octpus::~Octpus(){
 }
 
 void Octpus::set_clip(){
-    clips[HEAD_0].x = 0.0f;
-    clips[HEAD_0].y = 0.0f;
-    clips[HEAD_0].w = 0.5f;
-    clips[HEAD_0].h = 1.0f;
+    clips[NORMAL].x = 0.0f;
+    clips[NORMAL].y = 0.0f;
+    clips[NORMAL].w = 0.25f;
+    clips[NORMAL].h = 0.5f;
     
-    clips[HEAD_1].x = 0.5f;
-    clips[HEAD_1].y = 0.0f;
-    clips[HEAD_1].w = 0.5f;
-    clips[HEAD_1].h = 0.5f;
+    clips[STRETCH].x = 0.25f;
+    clips[STRETCH].y = 0.0f;
+    clips[STRETCH].w = 0.25f;
+    clips[STRETCH].h = 0.875f;
     
-    clips[HEAD_2].x = 0.5f;
-    clips[HEAD_2].y = 0.5f;
-    clips[HEAD_2].w = 0.5f;
-    clips[HEAD_2].h = 0.5f;
-
 }
 
 void Octpus::render(){
@@ -93,44 +88,61 @@ void Octpus::update(SDL_Event event){
         if(event.key.keysym.sym == SDLK_a) pressed[1] = true;
         if(event.key.keysym.sym == SDLK_s) pressed[2] = true;
         if(event.key.keysym.sym == SDLK_d) pressed[3] = true;
-      
+        if(event.key.keysym.sym == SDLK_SPACE) pressed[4] = true;
     }else if(event.type == SDL_KEYUP){
         if (event.key.keysym.sym == SDLK_w) pressed[0] = false;
         if (event.key.keysym.sym == SDLK_a) pressed[1] = false;
         if (event.key.keysym.sym == SDLK_s) pressed[2] = false;
         if (event.key.keysym.sym == SDLK_d) pressed[3] = false;
+    }
+    
+    //on allow to move when no stretching
+    //if stretch, change a hitbox
+    if (pressed[4]) { //if press stretch
+        stretch = !stretch;
+        if (stretch) {
+            frame = STRETCH;
+            top_right.y -= 48;
+            top_left.y -= 48;
+        }else{
+            frame = NORMAL;
+            top_right.y += 48;
+            top_left.y += 48;
+        }
+    }
+    
+    if (!stretch) {
         
+        Vector cur_dir;
+        int speed = 8;
+        
+        if (pressed[0]) cur_dir.y = -1;
+        if (pressed[1]) cur_dir.x = -1;
+        if (pressed[2]) cur_dir.y = 1;
+        if (pressed[3]) cur_dir.x = 1;
+        
+        cur_dir = cur_dir.normalize();
+        cur_dir = cur_dir * speed;
+        
+        //given direction, we can give a general moving direction
+        
+        //so it is worth calculating
+        if (cur_dir != Vector(0, 0)) {
+            Vector next_dir = Scene::Instance().get_next_direction(cur_dir, anchor);
+            
+            anchor = anchor + next_dir;
+            top_left = top_left + next_dir;
+            top_right = top_right + next_dir;
+            bot_left = bot_left + next_dir;
+            bot_right = bot_right + next_dir;
+            angel = Scene::Instance().get_current_angel();
+        }
+        
+        if (box.x < 0) box.x = 0;
+        if (box.x > 640) box.x = 640;
     }
-    Vector cur_dir;
-    int speed = 8;
-    
-    if (pressed[0]) cur_dir.y = -1;
-    if (pressed[1]) cur_dir.x = -1;
-    if (pressed[2]) cur_dir.y = 1;
-    if (pressed[3]) cur_dir.x = 1;
-    
-    cur_dir = cur_dir.normalize();
-    cur_dir = cur_dir * speed;
-    
-    //given direction, we can give a general moving direction 
-    
-    //so it is worth calculating
-    if (cur_dir != Vector(0, 0)) {
-        Vector next_dir = Scene::Instance().get_next_direction(cur_dir, anchor);
-      
-        anchor = anchor + next_dir;
-        top_left = top_left + next_dir;
-        top_right = top_right + next_dir;
-        bot_left = bot_left + next_dir;
-        bot_right = bot_right + next_dir;
-        angel = Scene::Instance().get_current_angel();
-    }
-
-    if (box.x < 0) box.x = 0;
-    if (box.x > 640) box.x = 640;
-    
-    //reset key press
-    for (int i = 0; i < 4; i++) pressed[i] = false;
+        //reset key press
+    for (int i = 0; i < 5; i++) pressed[i] = false;
     
 //    int x = 0, y = 0;
 //    SDL_GetMouseState( &x, &y );
