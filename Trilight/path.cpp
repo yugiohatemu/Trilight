@@ -24,9 +24,9 @@ Path::~Path(){
 
 void Path::set_angel(){
     if (to_next == EAST) angel = 0.0f;
-    else if(to_next == NORTH) angel = 90.0f;
+    else if(to_next == NORTH) angel = 270.0f;
     else if(to_next == WEST) angel = 180.0f;
-    else if(to_next == SOUTH) angel = 270.0f;
+    else if(to_next == SOUTH) angel = 90.0f;
     else{
         //ask vector to give you an angel
         angel = vec.get_angel();
@@ -46,8 +46,8 @@ ORIENTATION Path::get_orientation(Vector vec){
     if (vec == Vector()) {
        return ORIGIN;
     }else if (vec.x == 0) {
-        if (vec.y > 0) return NORTH;
-        else return SOUTH;
+        if (vec.y > 0) return SOUTH;
+        else return NORTH;
     }else if(vec.y == 0){
         if (vec.x > 0) return EAST;
         else return WEST;
@@ -63,10 +63,11 @@ bool Path::is_orentation_within(ORIENTATION A, ORIENTATION B){ //ask if A is wit
     if (B== NORTH || B == WEST || B == EAST || B == SOUTH) return A==B;
     else{
         if (B== NORTH_EAST) return A==B || A==NORTH || A == EAST;
-        else if(B == NORTH_WEST) return A==B || A==NORTH || A == WEST;
-        else if(B == SOUTH_EAST) return A==B || A==SOUTH||A== EAST;
-        else return A==B || A==SOUTH||A== WEST; //B == SOUTHWEST
+        else if(B == NORTH_WEST) return A==B || A==NORTH || A==WEST;
+        else if(B == SOUTH_EAST) return A==B || A==SOUTH || A==EAST;
+        else if(B == SOUTH_WEST) return A==B || A==SOUTH || A==WEST; //B == SOUTHWEST
     }
+    return false;
 }
 
 Vector get_vector_based_on_orientation(ORIENTATION orien){ //return normalized
@@ -99,7 +100,7 @@ bool Path::is_point_on_path(Point p ){
         return true;
     }else{
         if ((start.x <= p.x && p.x <= end.x) || (end.x <= p.x && p.x <= start.x)) {
-            if ((start.y <= p.y && p.y <= end.y) || (end.y <= p.y && p.x <= start.y)) {
+            if ((start.y <= p.y && p.y <= end.y) || (end.y <= p.y && p.y <= start.y)) {
                 return true;
             }
         }

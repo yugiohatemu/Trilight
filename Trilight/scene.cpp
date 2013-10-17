@@ -58,6 +58,17 @@ void Scene::create_scene(){
     p1->next = p2;
     p2->prev = p1;
     
+    Path * p3 = new Path(Point(6* mult,2* mult+ yoff), Point(8* mult, yoff));
+    p2->next = p3;
+    p3->prev = p2;
+    
+    Path * p4 = new Path(Point(8* mult, yoff), Point(8* mult, yoff - 3*mult));
+    p3->next = p4;
+    p4->prev = p3;
+    
+    Path * p5 = new Path( Point(8* mult, yoff - 3*mult), Point(4* mult, yoff - 3*mult));
+    p4->next = p5;
+    p5->prev = p4;
 }
 
 void Scene::clear_scene(){

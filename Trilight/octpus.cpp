@@ -20,11 +20,6 @@ Octpus::Octpus(int x , int y , int w , int h ):Sprite(x,y,w,h){
     torch->specular.setRGBA(0xFFFF0066);
     torch->size = 300.0f;
     
-//    dir.x = 8;
-//    dir.y = 0;
-//    
-//    angel = 270;
-    
     top_left.x = bot_left.x = x;
     top_left.y = top_right.y = y;
     top_right.x = bot_right.x = x + w;
@@ -32,9 +27,9 @@ Octpus::Octpus(int x , int y , int w , int h ):Sprite(x,y,w,h){
     
     anchor.x = (bot_left.x + bot_right.x)/2;
     anchor.y = (bot_left.y + bot_right.y)/2;
-    //defined as bot mid
-    dir.x = 1;
-    dir.y = 0;
+    
+    
+    angel = 0;
 }
 
 Octpus::~Octpus(){
@@ -128,11 +123,7 @@ void Octpus::update(SDL_Event event){
         top_right = top_right + next_dir;
         bot_left = bot_left + next_dir;
         bot_right = bot_right + next_dir;
-        
-//        debug(next_dir);
-        //update current angel
         angel = Scene::Instance().get_current_angel();
-//        debug(angel);
     }
 
     if (box.x < 0) box.x = 0;
