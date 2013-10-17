@@ -20,9 +20,7 @@ class Path{
     Point start;
     Point end;
     Vector vec; //or float angel
-    ORIENTATION to_next;
-    ORIENTATION to_prev;
-    ORIENTATION get_orientation(Vector vec);
+    
 public:
     Path(Point start, Point end);
     Path * prev;
@@ -30,11 +28,14 @@ public:
     ~Path();
     void render(); //use bfs or dfs to render the path
     bool is_point_on_path(Point p );
-    Vector get_direction_on(Point p, Vector dir);
+//    Vector get_direction_on(Point p, Vector dir);
     bool is_orentation_within(ORIENTATION A, ORIENTATION B);
     Vector get_vec();
     Point get_start();
     Point get_end();
+    ORIENTATION to_next;
+    ORIENTATION to_prev;
+    ORIENTATION get_orientation(Vector vec);
     
 };
 

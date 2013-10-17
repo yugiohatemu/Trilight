@@ -129,30 +129,26 @@ std::vector<Rect>Scene::get_rect(){
 Vector Scene::get_next_direction(Vector dir, Point anchor){
     
     Point next_anchor = anchor + dir;
-    Vector vec = path->get_vec();
     Point start = path->get_start();
     Point end = path->get_end();
     
-    //adjust current director based on vector
-    //for dir, we only  2 situation (1,0) or (-1, 0)
-    //so infact, we only accept left and right arrow
+    ORIENTATION orien = path->get_orientation(dir);
     
-    
-    if (!path->is_point_on_path(next_anchor)) {
-        Vector v1 = anchor - path->get_start();
-        
-        if (vec.cross(v1) == 0) { //using the next
+    if (path->is_orentation_within(orien, path->to_next)) {
+        if (!path->is_point_on_path(next_anchor)){
             if (path->next != NULL ) {
                 path = path->next;
                 Vector left = anchor - end;
-                
                 float t = left.get_norm();
                 dir = path->get_vec() * t;
                 return left + get_next_direction(dir, end);
             }else{
                 return end-anchor;
             }
-        }else{
+        }
+        
+    }else if (path->is_orentation_within(orien, path->to_prev)){ //we are going to previous
+        if (path->is_point_on_path(next_anchor)) {
             if (path->prev != NULL) {
                 path = path->prev;
                 Vector left = anchor - start;
@@ -163,9 +159,10 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
                 return start - anchor;
             }
         }
+    }else{ //do not allow moving since not using the right action
+        return Vector();
     }
 
-    
     return dir;
 }
 

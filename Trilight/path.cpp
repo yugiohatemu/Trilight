@@ -79,35 +79,3 @@ Point Path::get_end(){
     return end;
 }
 
-Vector Path::get_direction_on(Point p, Vector dir){
-    ORIENTATION orien = get_orientation(dir);
-    Point anchor = p + dir;
-    
-    if (is_orentation_within(orien, to_next)) {
-        if (!is_point_on_path(anchor)){
-            if (next != NULL ) {
-                Vector left = anchor - end;
-                
-                float t = left.get_norm();
-                dir = next->get_vec() * t;
-                return left + next->get_direction_on(end, dir);
-            }else{
-                return end-p;
-            }
-        }
-        
-    }else if (is_orentation_within(orien, to_prev)){ //we are going to previous
-        if (prev != NULL) {
-            Vector left = anchor - start;
-            float t = left.get_norm();
-            dir = prev->get_vec() * t;
-            return left + prev->get_direction_on(start, dir);
-        }else{
-            return start - p;
-        }
-    }else{ //do not allow moving since not using the right action
-        return Vector();
-    }
-    
-    return dir;
-}
