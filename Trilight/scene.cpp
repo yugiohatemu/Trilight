@@ -126,6 +126,11 @@ std::vector<Rect>Scene::get_rect(){
     return rectangles;
 }
 
+float Scene::get_current_angel(){
+    return path->get_angel();
+}
+
+
 Vector Scene::get_next_direction(Vector dir, Point anchor){
     
     Point next_anchor = anchor + dir;

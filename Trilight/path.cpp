@@ -15,10 +15,26 @@ Path::Path(Point s, Point e):start(s),end(e){
     vec = vec.normalize();
     to_next = get_orientation(vec);
     to_prev = get_orientation(start-end);
+    set_angel();
 }
 
 Path::~Path(){
     prev = next = NULL;
+}
+
+void Path::set_angel(){
+    if (to_next == EAST) angel = 0.0f;
+    else if(to_next == NORTH) angel = 90.0f;
+    else if(to_next == WEST) angel = 180.0f;
+    else if(to_next == SOUTH) angel = 270.0f;
+    else{
+        //ask vector to give you an angel
+        angel = vec.get_angel();
+    }
+}
+
+float Path::get_angel(){
+    return angel;
 }
 
 void Path::render(){

@@ -33,6 +33,7 @@ struct Vector{
     Vector normalize();
     float get_norm();
     friend std::ostream& operator<< (std::ostream& stream, const Vector& vec);
+    float get_angel();
 };
 
 bool is_vector_parallel(Vector a, Vector b);

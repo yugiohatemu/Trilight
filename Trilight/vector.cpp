@@ -8,7 +8,7 @@
 
 #include "vector.h"
 #include <math.h>
-
+#define PI 3.14159265
 Vector::Vector(){
     x = 0.f;
     y = 0.f;
@@ -65,6 +65,10 @@ Vector Vector::normalize(){
 
 float Vector::get_norm(){
     return sqrtf(x * x + y * y);
+}
+
+float Vector::get_angel(){
+    return atan2f (y,x) * 180 / PI;
 }
 
 float Vector::dot(Vector vec){

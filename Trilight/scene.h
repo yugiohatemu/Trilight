@@ -41,6 +41,7 @@ public:
     std::vector<Rect>get_hidden();
     std::vector<Rect>get_rect();
     Vector get_next_direction(Vector dir, Point anchor);
+    float get_current_angel();
 };
 
 #endif /* defined(__Trilight__scene__) */

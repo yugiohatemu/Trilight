@@ -69,9 +69,9 @@ void Octpus::render(){
     //notice that texture coordinate is not following th order
     glLoadIdentity();
     //rotate around center, maybe used to implement a utility latter
-//    glTranslatef(+(box.x+box.w/2),+(box.y+box.h/4) , 0);
-//    glRotatef(angel-270,0, 0, 1);
-//    glTranslatef(-(box.x+box.w/2),-(box.y+box.h/4) , 0);
+    glTranslatef(anchor.x, anchor.y, 0);
+    glRotatef(angel,0, 0, 1);
+    glTranslatef(-anchor.x, -anchor.y, 0);
     
     glBegin(GL_QUADS);
     glTexCoord2f(clips[frame].x, clips[frame].y); glVertex2f(top_left.x, top_left.y);
@@ -130,7 +130,9 @@ void Octpus::update(SDL_Event event){
         bot_right = bot_right + next_dir;
         
 //        debug(next_dir);
-        
+        //update current angel
+        angel = Scene::Instance().get_current_angel();
+//        debug(angel);
     }
 
     if (box.x < 0) box.x = 0;
