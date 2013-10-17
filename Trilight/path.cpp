@@ -12,6 +12,8 @@
 Path::Path(Point s, Point e):start(s),end(e){
     prev = next = NULL;
     vec = end - start;
+    to_next = get_orientation(vec);
+    to_prev = get_orientation(start-end);
 }
 
 Path::~Path(){
@@ -21,6 +23,33 @@ Path::~Path(){
 void Path::render(){
     glVertex2f(start.x, start.y);
     glVertex2f(end.x, end.y);
+}
+
+ORIENTATION Path::get_orientation(Vector vec){
+    if (vec == Vector()) {
+       return ORIGIN;
+    }else if (vec.x == 0) {
+        if (vec.y > 0) return NORTH;
+        else return SOUTH;
+    }else if(vec.y == 0){
+        if (vec.x > 0) return EAST;
+        else return WEST;
+    }else{
+        if (vec.x > 0 && vec.y > 0) return NORTH_EAST;
+        else if (vec.x > 0 && vec.y < 0) return NORTH_WEST;
+        else if (vec.x < 0 && vec.y > 0) return SOUTH_EAST;
+        else return SOUTH_WEST;
+    }
+}
+
+bool Path::is_orentation_within(ORIENTATION A, ORIENTATION B){ //ask if A is within B
+    if (B== NORTH || B == WEST || B == EAST || B == SOUTH) return A==B;
+    else{
+        if (B== NORTH_EAST) return A==B || A==NORTH || A == EAST;
+        else if(B == NORTH_WEST) return A==B || A==NORTH || A == WEST;
+        else if(B == SOUTH_EAST) return A==B || A==SOUTH||A== EAST;
+        else return A==B || A==SOUTH||A== WEST; //B == SOUTHWEST
+    }
 }
 
 bool Path::is_point_on_path(Point p ){
@@ -51,14 +80,11 @@ Point Path::get_end(){
 }
 
 Vector Path::get_direction_on(Point p, Vector dir){
-    Path * currentPath = this;
-    //then cant use recursive?
-    //....fine
+    ORIENTATION orien = get_orientation(dir);
     Point anchor = p + dir;
-    if (!is_point_on_path(anchor)) {
-        Vector v1 = anchor - start;
-        
-        if (vec.cross(v1) == 0) { //using the next
+    
+    if (is_orentation_within(orien, to_next)) {
+        if (!is_point_on_path(anchor)){
             if (next != NULL ) {
                 Vector left = anchor - end;
                 
@@ -68,16 +94,19 @@ Vector Path::get_direction_on(Point p, Vector dir){
             }else{
                 return end-p;
             }
-        }else{
-            if (prev != NULL) {
-                Vector left = anchor - start;
-                float t = left.get_norm();
-                dir = prev->get_vec() * t;
-                return left + prev->get_direction_on(start, dir);
-            }else{
-                return start - p;
-            }
         }
+        
+    }else if (is_orentation_within(orien, to_prev)){ //we are going to previous
+        if (prev != NULL) {
+            Vector left = anchor - start;
+            float t = left.get_norm();
+            dir = prev->get_vec() * t;
+            return left + prev->get_direction_on(start, dir);
+        }else{
+            return start - p;
+        }
+    }else{ //do not allow moving since not using the right action
+        return Vector();
     }
     
     return dir;

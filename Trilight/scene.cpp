@@ -132,6 +132,12 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
     Vector vec = path->get_vec();
     Point start = path->get_start();
     Point end = path->get_end();
+    
+    //adjust current director based on vector
+    //for dir, we only  2 situation (1,0) or (-1, 0)
+    //so infact, we only accept left and right arrow
+    
+    
     if (!path->is_point_on_path(next_anchor)) {
         Vector v1 = anchor - path->get_start();
         

@@ -30,9 +30,11 @@ Octpus::Octpus(int x , int y , int w , int h ):Sprite(x,y,w,h){
     top_right.x = bot_right.x = x + w;
     bot_left.y = bot_right.y = y + h;
     
-    anchor.x = 60;
-    anchor.y = 300;
+    anchor.x = (bot_left.x + bot_right.x)/2;
+    anchor.y = (bot_left.y + bot_right.y)/2;
     //defined as bot mid
+    dir.x = 1;
+    dir.y = 0;
 }
 
 Octpus::~Octpus(){
@@ -106,27 +108,29 @@ void Octpus::update(SDL_Event event){
     }
     Vector cur_dir;
     int speed = 8;
-    if (pressed[0]) cur_dir.y = -speed;
-    if (pressed[1]) cur_dir.x = -speed;
-    if (pressed[2]) cur_dir.y = speed;
-    if (pressed[3]) cur_dir.x = speed;
+    
+    if (pressed[0]) cur_dir.y = -1;
+    if (pressed[1]) cur_dir.x = -1;
+    if (pressed[2]) cur_dir.y = 1;
+    if (pressed[3]) cur_dir.x = 1;
+    
+    cur_dir = cur_dir.normalize();
+    cur_dir = cur_dir * speed;
+    
+    //given direction, we can give a general moving direction 
     
     //so it is worth calculating
     if (cur_dir != Vector(0, 0)) {
         Vector next_dir = Scene::Instance().get_next_direction(cur_dir, anchor);
-        //update all the points
+      
         anchor = anchor + next_dir;
         top_left = top_left + next_dir;
         top_right = top_right + next_dir;
         bot_left = bot_left + next_dir;
         bot_right = bot_right + next_dir;
+        
     }
-    
-    
-    
-    //now, we just need to define anchor
-    //anchor must be on the point
-    
+
     if (box.x < 0) box.x = 0;
     if (box.x > 640) box.x = 640;
     
