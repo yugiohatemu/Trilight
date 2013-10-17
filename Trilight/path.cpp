@@ -12,6 +12,7 @@
 Path::Path(Point s, Point e):start(s),end(e){
     prev = next = NULL;
     vec = end - start;
+    vec = vec.normalize();
     to_next = get_orientation(vec);
     to_prev = get_orientation(start-end);
 }
@@ -35,10 +36,10 @@ ORIENTATION Path::get_orientation(Vector vec){
         if (vec.x > 0) return EAST;
         else return WEST;
     }else{
-        if (vec.x > 0 && vec.y > 0) return NORTH_EAST;
-        else if (vec.x > 0 && vec.y < 0) return NORTH_WEST;
-        else if (vec.x < 0 && vec.y > 0) return SOUTH_EAST;
-        else return SOUTH_WEST;
+        if (vec.x > 0 && vec.y > 0) return SOUTH_EAST;
+        else if (vec.x > 0 && vec.y < 0) return NORTH_EAST;
+        else if (vec.x < 0 && vec.y > 0) return SOUTH_WEST;
+        else return NORTH_WEST;
     }
 }
 
@@ -52,19 +53,51 @@ bool Path::is_orentation_within(ORIENTATION A, ORIENTATION B){ //ask if A is wit
     }
 }
 
-bool Path::is_point_on_path(Point p ){
+Vector get_vector_based_on_orientation(ORIENTATION orien){ //return normalized
+    Vector vec;
+    
+    switch (orien) {
+        case NORTH: vec.y = -1; break;
+        case NORTH_EAST: vec.x = SQRT2; vec.y = -SQRT2; break;
+        case EAST: vec.x = 1; break;
+        case SOUTH_EAST: vec.x = SQRT2; vec.y = SQRT2; break;
+        case SOUTH: vec.y = 1; break;
+        case SOUTH_WEST: vec.x = -SQRT2; vec.y = SQRT2; break;
+        case WEST: vec.x = -1; break;
+        case NORTH_WEST: vec.x = -SQRT2; vec.y = -SQRT2; break;
+        default:break;
+    }
+    return vec;
+}
 
+Vector adjust_vector(ORIENTATION orien, Vector vec){
+    //if vec
+    float n = vec.get_norm();
+    Vector nex = n * get_vector_based_on_orientation(orien);
+    return nex;
+}
+
+bool Path::is_point_on_path(Point p ){
+//do not check for colinearity, but just within range
     if (p == start || p == end) {
         return true;
     }else{
-        Vector v1 = p-start;
-        Vector v2 = end - p;
-        if (v1.cross(v2) == 0) {
-            return true;
-        }else{
-            return false;
+        if ((start.x <= p.x && p.x <= end.x) || (end.x <= p.x && p.x <= start.x)) {
+            if ((start.y <= p.y && p.y <= end.y) || (end.y <= p.y && p.x <= start.y)) {
+                return true;
+            }
         }
+        
+        //the below might have rounding error due to normalize
+//        Vector v1 = (p-start).normalize();
+//        Vector v2 = (end - p).normalize();
+//        if (v1 == v2) {
+//            return true;
+//        }else{
+//            return false;
+//        }
     }
+    return false;
 }
 
 Vector Path::get_vec(){

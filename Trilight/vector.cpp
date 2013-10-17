@@ -50,7 +50,7 @@ bool Vector::operator!=(const Vector & vec){
 }
 
 std::ostream& operator<< (std::ostream& stream, const Vector& vec){
-    stream<<"[VEC] ["<<vec.x<<","<<vec.y<<"]"<<std::endl;
+    stream<<"[VEC] ["<<vec.x<<","<<vec.y<<"]";
     return stream;
 }
 //////////////////////////////////

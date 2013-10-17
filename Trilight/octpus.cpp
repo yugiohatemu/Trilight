@@ -129,11 +129,15 @@ void Octpus::update(SDL_Event event){
         bot_left = bot_left + next_dir;
         bot_right = bot_right + next_dir;
         
+//        debug(next_dir);
+        
     }
 
     if (box.x < 0) box.x = 0;
     if (box.x > 640) box.x = 640;
     
+    //reset key press
+    for (int i = 0; i < 4; i++) pressed[i] = false;
     
 //    int x = 0, y = 0;
 //    SDL_GetMouseState( &x, &y );

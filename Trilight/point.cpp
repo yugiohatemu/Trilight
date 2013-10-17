@@ -52,7 +52,7 @@ bool Point::operator!= (const Point &p){
 }
 
 std::ostream& operator<< (std::ostream& stream, const Point& p){
-    stream<<"[POT] ("<<p.x<<","<<p.y<<")"<<std::endl;
+    stream<<"[POT] ("<<p.x<<","<<p.y<<")";
     return stream;
 }
 

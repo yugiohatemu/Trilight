@@ -11,7 +11,7 @@
 #include "SDL/SDL_opengl.h"
 #include "octpus.h"
 #include <iostream>
-
+#include "utility.h"
 
 Scene::Scene(){
    
@@ -133,36 +133,44 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
     Point end = path->get_end();
     
     ORIENTATION orien = path->get_orientation(dir);
-    
+    ORIENTATION path_orien;
+    //need to modify dir?
     if (path->is_orentation_within(orien, path->to_next)) {
+        path_orien = path->to_next;
         if (!path->is_point_on_path(next_anchor)){
+            
             if (path->next != NULL ) {
+                debug(next_anchor);
                 path = path->next;
-                Vector left = anchor - end;
+                Vector left = next_anchor - end;
                 float t = left.get_norm();
                 dir = path->get_vec() * t;
-                return left + get_next_direction(dir, end);
+                return (end-anchor) + get_next_direction(dir, end);
             }else{
                 return end-anchor;
             }
         }
         
     }else if (path->is_orentation_within(orien, path->to_prev)){ //we are going to previous
-        if (path->is_point_on_path(next_anchor)) {
+        path_orien = path->to_prev;
+
+        if (!path->is_point_on_path(next_anchor)) {
             if (path->prev != NULL) {
                 path = path->prev;
-                Vector left = anchor - start;
+                Vector left = next_anchor - start;
                 float t = left.get_norm();
                 dir = path->get_vec() * t;
-                return left + get_next_direction(dir, start);
+                return (start - anchor) + get_next_direction(dir, start);
             }else{
                 return start - anchor;
             }
         }
-    }else{ //do not allow moving since not using the right action
+    }else{ //do not allow moving unless using the right action
         return Vector();
     }
-
+    //need to adjust orientation based on that
+    dir = adjust_vector(path_orien, dir);
+    debug(path_orien);
     return dir;
 }
 

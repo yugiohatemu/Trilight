@@ -17,4 +17,6 @@ enum ORIENTATION{
     WEST, NORTH_WEST
 };
 
+const float SQRT2 = 1.414f;
+
 #endif
