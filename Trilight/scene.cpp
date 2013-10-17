@@ -140,7 +140,6 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
         if (!path->is_point_on_path(next_anchor)){
             
             if (path->next != NULL ) {
-                debug(next_anchor);
                 path = path->next;
                 Vector left = next_anchor - end;
                 float t = left.get_norm();
@@ -159,7 +158,7 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
                 path = path->prev;
                 Vector left = next_anchor - start;
                 float t = left.get_norm();
-                dir = path->get_vec() * t;
+                dir = path->get_vec() * -t;
                 return (start - anchor) + get_next_direction(dir, start);
             }else{
                 return start - anchor;
@@ -170,7 +169,7 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
     }
     //need to adjust orientation based on that
     dir = adjust_vector(path_orien, dir);
-    debug(path_orien);
+//    debug(path_orien);
     return dir;
 }
 
