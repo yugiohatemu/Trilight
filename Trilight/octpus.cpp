@@ -73,10 +73,10 @@ void Octpus::render(){
     glBindTexture(GL_TEXTURE_2D, 0);
     glPopMatrix();
     
-//    std::vector<Rect> rects = Scene::Instance().get_rect();
+    std::vector<Rect> rects = Scene::Instance().get_rect();
 //    std::vector<Rect> hid_rect = Scene::Instance().get_hidden();
 //    
-//    torch->render(rects);
+    torch->render(rects);
 //    torch->render_clip(hid_rect[0]);
     
 }
@@ -129,28 +129,31 @@ void Octpus::update(SDL_Event event){
         //so it is worth calculating
         if (cur_dir != Vector(0, 0)) {
             Vector next_dir = Scene::Instance().get_next_direction(cur_dir, anchor);
-            
             anchor = anchor + next_dir;
             top_left = top_left + next_dir;
             top_right = top_right + next_dir;
             bot_left = bot_left + next_dir;
             bot_right = bot_right + next_dir;
             angel = Scene::Instance().get_current_angel();
+            
+            //calculate position of light ball in the head
+            Point head = anchor;
+            head.y -= 48.0f;
+            Vector rotate_dir = (head - anchor).rotate(angel);
+            torch->position = anchor + rotate_dir;
+            
         }
-        
-        if (box.x < 0) box.x = 0;
-        if (box.x > 640) box.x = 640;
     }
         //reset key press
     for (int i = 0; i < 5; i++) pressed[i] = false;
     
-//    int x = 0, y = 0;
-//    SDL_GetMouseState( &x, &y );
-//    if (x < 0) x = 0;
-//    if (y < 0) y = 0;
+    int x = 0, y = 0;
+    SDL_GetMouseState( &x, &y );
+    if (x < 0) x = 0;
+    if (y < 0) y = 0;
     
-//    torch->update(event);
-//    torch->rotate(x, y);
+    torch->update(event);
+    torch->rotate(x, y);
     
 }
 

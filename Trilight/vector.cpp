@@ -80,7 +80,7 @@ float Vector::cross(Vector vec){
 }
 
 Vector Vector::rotate(float angel){
-    angel = angel * 3.14159 / 180;
+    angel = angel * PI / 180;
     float cos_angel = cosf(angel);
     float sin_angel = sinf(angel);
     //[cos -sin ][x]

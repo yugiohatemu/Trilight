@@ -173,9 +173,4 @@ void Light::update(SDL_Event event){
         else if(event.key.keysym.sym == SDLK_d) pressed[3] = false;
     }
     
-    if (pressed[1]) position.x -= 2;
-    if (pressed[3]) position.x += 2;
-    
-    if(position.x<0) position.x = 0;
-    if(position.x > 640) position.x = 640;
 }

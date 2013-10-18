@@ -28,6 +28,7 @@
 		B6D186D51809FF8E0073BEB4 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D186D41809FF8E0073BEB4 /* GLUT.framework */; };
 		B6D186DA180C50780073BEB4 /* tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D186D8180C50780073BEB4 /* tile.cpp */; };
 		B6D186DD180C50E50073BEB4 /* tileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D186DB180C50E50073BEB4 /* tileMap.cpp */; };
+		B6D186E1180DB3790073BEB4 /* path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D186DF180DB3790073BEB4 /* path.cpp */; };
 		B6E08F751805B159001ACCB6 /* loadPNG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F731805B159001ACCB6 /* loadPNG.cpp */; };
 		B6E08F811808815D001ACCB6 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F7F1808815D001ACCB6 /* scene.cpp */; };
 		B6E08F841809DA0C001ACCB6 /* octpus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E08F821809DA0C001ACCB6 /* octpus.cpp */; };
@@ -86,6 +87,9 @@
 		B6D186DB180C50E50073BEB4 /* tileMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tileMap.cpp; sourceTree = "<group>"; };
 		B6D186DC180C50E50073BEB4 /* tileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tileMap.h; sourceTree = "<group>"; };
 		B6D186DE180CD6040073BEB4 /* level.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level.txt; sourceTree = "<group>"; };
+		B6D186DF180DB3790073BEB4 /* path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = path.cpp; sourceTree = "<group>"; };
+		B6D186E0180DB3790073BEB4 /* path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = path.h; sourceTree = "<group>"; };
+		B6D186E2180F87840073BEB4 /* constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
 		B6E08F731805B159001ACCB6 /* loadPNG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadPNG.cpp; sourceTree = "<group>"; };
 		B6E08F741805B159001ACCB6 /* loadPNG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadPNG.h; sourceTree = "<group>"; };
 		B6E08F771805EC6B001ACCB6 /* font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font.ttf; sourceTree = "<group>"; };
@@ -139,7 +143,10 @@
 				B6D186D7180C505D0073BEB4 /* tile */,
 				B6E08F851809DF16001ACCB6 /* sprite */,
 				B6E08F771805EC6B001ACCB6 /* font.ttf */,
+				B6D186E2180F87840073BEB4 /* constant.h */,
 				B601582417B7CC57003C8FCD /* main.cpp */,
+				B6E08F7F1808815D001ACCB6 /* scene.cpp */,
+				B6E08F801808815D001ACCB6 /* scene.h */,
 				B6E08F761805E72F001ACCB6 /* extern */,
 				B6666C8418046B6E0002CBBF /* image */,
 				B6666C801804672C0002CBBF /* light */,
@@ -155,8 +162,6 @@
 				B6666C82180467420002CBBF /* texture.h */,
 				B6666C8618046FD00002CBBF /* utility.cpp */,
 				B6666C8718046FD00002CBBF /* utility.h */,
-				B6E08F7F1808815D001ACCB6 /* scene.cpp */,
-				B6E08F801808815D001ACCB6 /* scene.h */,
 			);
 			path = Trilight;
 			sourceTree = "<group>";
@@ -206,6 +211,8 @@
 				B6D186DB180C50E50073BEB4 /* tileMap.cpp */,
 				B6D186DC180C50E50073BEB4 /* tileMap.h */,
 				B6D186DE180CD6040073BEB4 /* level.txt */,
+				B6D186DF180DB3790073BEB4 /* path.cpp */,
+				B6D186E0180DB3790073BEB4 /* path.h */,
 			);
 			name = tile;
 			sourceTree = "<group>";
@@ -298,6 +305,7 @@
 				B6666C83180467420002CBBF /* texture.cpp in Sources */,
 				B6CC489917D6439900A6508F /* polygon.cpp in Sources */,
 				B6CC489C17D6C01600A6508F /* edge.cpp in Sources */,
+				B6D186E1180DB3790073BEB4 /* path.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

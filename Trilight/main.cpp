@@ -117,7 +117,7 @@ int main( int argc, char *argv[] ){
     Scene &scene = Scene::Instance();
     scene.create_scene();
     //test texture
-    if(Texture::Instance().load_file("/Users/wei/Desktop/Trilight/Trilight/white.png",64,64) < 0){
+    if(Texture::Instance().load_file("/Users/wei/Desktop/Trilight/Trilight/white.png",128,128) < 0){
         return 1;
     }
     
