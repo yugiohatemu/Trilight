@@ -11,6 +11,7 @@
 #include <math.h>
 #include <iostream>
 #include "algebra.h"
+#include "texture.h"
 
 Light::Light(int range){
     this->range = range;
@@ -24,6 +25,35 @@ void Light::rotate(int x, int y){
     
 }
 
+void Light::set_rotate_angel(float r){
+    rotate_angle = r;
+}
+
+
+void Light::render(){
+    glPushMatrix();
+    glLoadIdentity();
+    
+    //1st, modify it based on paths
+    //one problem is that we are only given the current link
+    //but thats not a great problem
+    
+    glBegin(GL_TRIANGLE_FAN);
+    glColor4f(specular.r, specular.g, specular.b, specular.a);
+    glVertex2f(position.x, position.y);
+    
+    for(int i = - range/2; i < range/2 ; i++){
+        float angle = (i + rotate_angle) * 3.14159 / 180;
+        glColor4f(specular.r, specular.g, specular.b, 0.5f);
+        Vector ray(size * cos(angle), size * sin(angle));
+        glVertex2f(position.x + ray.x, position.y + ray.y);
+    }
+    
+    glEnd();
+    
+    glPopMatrix();
+
+}
 
 void Light::render(std::vector<Rect>& objects){
     //use triangle fan
@@ -161,16 +191,6 @@ void Light::render_clip(Rect object){
 }
 
 void Light::update(SDL_Event event){
-    if (event.type == SDL_KEYDOWN){
-        if (event.key.keysym.sym == SDLK_w) pressed[0] = true;
-        else if(event.key.keysym.sym == SDLK_a) pressed[1] = true;
-        else if(event.key.keysym.sym == SDLK_s) pressed[2] = true;
-        else if(event.key.keysym.sym == SDLK_d) pressed[3] = true;
-    }else if(event.type == SDL_KEYUP){
-        if (event.key.keysym.sym == SDLK_w) pressed[0] = false;
-        else if(event.key.keysym.sym == SDLK_a) pressed[1] = false;
-        else if(event.key.keysym.sym == SDLK_s) pressed[2] = false;
-        else if(event.key.keysym.sym == SDLK_d) pressed[3] = false;
-    }
+ 
     
 }

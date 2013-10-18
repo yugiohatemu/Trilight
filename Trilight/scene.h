@@ -30,6 +30,7 @@ class Scene{
     Sprite * eyeball;
     TileMap * tiles;
     Path * path;
+    Light * test_light;
 public:
     static Scene& Instance();
    

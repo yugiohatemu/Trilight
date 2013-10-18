@@ -69,6 +69,14 @@ void Scene::create_scene(){
     Path * p5 = new Path( Point(8* mult, yoff - 3*mult), Point(4* mult, yoff - 3*mult));
     p4->next = p5;
     p5->prev = p4;
+    
+    //test new light
+    test_light = new Light(60.0f);
+    test_light->position = Point(320,220);
+    test_light->specular.setRGBA(0xFF000066);
+    test_light->size = 100.0f;
+    test_light->set_rotate_angel(90);
+
 }
 
 void Scene::clear_scene(){
@@ -89,9 +97,12 @@ void Scene::clear_scene(){
         next = temp;
     }
     
+    if (test_light) delete test_light;
+    
     eyeball = NULL;
     tiles = NULL;
     path = NULL;
+    test_light = NULL;
     
     if (!rectangles.empty()) rectangles.clear();
     if (!hidden.empty()) hidden.clear();
@@ -124,6 +135,7 @@ void Scene::render(){
 
         glEnd();
     }
+    if (test_light)  test_light->render();
 }
 
 void Scene::update(SDL_Event event){
