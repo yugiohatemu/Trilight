@@ -73,10 +73,9 @@ void Octpus::render(){
     glBindTexture(GL_TEXTURE_2D, 0);
     glPopMatrix();
     
-    std::vector<Rect> rects = Scene::Instance().get_rect();
 //    std::vector<Rect> hid_rect = Scene::Instance().get_hidden();
 //    
-    torch->render(rects);
+    torch->render();
 //    torch->render_clip(hid_rect[0]);
     
 }

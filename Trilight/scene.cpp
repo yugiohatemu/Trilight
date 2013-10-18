@@ -142,12 +142,27 @@ void Scene::update(SDL_Event event){
     eyeball->update(event);
 }
 
-std::vector<Rect>Scene::get_hidden(){
-    return hidden;
+std::vector<Edge> Scene::get_edge_list(){
+    //do a boundary test when the scene get large~~
+    
+    std::vector<Edge> edge_list;
+    Path * prev = path->prev;
+    Path * next = path;
+    
+    while (prev != NULL) {
+        Path * temp = prev->prev;
+        edge_list.push_back(prev->get_edge());
+        prev = temp;
+    }
+    while (next != NULL) {
+        Path * temp = next->next;
+        edge_list.push_back(next->get_edge());
+        next = temp;
+    }
+    
+    return edge_list;
 }
-std::vector<Rect>Scene::get_rect(){
-    return rectangles;
-}
+
 
 float Scene::get_current_angel(){
     return path->get_angel();

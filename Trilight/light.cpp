@@ -12,6 +12,7 @@
 #include <iostream>
 #include "algebra.h"
 #include "texture.h"
+#include "scene.h"
 
 Light::Light(int range){
     this->range = range;
@@ -34,28 +35,51 @@ void Light::render(){
     glPushMatrix();
     glLoadIdentity();
     
-    //1st, modify it based on paths
-    //one problem is that we are only given the current link
-    //but thats not a great problem
     
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(specular.r, specular.g, specular.b, specular.a);
     glVertex2f(position.x, position.y);
     
+    //get edge list, do colllision detection
+    
+    std::vector<Edge> edge_list = Scene::Instance().get_edge_list();
+    
     for(int i = - range/2; i < range/2 ; i++){
         float angle = (i + rotate_angle) * 3.14159 / 180;
-        glColor4f(specular.r, specular.g, specular.b, 0.5f);
+        float t = 1.0f; //use this to derive alpha
+        
         Vector ray(size * cos(angle), size * sin(angle));
-        glVertex2f(position.x + ray.x, position.y + ray.y);
+        
+        //for every thing obstacle need to detect, do a test get the closest hit on the scene
+        for (int j = 0; j < edge_list.size(); j++) {
+            Vector edge_vec = edge_list[j].get_vector();
+            if (!is_vector_parallel(edge_vec, ray)) {
+                
+                float t_up = (edge_list[j].get_start() - position).cross(edge_vec);
+                float u_up = (edge_list[j].get_start() - position).cross(ray);
+                
+                float div_down = ray.cross(edge_vec);
+                
+                float new_t = t_up / div_down;
+                float u =  u_up / div_down;
+                
+                //within line segment, and less than the previous one, replace it
+                if (new_t >= 0 &&  new_t < t && u >= 0 && u <= 1) {
+                    t = new_t;
+                }
+            }
+        }
+        
+        glColor4f(specular.r, specular.g, specular.b, 1.0f - t);
+        glVertex2f(position.x + ray.x * t, position.y + ray.y * t);
     }
     
     glEnd();
-    
     glPopMatrix();
 
 }
 
-void Light::render(std::vector<Rect>& objects){
+/*void Light::render(std::vector<Rect>& objects){
     //use triangle fan
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(specular.r, specular.g, specular.b, specular.a);
@@ -105,13 +129,14 @@ void Light::render(std::vector<Rect>& objects){
    
     glEnd();
  
-}
+}*/
 
 //sutherland - holander algorithm, check wikipedia page for pusedo implementation
 //reference CS488 course note
 
 void Light::render_clip(Rect object){
-    
+    //TODO: finish this using edge instead of rect
+    return ;
     //get the fan, reuse it from render
     std::vector<Edge> clip_edges = fan.getEdges();
     std::vector<Edge> rect_edges = object.getEdges();

@@ -39,8 +39,8 @@ public:
     void create_scene();
     void clear_scene();
     
-    std::vector<Rect>get_hidden();
-    std::vector<Rect>get_rect();
+    std::vector<Edge>get_edge_list();
+    
     Vector get_next_direction(Vector dir, Point anchor);
     float get_current_angel();
 };

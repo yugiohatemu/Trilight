@@ -28,7 +28,7 @@ public:
 	Color specular;
 	float size;
     
-    void render(std::vector<Rect>& objects);
+//    void render(std::vector<Rect>& objects);
     void render();
     void rotate(int x, int y);
     void render_clip(Rect object);

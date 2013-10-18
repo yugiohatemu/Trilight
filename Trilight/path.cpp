@@ -22,6 +22,10 @@ Path::~Path(){
     prev = next = NULL;
 }
 
+Edge Path::get_edge(){
+    return Edge(start, end);
+}
+
 void Path::set_angel(){
     if (to_next == EAST) angel = 0.0f;
     else if(to_next == NORTH) angel = 270.0f;

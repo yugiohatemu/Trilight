@@ -14,7 +14,7 @@
 #include "algebra.h"
 #include "constant.h"
 //double linked list
-
+#include "edge.h"
 class Path{
     
     Point start;
@@ -37,7 +37,7 @@ public:
     ORIENTATION to_next;
     ORIENTATION to_prev;
     ORIENTATION get_orientation(Vector vec);
-    
+    Edge get_edge();
 };
 
 Vector adjust_vector(ORIENTATION orien, Vector vec);
