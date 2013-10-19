@@ -7,7 +7,7 @@
 //
 
 #include "path.h"
-#include "SDL/SDL_opengl.h"
+
 
 Path::Path(Point s, Point e):start(s),end(e){
     prev = next = NULL;
@@ -42,8 +42,11 @@ float Path::get_angel(){
 }
 
 void Path::render(){
+    glBegin(GL_LINES);
+    glColor3f(255, 0, 0);
     glVertex2f(start.x, start.y);
     glVertex2f(end.x, end.y);
+    glEnd();
 }
 
 ORIENTATION Path::get_orientation(Vector vec){
@@ -98,7 +101,7 @@ Vector adjust_vector(ORIENTATION orien, Vector vec){
     return nex;
 }
 
-bool Path::is_point_on_path(Point p ){
+bool Path::is_point_within_path(Point p ){
 //do not check for colinearity, but just within range
     if (p == start || p == end) {
         return true;
@@ -108,15 +111,6 @@ bool Path::is_point_on_path(Point p ){
                 return true;
             }
         }
-        
-        //the below might have rounding error due to normalize
-//        Vector v1 = (p-start).normalize();
-//        Vector v2 = (end - p).normalize();
-//        if (v1 == v2) {
-//            return true;
-//        }else{
-//            return false;
-//        }
     }
     return false;
 }

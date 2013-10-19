@@ -15,8 +15,10 @@
 #include "constant.h"
 //double linked list
 #include "edge.h"
+#include "SDL/SDL_opengl.h"
+
 class Path{
-    
+protected:
     Point start;
     Point end;
     Vector vec; //or float angel
@@ -27,8 +29,8 @@ public:
     Path * prev;
     Path * next;
     ~Path();
-    void render(); //use bfs or dfs to render the path
-    bool is_point_on_path(Point p );
+    virtual void render(); //use bfs or dfs to render the path
+    virtual bool is_point_within_path(Point p );
     bool is_orentation_within(ORIENTATION A, ORIENTATION B);
     Vector get_vec();
     Point get_start();

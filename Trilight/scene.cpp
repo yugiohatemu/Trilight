@@ -117,8 +117,8 @@ void Scene::render(){
 //    if (tiles) tiles->render();
     if (eyeball) eyeball->render();
     if (path){
-        glBegin(GL_LINES);
-        glColor3f(255, 0, 0);
+//        glBegin(GL_LINES);
+        
         Path * prev = path->prev;
         Path * next = path;
         
@@ -133,7 +133,7 @@ void Scene::render(){
             next = temp;
         }
 
-        glEnd();
+//        glEnd();
     }
     if (test_light)  test_light->render();
 }
@@ -180,7 +180,7 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
     //need to modify dir?
     if (path->is_orentation_within(orien, path->to_next)) {
         path_orien = path->to_next;
-        if (!path->is_point_on_path(next_anchor)){
+        if (!path->is_point_within_path(next_anchor)){
             
             if (path->next != NULL ) {
                 path = path->next;
@@ -196,7 +196,7 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
     }else if (path->is_orentation_within(orien, path->to_prev)){ //we are going to previous
         path_orien = path->to_prev;
 
-        if (!path->is_point_on_path(next_anchor)) {
+        if (!path->is_point_within_path(next_anchor)) {
             if (path->prev != NULL) {
                 path = path->prev;
                 Vector left = next_anchor - start;
