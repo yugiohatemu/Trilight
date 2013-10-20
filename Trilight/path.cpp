@@ -9,7 +9,7 @@
 #include "path.h"
 
 
-Path::Path(Point s, Point e):start(s),end(e){
+Path::Path(Point s, Point e):start(s),end(e),edge(start, end){
     prev = next = NULL;
     vec = end - start;
     vec = vec.normalize();
@@ -23,7 +23,7 @@ Path::~Path(){
 }
 
 Edge Path::get_edge(){
-    return Edge(start, end);
+    return edge;
 }
 
 void Path::set_angel(){
@@ -40,6 +40,19 @@ void Path::set_angel(){
 float Path::get_angel(){
     return angel;
 }
+
+Vector Path::get_vec(){
+    return vec;
+}
+
+Point Path::get_start(){
+    return start;
+}
+
+Point Path::get_end(){
+    return end;
+}
+
 
 void Path::render(){
     glBegin(GL_LINES);
@@ -113,17 +126,5 @@ bool Path::is_point_within_path(Point p ){
         }
     }
     return false;
-}
-
-Vector Path::get_vec(){
-    return vec;
-}
-
-Point Path::get_start(){
-    return start;
-}
-
-Point Path::get_end(){
-    return end;
 }
 

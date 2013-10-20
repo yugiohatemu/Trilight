@@ -24,22 +24,27 @@ protected:
     Vector vec; //or float angel
     float angel;
     void set_angel();
+    Edge edge;
 public:
     Path(Point start, Point end);
     Path * prev;
     Path * next;
     ~Path();
-    virtual void render(); //use bfs or dfs to render the path
-    virtual bool is_point_within_path(Point p );
+    
+    void render(); //use bfs or dfs to render the path
+    bool is_point_within_path(Point p );
     bool is_orentation_within(ORIENTATION A, ORIENTATION B);
+    
     Vector get_vec();
     Point get_start();
     Point get_end();
     float get_angel();
+    Edge get_edge();
+    
     ORIENTATION to_next;
     ORIENTATION to_prev;
     ORIENTATION get_orientation(Vector vec);
-    Edge get_edge();
+    
 };
 
 Vector adjust_vector(ORIENTATION orien, Vector vec);

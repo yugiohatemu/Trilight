@@ -111,13 +111,10 @@ void Scene::clear_scene(){
 
 void Scene::render(){
     
-//    for(int i = 0; i < rectangles.size(); i++) {
-//        rectangles[i].render();
-//    }
-//    if (tiles) tiles->render();
+
     if (eyeball) eyeball->render();
     if (path){
-//        glBegin(GL_LINES);
+
         
         Path * prev = path->prev;
         Path * next = path;
@@ -132,8 +129,6 @@ void Scene::render(){
             next->render();
             next = temp;
         }
-
-//        glEnd();
     }
     if (test_light)  test_light->render();
 }
@@ -212,25 +207,8 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
     }
     //need to adjust orientation based on that
     dir = adjust_vector(path_orien, dir);
-//    debug(path_orien);
+
     return dir;
 }
 
 
-/*
- Rect obstac(400,80,150,100);
- obstac.color.setRGBA(0X00FF00FF);
- 
- Rect obstac1(100,300,150,100);
- obstac1.color.setRGBA(0X00FF00FF);
- 
- Rect obstac2(0,100,150,120);
- obstac2.color.setRGBA(0X00FF00FF);
- 
- Rect obstac3(540,200,100,100);
- obstac3.color.setRGBA(0X00FF00FF);
- 
- test_rec.push_back(obstac);
- test_rec.push_back(obstac1);
- test_rec.push_back(obstac2);
- test_rec.push_back(obstac3);*/

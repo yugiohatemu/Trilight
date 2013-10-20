@@ -25,7 +25,7 @@
 		B6CC488F17D501DD00A6508F /* algebra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488D17D501DD00A6508F /* algebra.cpp */; };
 		B6CC489917D6439900A6508F /* polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489717D6439800A6508F /* polygon.cpp */; };
 		B6CC489C17D6C01600A6508F /* edge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC489A17D6C01600A6508F /* edge.cpp */; };
-		B6D06867181322BC00C975C1 /* curvePath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D06865181322BC00C975C1 /* curvePath.cpp */; };
+		B6D0686D1813788E00C975C1 /* pathBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D0686B1813788E00C975C1 /* pathBuilder.cpp */; };
 		B6D186D51809FF8E0073BEB4 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D186D41809FF8E0073BEB4 /* GLUT.framework */; };
 		B6D186DA180C50780073BEB4 /* tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D186D8180C50780073BEB4 /* tile.cpp */; };
 		B6D186DD180C50E50073BEB4 /* tileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D186DB180C50E50073BEB4 /* tileMap.cpp */; };
@@ -81,8 +81,9 @@
 		B6CC489817D6439900A6508F /* polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polygon.h; sourceTree = "<group>"; };
 		B6CC489A17D6C01600A6508F /* edge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = edge.cpp; sourceTree = "<group>"; };
 		B6CC489B17D6C01600A6508F /* edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edge.h; sourceTree = "<group>"; };
-		B6D06865181322BC00C975C1 /* curvePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = curvePath.cpp; sourceTree = "<group>"; };
-		B6D06866181322BC00C975C1 /* curvePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curvePath.h; sourceTree = "<group>"; };
+		B6D0686B1813788E00C975C1 /* pathBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pathBuilder.cpp; sourceTree = "<group>"; };
+		B6D0686C1813788E00C975C1 /* pathBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pathBuilder.h; sourceTree = "<group>"; };
+		B6D0686E1813843700C975C1 /* level1.path */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.path; sourceTree = "<group>"; };
 		B6D186D41809FF8E0073BEB4 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		B6D186D6180C4F270073BEB4 /* tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiles.png; sourceTree = "<group>"; };
 		B6D186D8180C50780073BEB4 /* tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tile.cpp; sourceTree = "<group>"; };
@@ -211,8 +212,9 @@
 			children = (
 				B6D186DF180DB3790073BEB4 /* path.cpp */,
 				B6D186E0180DB3790073BEB4 /* path.h */,
-				B6D06865181322BC00C975C1 /* curvePath.cpp */,
-				B6D06866181322BC00C975C1 /* curvePath.h */,
+				B6D0686B1813788E00C975C1 /* pathBuilder.cpp */,
+				B6D0686C1813788E00C975C1 /* pathBuilder.h */,
+				B6D0686E1813843700C975C1 /* level1.path */,
 			);
 			name = path;
 			sourceTree = "<group>";
@@ -300,7 +302,7 @@
 				B6D186DA180C50780073BEB4 /* tile.cpp in Sources */,
 				B601585517B7DAD8003C8FCD /* rect.cpp in Sources */,
 				B601585B17B7DC6B003C8FCD /* light.cpp in Sources */,
-				B6D06867181322BC00C975C1 /* curvePath.cpp in Sources */,
+				B6D0686D1813788E00C975C1 /* pathBuilder.cpp in Sources */,
 				B6D186DD180C50E50073BEB4 /* tileMap.cpp in Sources */,
 				B6666C8818046FD00002CBBF /* utility.cpp in Sources */,
 				B6E08F811808815D001ACCB6 /* scene.cpp in Sources */,
