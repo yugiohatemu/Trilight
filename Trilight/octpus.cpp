@@ -49,6 +49,18 @@ void Octpus::set_clip(){
     
 }
 
+void Octpus::set_anchor(Point p){
+    anchor = p;
+    top_left.x = bot_left.x = anchor.x - box.w/2;
+    top_left.y = top_right.y = anchor.y - box.h;
+    top_right.x = bot_right.x = anchor.x + box.w/2;
+    bot_left.y = bot_right.y = anchor.y;
+    
+    //update the light
+    torch->position.x = anchor.x;
+    torch->position.y = anchor.y - 48;
+}
+
 void Octpus::render(){
     glPushMatrix();
     
@@ -79,6 +91,8 @@ void Octpus::render(){
 //    torch->render_clip(hid_rect[0]);
     
 }
+
+
 
 void Octpus::update(SDL_Event event){
     

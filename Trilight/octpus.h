@@ -30,6 +30,7 @@ class Octpus:public Sprite{
     bool stretch;
 public:
     Octpus(int x = 0, int y = 0, int w = 0, int h = 0);
+    void set_anchor(Point p);
     ~Octpus();
     void render();
     void update(SDL_Event event);

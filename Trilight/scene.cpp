@@ -44,7 +44,9 @@ void Scene::create_scene(){
     test.color.setRGBA(0xFF0000FF);
     hidden.push_back(test);
     
-    eyeball = new Octpus(44,236,32,64);
+    eyeball = new Octpus(74,336,32,64); //100-32,400-64
+    Octpus * temp = dynamic_cast<Octpus *>(eyeball);
+    temp->set_anchor(Point(150,400));
     
     tiles = new TileMap();
     
@@ -81,9 +83,8 @@ void Scene::render(){
     
 
     if (eyeball) eyeball->render();
-    if (path){
-        render_path(path);
-    }
+    if (path) render_path(path);
+    
     if (test_light)  test_light->render();
 }
 
