@@ -90,29 +90,23 @@ bool Path::is_orentation_within(ORIENTATION A, ORIENTATION B){ //ask if A is wit
     return false;
 }
 
-Vector get_vector_based_on_orientation(ORIENTATION orien){ //return normalized
-    Vector vec;
+
+Vector adjust_vector(ORIENTATION orien,  Vector dir, Vector vec){
     
     switch (orien) {
-        case NORTH: vec.y = -1; break;
-        case NORTH_EAST: vec.x = SQRT2; vec.y = -SQRT2; break;
-        case EAST: vec.x = 1; break;
-        case SOUTH_EAST: vec.x = SQRT2; vec.y = SQRT2; break;
-        case SOUTH: vec.y = 1; break;
-        case SOUTH_WEST: vec.x = -SQRT2; vec.y = SQRT2; break;
-        case WEST: vec.x = -1; break;
-        case NORTH_WEST: vec.x = -SQRT2; vec.y = -SQRT2; break;
+        case NORTH: dir.x = 0; break;
+        case EAST: dir.y = 0; break;
+        case SOUTH: dir.x = 0; break;
+        case WEST: dir.y = 0; break;
         default:break;
     }
-    return vec;
+
+    float n = dir.get_norm();
+    //if vec
+    return vec * n;
 }
 
-Vector adjust_vector(ORIENTATION orien, Vector vec){
-    //if vec
-    float n = vec.get_norm();
-    Vector nex = n * get_vector_based_on_orientation(orien);
-    return nex;
-}
+
 
 bool Path::is_point_within_path(Point p ){
 //do not check for colinearity, but just within range
@@ -128,3 +122,19 @@ bool Path::is_point_within_path(Point p ){
     return false;
 }
 
+//Vector get_vector_based_on_orientation(ORIENTATION orien){ //return normalized
+//    Vector vec;
+//
+//    switch (orien) {
+//        case NORTH: vec.y = -1; break;
+//        case NORTH_EAST: vec.x = SQRT2/2; vec.y = -SQRT2/2; break;
+//        case EAST: vec.x = 1; break;
+//        case SOUTH_EAST: vec.x = SQRT2/2; vec.y = SQRT2/2; break;
+//        case SOUTH: vec.y = 1; break;
+//        case SOUTH_WEST: vec.x = -SQRT2/2; vec.y = SQRT2/2; break;
+//        case WEST: vec.x = -1; break;
+//        case NORTH_WEST: vec.x = -SQRT2/2; vec.y = -SQRT2/2; break;
+//        default:break;
+//    }
+//    return vec;
+//}

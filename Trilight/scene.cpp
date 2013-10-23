@@ -12,6 +12,7 @@
 #include "octpus.h"
 #include <iostream>
 #include "utility.h"
+#include "pathBuilder.h"
 
 Scene::Scene(){
    
@@ -47,28 +48,7 @@ void Scene::create_scene(){
     
     tiles = new TileMap();
     
-    int mult = 60;
-    int yoff = 300;
-    path = new Path(Point(1* mult, 0+ yoff), Point(3* mult, 0+ yoff));
-    Path * p1 = new Path(Point(3* mult,0+ yoff), Point(5* mult,2* mult+ yoff));
-    path->next = p1;
-    p1->prev = path;
-    
-    Path * p2 = new Path(Point(5* mult,2*mult+ yoff), Point(6* mult,2* mult+ yoff));
-    p1->next = p2;
-    p2->prev = p1;
-    
-    Path * p3 = new Path(Point(6* mult,2* mult+ yoff), Point(8* mult, yoff));
-    p2->next = p3;
-    p3->prev = p2;
-    
-    Path * p4 = new Path(Point(8* mult, yoff), Point(8* mult, yoff - 3*mult));
-    p3->next = p4;
-    p4->prev = p3;
-    
-    Path * p5 = new Path( Point(8* mult, yoff - 3*mult), Point(4* mult, yoff - 3*mult));
-    p4->next = p5;
-    p5->prev = p4;
+    path = read_path("/Users/wei/Desktop/Trilight/Trilight/level1.path");
     
     //test new light
     test_light = new Light(60.0f);
@@ -83,19 +63,7 @@ void Scene::clear_scene(){
     if (eyeball) delete eyeball;
     if (tiles) delete tiles;
     
-    Path * prev = path->prev;
-    Path * next = path;
-    
-    while (prev != NULL) {
-        Path * temp = prev->prev;
-        delete prev;
-        prev = temp;
-    }
-    while (next != NULL) {
-        Path * temp = next->next;
-        delete next;
-        next = temp;
-    }
+    if (path) delete_path(path);
     
     if (test_light) delete test_light;
     
@@ -114,21 +82,7 @@ void Scene::render(){
 
     if (eyeball) eyeball->render();
     if (path){
-
-        
-        Path * prev = path->prev;
-        Path * next = path;
-        
-        while (prev != NULL) {
-            Path * temp = prev->prev;
-            prev->render();
-            prev = temp;
-        }
-        while (next != NULL) {
-            Path * temp = next->next;
-            next->render();
-            next = temp;
-        }
+        render_path(path);
     }
     if (test_light)  test_light->render();
 }
@@ -139,23 +93,7 @@ void Scene::update(SDL_Event event){
 
 std::vector<Edge> Scene::get_edge_list(){
     //do a boundary test when the scene get large~~
-    
-    std::vector<Edge> edge_list;
-    Path * prev = path->prev;
-    Path * next = path;
-    
-    while (prev != NULL) {
-        Path * temp = prev->prev;
-        edge_list.push_back(prev->get_edge());
-        prev = temp;
-    }
-    while (next != NULL) {
-        Path * temp = next->next;
-        edge_list.push_back(next->get_edge());
-        next = temp;
-    }
-    
-    return edge_list;
+    return get_edge_from_path(path);
 }
 
 
@@ -169,19 +107,23 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
     Point next_anchor = anchor + dir;
     Point start = path->get_start();
     Point end = path->get_end();
+    Vector vec = path->get_vec();
     
     ORIENTATION orien = path->get_orientation(dir);
     ORIENTATION path_orien;
+    
     //need to modify dir?
     if (path->is_orentation_within(orien, path->to_next)) {
         path_orien = path->to_next;
+//        dir = adjust_vector(path_orien, dir);
         if (!path->is_point_within_path(next_anchor)){
             
             if (path->next != NULL ) {
+                
                 path = path->next;
                 Vector left = next_anchor - end;
                 float t = left.get_norm();
-                dir = path->get_vec() * t;
+                dir = vec * t;
                 return (end-anchor) + get_next_direction(dir, end);
             }else{
                 return end-anchor;
@@ -190,13 +132,14 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
         
     }else if (path->is_orentation_within(orien, path->to_prev)){ //we are going to previous
         path_orien = path->to_prev;
-
+//        dir = adjust_vector(path_orien, dir);
+        vec = vec * -1;
         if (!path->is_point_within_path(next_anchor)) {
             if (path->prev != NULL) {
                 path = path->prev;
                 Vector left = next_anchor - start;
                 float t = left.get_norm();
-                dir = path->get_vec() * -t;
+                dir = vec * t;
                 return (start - anchor) + get_next_direction(dir, start);
             }else{
                 return start - anchor;
@@ -206,8 +149,8 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
         return Vector();
     }
     //need to adjust orientation based on that
-    dir = adjust_vector(path_orien, dir);
-
+    //debug(dir);
+    dir = adjust_vector(orien, dir, vec);
     return dir;
 }
 

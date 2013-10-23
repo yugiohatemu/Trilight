@@ -141,6 +141,7 @@ void Octpus::update(SDL_Event event){
             Vector rotate_dir = (head - anchor).rotate(angel);
             torch->position = anchor + rotate_dir;
             
+//            debug(next_dir);
         }
     }
         //reset key press

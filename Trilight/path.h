@@ -47,6 +47,5 @@ public:
     
 };
 
-Vector adjust_vector(ORIENTATION orien, Vector vec);
-
+Vector adjust_vector(ORIENTATION orien,  Vector dir, Vector vec);
 #endif /* defined(__Trilight__tilePath__) */

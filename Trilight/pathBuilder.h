@@ -11,14 +11,10 @@
 
 #include "path.h"
 #include <string>
-class PathBuilder{
-public:
-    PathBuilder();
-    ~PathBuilder();
-    Path* read_path(std::string filename);
-    void render_path(Path * p);
-    void delete_path(Path * p);
-    //singelton?, not necessary
-};
+
+Path* read_path(std::string filename);
+void render_path(Path * p);
+void delete_path(Path * p);
+std::vector<Edge> get_edge_from_path(Path * p);
 
 #endif /* defined(__Trilight__pathBuilder__) */
