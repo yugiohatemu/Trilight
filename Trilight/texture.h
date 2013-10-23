@@ -29,6 +29,7 @@ public:
     enum{
         NPC,
         TILE,
+        FONT,
         TOTAL_TEXTURE,
     }TEXTURE_TYPE;
     
