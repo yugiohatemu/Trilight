@@ -13,6 +13,7 @@
 #include <iostream>
 #include "utility.h"
 #include "pathBuilder.h"
+#include "font.h"
 
 Scene::Scene(){
    
@@ -58,6 +59,12 @@ void Scene::create_scene(){
     test_light->specular.setRGBA(0xFF000066);
     test_light->size = 100.0f;
     test_light->set_rotate_angel(90);
+    
+    text = new Font("HELLO");
+    text->box.x = 300;
+    text->box.y = 300;
+    text->box.w = 32;
+    text->box.h = 48;
 
 }
 
@@ -69,13 +76,18 @@ void Scene::clear_scene(){
     
     if (test_light) delete test_light;
     
+     if (text) delete text;
+    
     eyeball = NULL;
     tiles = NULL;
     path = NULL;
     test_light = NULL;
+    text = NULL;
     
     if (!rectangles.empty()) rectangles.clear();
     if (!hidden.empty()) hidden.clear();
+    
+   
     
 }
 
@@ -86,6 +98,8 @@ void Scene::render(){
     if (path) render_path(path);
     
     if (test_light)  test_light->render();
+    
+    if (text) text->render();
 }
 
 void Scene::update(SDL_Event event){

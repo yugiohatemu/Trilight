@@ -18,6 +18,7 @@
 		B601585217B7D982003C8FCD /* color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585017B7D982003C8FCD /* color.cpp */; };
 		B601585517B7DAD8003C8FCD /* rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585317B7DAD8003C8FCD /* rect.cpp */; };
 		B601585B17B7DC6B003C8FCD /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585917B7DC6B003C8FCD /* light.cpp */; };
+		B627D0F018176955004D3CAB /* font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B627D0EE18176955004D3CAB /* font.cpp */; };
 		B6666C83180467420002CBBF /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6666C81180467420002CBBF /* texture.cpp */; };
 		B6666C8818046FD00002CBBF /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6666C8618046FD00002CBBF /* utility.cpp */; };
 		B6CC488417D4D4A500A6508F /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488217D4D4A500A6508F /* vector.cpp */; };
@@ -66,6 +67,9 @@
 		B601585417B7DAD8003C8FCD /* rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rect.h; sourceTree = "<group>"; };
 		B601585917B7DC6B003C8FCD /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = light.cpp; sourceTree = "<group>"; };
 		B601585A17B7DC6B003C8FCD /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = light.h; sourceTree = "<group>"; };
+		B627D0EC181768BA004D3CAB /* fontTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fontTile.png; sourceTree = "<group>"; };
+		B627D0EE18176955004D3CAB /* font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = font.cpp; sourceTree = "<group>"; };
+		B627D0EF18176955004D3CAB /* font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = font.h; sourceTree = "<group>"; };
 		B6666C81180467420002CBBF /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
 		B6666C82180467420002CBBF /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
 		B6666C8518046B880002CBBF /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
@@ -96,7 +100,6 @@
 		B6D186E2180F87840073BEB4 /* constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
 		B6E08F731805B159001ACCB6 /* loadPNG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadPNG.cpp; sourceTree = "<group>"; };
 		B6E08F741805B159001ACCB6 /* loadPNG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadPNG.h; sourceTree = "<group>"; };
-		B6E08F771805EC6B001ACCB6 /* font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font.ttf; sourceTree = "<group>"; };
 		B6E08F7C18084BDD001ACCB6 /* sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sprite.h; sourceTree = "<group>"; };
 		B6E08F7F1808815D001ACCB6 /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
 		B6E08F801808815D001ACCB6 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
@@ -144,9 +147,9 @@
 		B601582317B7CC57003C8FCD /* Trilight */ = {
 			isa = PBXGroup;
 			children = (
+				B627D0ED18176922004D3CAB /* font */,
 				B6D186D7180C505D0073BEB4 /* path */,
 				B6E08F851809DF16001ACCB6 /* sprite */,
-				B6E08F771805EC6B001ACCB6 /* font.ttf */,
 				B6D186E2180F87840073BEB4 /* constant.h */,
 				B601582417B7CC57003C8FCD /* main.cpp */,
 				B6E08F7F1808815D001ACCB6 /* scene.cpp */,
@@ -170,6 +173,15 @@
 			path = Trilight;
 			sourceTree = "<group>";
 		};
+		B627D0ED18176922004D3CAB /* font */ = {
+			isa = PBXGroup;
+			children = (
+				B627D0EE18176955004D3CAB /* font.cpp */,
+				B627D0EF18176955004D3CAB /* font.h */,
+			);
+			name = font;
+			sourceTree = "<group>";
+		};
 		B6666C801804672C0002CBBF /* light */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +194,7 @@
 		B6666C8418046B6E0002CBBF /* image */ = {
 			isa = PBXGroup;
 			children = (
+				B627D0EC181768BA004D3CAB /* fontTile.png */,
 				B6D186D6180C4F270073BEB4 /* tiles.png */,
 				B6666C8518046B880002CBBF /* white.png */,
 			);
@@ -296,6 +309,7 @@
 			files = (
 				B601582517B7CC57003C8FCD /* main.cpp in Sources */,
 				B601582F17B7CC92003C8FCD /* SDLMain.m in Sources */,
+				B627D0F018176955004D3CAB /* font.cpp in Sources */,
 				B601584B17B7D4BC003C8FCD /* stopWatch.cpp in Sources */,
 				B6E08F751805B159001ACCB6 /* loadPNG.cpp in Sources */,
 				B601585217B7D982003C8FCD /* color.cpp in Sources */,

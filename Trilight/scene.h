@@ -28,6 +28,7 @@ class Scene{
     std::vector<Rect> hidden;
     
     Sprite * eyeball;
+    Sprite * text;
     TileMap * tiles;
     Path * path;
     Light * test_light;

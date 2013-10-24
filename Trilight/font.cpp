@@ -12,11 +12,10 @@
 Font::Font(std::string s):Sprite(){
     set_clip();
     
-    
     for (int i = 0; i < s.size(); i++) {
         texts.push_back(s[i] - 'A');
     }
-    box.w = box.h = 32;
+    
 }
 
 Font::~Font(){
@@ -48,12 +47,11 @@ void Font::render(){
     glBegin(GL_QUADS);
     for (int i = 0; i < texts.size(); i++) {
         int frame = texts[i];
-        glBegin(GL_QUADS);
+        
         glTexCoord2f(clips[frame].x, clips[frame].y); glVertex2f(box.x + i * 32, box.y);
         glTexCoord2f(clips[frame].x, clips[frame].y + clips[frame].h); glVertex2f(box.x+i * 32, box.y + box.h);
         glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y+ clips[frame].h); glVertex2f(box.x + box.w +i * 32, box.y + box.h);
         glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y); glVertex2f(box.x + box.w +i * 32, box.y);
-        glEnd();
     }
     
     glEnd();
