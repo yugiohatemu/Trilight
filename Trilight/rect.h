@@ -14,26 +14,21 @@
 #include "color.h"
 #include "algebra.h"
 #include "edge.h"
-
+#include "SDL/SDL.h"
 class Rect {
-
-	Point position; //left top corner
-    Point center;
-	Point size;
-    bool block;
+	
 public:
     int x,y,w,h;
 	Rect() ;
 	Rect(int dx, int dy, int dwidth, int dheight);
+    Rect(SDL_Rect rect);
+    
 	void render() ;
     std::vector<Edge> getEdges();
     std::vector<Point> getPoints();
     std::vector<Vector> getNormals();
     bool is_inside(Point p);
-    bool is_block();
-    void set_block(bool b);
-    void set_center(Point pos);
-    void set_center(int x, int y);
+   
     Color color;
 };
 

@@ -35,10 +35,13 @@ void Light::render(){
     glPushMatrix();
     glLoadIdentity();
     
+    fan.clear_point();
+    
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(specular.r, specular.g, specular.b, specular.a);
     glVertex2f(position.x, position.y);
     
+    fan.add_point(position);
     //get edge list, do colllision detection
     
     std::vector<Edge> edge_list = Scene::Instance().get_edge_list();
@@ -48,6 +51,7 @@ void Light::render(){
         float t = 1.0f; //use this to derive alpha
         
         Vector ray(size * cos(angle), size * sin(angle));
+        fan.add_point(position + ray);
         
         //for every thing obstacle need to detect, do a test get the closest hit on the scene
         for (int j = 0; j < edge_list.size(); j++) {

@@ -60,11 +60,14 @@ void Scene::create_scene(){
     test_light->size = 100.0f;
     test_light->set_rotate_angel(90);
     
-    text = new Font("H");
-    text->box.x = 300;
-    text->box.y = 300;
-    text->box.w = 32;
-    text->box.h = 48;
+    text = new Font();
+    Font * t_text = dynamic_cast<Font *> (text);
+    SDL_Rect t_box;
+    t_box.x = 300;
+    t_box.y = 300;
+    t_box.w = 32;
+    t_box.h = 48;
+    t_text->make_sentence("H", t_box);
 
 }
 
@@ -87,8 +90,6 @@ void Scene::clear_scene(){
     if (!rectangles.empty()) rectangles.clear();
     if (!hidden.empty()) hidden.clear();
     
-   
-    
 }
 
 void Scene::render(){
@@ -99,7 +100,7 @@ void Scene::render(){
     
     if (test_light)  test_light->render();
     
-    //if (text) text->render();
+    if (text) text->render();
 }
 
 void Scene::update(SDL_Event event){
@@ -111,7 +112,7 @@ std::vector<Edge> Scene::get_edge_list(){
     return get_edge_from_path(path);
 }
 
-std::vector<Point> Scene::get_clip_edge(Rect rect){
+std::vector<Point> Scene::get_clip_point(Rect rect){
     //just use test_light for now
     return test_light->render_clip(rect);
 }

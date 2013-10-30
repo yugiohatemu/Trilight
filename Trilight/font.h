@@ -12,19 +12,23 @@
 #include "sprite.h"
 #include <vector>
 #include <string>
+#include "rect.h"
 
-
-struct Character{
-    char ch;
-    SDL_Rect box;
-    T_Rect clip;
-    //T_Polygon? clipeed
-    //Polygon box?
-    bool hidden;
-};
 //make a rect and ask it returns necessaries
 
 class Font:public Sprite{
+    struct Char{
+        int frame;
+        Rect box;
+        bool hidden;
+        Char &operator = (Char & c){
+            box = c.box;
+            frame = c.frame;
+            hidden = c.hidden;
+            return  *this;
+        }
+    };
+    
     void set_clip();
     enum {
         A,B,C,D,E,F,G,
@@ -33,13 +37,14 @@ class Font:public Sprite{
         V,W,X,Y,Z,SPACE,
         TOTAL_CLIPS,
     }CLIPS;
-    std::vector<int> texts;
+    std::vector<Char> texts;
    
     T_Rect clips[TOTAL_CLIPS];
 public:
-    Font(std::string s);
+    Font();
     ~Font();
     void render();
+    void make_sentence(std::string s, SDL_Rect box);
     void update(SDL_Event event);
 };
 

@@ -10,19 +10,13 @@
 #include "texture.h"
 #include "scene.h"
 #include "rect.h"
-Font::Font(std::string s):Sprite(){
+#include "utility.h"
+Font::Font():Sprite(){
     set_clip();
-    SDL_Rect box;
-    for (int i = 0; i < s.size(); i++) {
- 
-        
-        texts.push_back(s[i] - 'A');
-    }
-    
 }
 
 Font::~Font(){
-   
+    texts.clear();
 }
 
 void Font::set_clip(){
@@ -36,38 +30,23 @@ void Font::set_clip(){
     }
 }
 
+void Font::make_sentence(std::string s, SDL_Rect box){
+    for (int i = 0; i < s.size(); i++){
+        
+        Char ch;
+        Rect text_box(box);
+        text_box.x = box.x + i * box.w;
+        
+        ch.box = text_box;
+        ch.frame = toupper(s[i]) - 'A';
+        
+        texts.push_back(ch);
+
+    }
+}
 
 void Font::render(){
-    //std::vector<Edge> map = Scene::Instance().get_clip_edge(<#std::vector<Edge> hidden#>, <#std::vector<Vector> normal_inside#>)
-    //or we can just make a rect, easy peacy
-    return;
     
-    Rect r;
-    std::vector<Point> clip_point = Scene::Instance().get_clip_edge(r);
-    std::vector<Point> texture_clip;
-    
-    
-    if (!clip_point.empty()) {
-        Point top_left;
-        float ratio_w = r.w / clips[frame].w;
-        float ratio_h = r.h / clips[frame].h;
-        for (Point & p  : clip_point) {
-            p.x = (p.x - top_left.x)/ratio_w + clips[frame].x;
-            p.y = (p.y - top_left.y)/ratio_h + clips[frame].y;
-            texture_clip.push_back(p);
-        }
-    }
-    
-    glBegin(GL_TRIANGLE_FAN);
-    for (int i = 0; i < clip_point.size();i++) {
-        glTexCoord2d(texture_clip[i].x, texture_clip[i].y);
-        glVertex2d(clip_point[i].x, clip_point[i].y);
-    }
-    
-    glEnd();
-    
-    //roughly like this, like need to fix some class hiearchy
-    ///////////////////////////////////
     glPushMatrix();
     
     //get texture
@@ -78,18 +57,43 @@ void Font::render(){
     //start drawing
     glLoadIdentity();
     
-    glBegin(GL_QUADS);
     for (int i = 0; i < texts.size(); i++) {
-        int frame = texts[i];
         
-        glTexCoord2f(clips[frame].x, clips[frame].y); glVertex2f(box.x + i * 32, box.y);
-        glTexCoord2f(clips[frame].x, clips[frame].y + clips[frame].h); glVertex2f(box.x+i * 32, box.y + box.h);
-        glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y+ clips[frame].h); glVertex2f(box.x + box.w +i * 32, box.y + box.h);
-        glTexCoord2f(clips[frame].x + clips[frame].w, clips[frame].y); glVertex2f(box.x + box.w +i * 32, box.y);
+        Rect rec = texts[i].box;
+        T_Rect text_clip = clips[texts[i].frame];
+        
+        std::vector<Point> clip_point = Scene::Instance().get_clip_point(rec);
+        std::vector<Point> texture_clip;
+        
+        if (!clip_point.empty()) {
+            Point top_left(texts[i].box.x, texts[i].box.y);
+            
+            float ratio_w = rec.w / text_clip.w;
+            float ratio_h = rec.h / text_clip.h;
+            
+            //map the clip_point to texture point
+            for (Point & p  : clip_point) {
+                Point cp(p);
+                cp.x = (p.x - top_left.x)/ratio_w + text_clip.x;
+                cp.y = (p.y - top_left.y)/ratio_h + text_clip.y;
+                texture_clip.push_back(cp);
+            }
+            
+            glBegin(GL_TRIANGLE_FAN);
+            glColor3f(1, 1, 0);
+            for (int j = 0; j < clip_point.size();j++) {
+                glTexCoord2f(texture_clip[j].x, texture_clip[j].y);
+                glVertex2f(clip_point[j].x, clip_point[j].y);
+            }
+            glEnd();
+        }
+        
     }
     
-    glEnd();
+    //unbind texture
+    glBindTexture(GL_TEXTURE_2D, 0);
     glPopMatrix();
+    
 }
 
 void Font::update(SDL_Event event){

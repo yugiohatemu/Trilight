@@ -14,56 +14,28 @@ Rect::Rect() {
 }
 
 Rect::Rect(int dx, int dy, int dwidth, int dheight) {
-    position.x = dx;
-    position.y = dy;
-    size.x = dwidth;
-    size.y = dheight;
-    block = true;
-    center.x = (dx + dwidth) / 2;
-    center.y = (dy + dheight) / 2;
     x = dx;
     y = dy;
     w = dwidth;
     h = dheight;
 }
 
-bool Rect::is_block(){
-    return block;
+Rect::Rect(SDL_Rect rect){
+    x = rect.x;
+    y = rect.y;
+    w = rect.w;
+    h = rect.h;
 }
-
-void Rect::set_block(bool b){
-    block = b;
-}
-
-void Rect::set_center(Point pos){
-    set_center(pos.x,pos.y);
-}
-
-void Rect::set_center(int x, int y){
-    center.x = x;
-    center.y = y;
-    position.x = center.x - size.x/2;
-    position.y = center.y - size.y/2;
-}
-
 
 void Rect::render() {
     glPushMatrix();
-//    
-//    glBegin(GL_LINE_LOOP);
-//    glColor3f(1.0f, 1.0f, 1.0f);
-//    glVertex2f(position.x, position.y);
-//    glVertex2f(position.x, position.y + size.y);
-//    glVertex2f(position.x + size.x, position.y + size.y);
-//    glVertex2f(position.x + size.x, position.y);
-//    glEnd();
     
     glBegin(GL_QUADS);
     glColor4f(color.r,color.g,color.b,color.a );
-    glVertex2f(position.x, position.y);
-    glVertex2f(position.x, position.y + size.y);
-    glVertex2f(position.x + size.x, position.y + size.y);
-    glVertex2f(position.x + size.x, position.y);
+    glVertex2f(x, y);
+    glVertex2f(x, y + h);
+    glVertex2f(x + w, y + h);
+    glVertex2f(x + w, y);
     
     glEnd();
     
@@ -72,10 +44,10 @@ void Rect::render() {
 
 std::vector<Edge> Rect::getEdges() {
     //Define edges
-    Edge top(position.x, position.y, position.x + size.x, position.y);
-    Edge bottom(position.x, position.y + size.y, position.x + size.x, position.y + size.y);
-    Edge right(position.x + size.x, position.y, position.x + size.x, position.y + size.y);
-    Edge left(position.x, position.y, position.x, position.y + size.y);
+    Edge top(x, y , x + w, y);
+    Edge bottom(x, y + h, x + w, y + h);
+    Edge right(x + w, y, x + w, y + h);
+    Edge left(x, y, x, y + h);
     
     //Push all elements into a vector
     std::vector<Edge> vec;
@@ -98,10 +70,10 @@ std::vector<Vector> Rect::getNormals(){
 std::vector<Point> Rect::getPoints(){
     //counter clock wise order
     std::vector<Point> vec;
-    vec.push_back(Point(position.x, position.y));
-    vec.push_back(Point(position.x, position.y + size.y));
-    vec.push_back(Point(position.x + size.x, position.y + size.y));
-    vec.push_back(Point(position.x + size.x, position.y ));
+    vec.push_back(Point(x, y));
+    vec.push_back(Point(x, y + h));
+    vec.push_back(Point(x + w, y + h));
+    vec.push_back(Point(x + w, y));
     return vec;
 }
 
@@ -109,5 +81,5 @@ std::vector<Point> Rect::getPoints(){
 
 //dirty, if on edge or point, still consdiered as inside
 bool Rect::is_inside(Point p){
-    return p.x >= position.x && p.x <= position.x + size.x && p.y >= position.y && p.y <= position.y + size.y;
+    return p.x >= x && p.x <= x + w && p.y >= y && p.y <= y + h;
 }

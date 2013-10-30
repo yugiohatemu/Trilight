@@ -19,8 +19,6 @@
 		B601585517B7DAD8003C8FCD /* rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585317B7DAD8003C8FCD /* rect.cpp */; };
 		B601585B17B7DC6B003C8FCD /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601585917B7DC6B003C8FCD /* light.cpp */; };
 		B627D0F018176955004D3CAB /* font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B627D0EE18176955004D3CAB /* font.cpp */; };
-		B627D0F31818C23B004D3CAB /* fontBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B627D0F11818C23B004D3CAB /* fontBuilder.cpp */; };
-		B627D0F618197778004D3CAB /* lightCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B627D0F418197778004D3CAB /* lightCenter.cpp */; };
 		B6666C83180467420002CBBF /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6666C81180467420002CBBF /* texture.cpp */; };
 		B6666C8818046FD00002CBBF /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6666C8618046FD00002CBBF /* utility.cpp */; };
 		B6CC488417D4D4A500A6508F /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC488217D4D4A500A6508F /* vector.cpp */; };
@@ -72,10 +70,6 @@
 		B627D0EC181768BA004D3CAB /* fontTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fontTile.png; sourceTree = "<group>"; };
 		B627D0EE18176955004D3CAB /* font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = font.cpp; sourceTree = "<group>"; };
 		B627D0EF18176955004D3CAB /* font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = font.h; sourceTree = "<group>"; };
-		B627D0F11818C23B004D3CAB /* fontBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fontBuilder.cpp; sourceTree = "<group>"; };
-		B627D0F21818C23B004D3CAB /* fontBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fontBuilder.h; sourceTree = "<group>"; };
-		B627D0F418197778004D3CAB /* lightCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightCenter.cpp; sourceTree = "<group>"; };
-		B627D0F518197778004D3CAB /* lightCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightCenter.h; sourceTree = "<group>"; };
 		B6666C81180467420002CBBF /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
 		B6666C82180467420002CBBF /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
 		B6666C8518046B880002CBBF /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
@@ -184,8 +178,6 @@
 			children = (
 				B627D0EE18176955004D3CAB /* font.cpp */,
 				B627D0EF18176955004D3CAB /* font.h */,
-				B627D0F11818C23B004D3CAB /* fontBuilder.cpp */,
-				B627D0F21818C23B004D3CAB /* fontBuilder.h */,
 			);
 			name = font;
 			sourceTree = "<group>";
@@ -195,8 +187,6 @@
 			children = (
 				B601585917B7DC6B003C8FCD /* light.cpp */,
 				B601585A17B7DC6B003C8FCD /* light.h */,
-				B627D0F418197778004D3CAB /* lightCenter.cpp */,
-				B627D0F518197778004D3CAB /* lightCenter.h */,
 			);
 			name = light;
 			sourceTree = "<group>";
@@ -327,7 +317,6 @@
 				B601585517B7DAD8003C8FCD /* rect.cpp in Sources */,
 				B601585B17B7DC6B003C8FCD /* light.cpp in Sources */,
 				B6D0686D1813788E00C975C1 /* pathBuilder.cpp in Sources */,
-				B627D0F31818C23B004D3CAB /* fontBuilder.cpp in Sources */,
 				B6D186DD180C50E50073BEB4 /* tileMap.cpp in Sources */,
 				B6666C8818046FD00002CBBF /* utility.cpp in Sources */,
 				B6E08F811808815D001ACCB6 /* scene.cpp in Sources */,
@@ -335,7 +324,6 @@
 				B6E08F841809DA0C001ACCB6 /* octpus.cpp in Sources */,
 				B6CC488817D4D4D100A6508F /* point.cpp in Sources */,
 				B6CC488F17D501DD00A6508F /* algebra.cpp in Sources */,
-				B627D0F618197778004D3CAB /* lightCenter.cpp in Sources */,
 				B6666C83180467420002CBBF /* texture.cpp in Sources */,
 				B6CC489917D6439900A6508F /* polygon.cpp in Sources */,
 				B6CC489C17D6C01600A6508F /* edge.cpp in Sources */,
