@@ -28,10 +28,9 @@ public:
 	Color specular;
 	float size;
     
-//    void render(std::vector<Rect>& objects);
     void render();
+    std::vector<Point> render_clip(Rect rect);
     void rotate(int x, int y);
-    void render_clip(Rect object);
     void update(SDL_Event event);
     void set_rotate_angel(float r);
 };

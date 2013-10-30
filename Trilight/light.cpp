@@ -35,7 +35,6 @@ void Light::render(){
     glPushMatrix();
     glLoadIdentity();
     
-    
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(specular.r, specular.g, specular.b, specular.a);
     glVertex2f(position.x, position.y);
@@ -79,68 +78,16 @@ void Light::render(){
 
 }
 
-/*void Light::render(std::vector<Rect>& objects){
-    //use triangle fan
-    glBegin(GL_TRIANGLE_FAN);
-    glColor4f(specular.r, specular.g, specular.b, specular.a);
-    glVertex2f(position.x, position.y);
-    
-    fan.clear_point();
-    fan.add_point(position);
-    
-    for(int i = - range/2; i < range/2 ; i++) {
-        float angle = (i + rotate_angle) * 3.14159 / 180;
-        float t = 1.0f; //use this to derive alpha
-        
-        Vector ray(size * cos(angle), size * sin(angle));
-        fan.add_point(position + ray);
-        for(int j = 0; j < objects.size(); j++) {
-            
-            std::vector<Point> points = objects[j].getPoints();
-            points.push_back(points[0]); //for recursive
-            
-            for (int p = 0; p < points.size()-1; p+=1) { //need -1
-                Vector edge = points[p+1] - points[p];
-                
-                //not parallel, so must intersect
-                if (!is_vector_parallel(edge, ray)) {
-                    //t && u should both between 0 and 1, and do not replace unless new_t is smaller
-                    //http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
-                    
-                    float t_up = (points[p] - position).cross(edge);
-                    float u_up = (points[p] - position).cross(ray);
-                    
-                    float div_down = ray.cross(edge);
-                    
-                    float new_t = t_up / div_down;
-                    float u =  u_up / div_down;
-                    
-                    //within line segment, and less than the previous one, replace it
-                    if (new_t >= 0 &&  new_t < t && u >= 0 && u <= 1) {
-                        t = new_t;
-                    }
-                }
-            }
-        }
-        
-        glColor4f(specular.r, specular.g, specular.b, 1.0f - t);
-        glVertex2f(position.x + ray.x * t, position.y + ray.y * t);
-    }
-   
-    glEnd();
- 
-}*/
 
 //sutherland - holander algorithm, check wikipedia page for pusedo implementation
-//reference CS488 course note
+//reference: CS488 course note, clip
 
-void Light::render_clip(Rect object){
+std::vector<Point> Light::render_clip(Rect rect){
     //TODO: finish this using edge instead of rect
-    return ;
     //get the fan, reuse it from render
     std::vector<Edge> clip_edges = fan.getEdges();
-    std::vector<Edge> rect_edges = object.getEdges();
-    std::vector<Vector> noraml_inside = object.getNormals();
+    std::vector<Edge> rect_edges = rect.getEdges();
+    std::vector<Vector> noraml_inside = rect.getNormals();
     
     for (int i = 0; i < rect_edges.size(); i++) {
          //calculate clipping area
@@ -200,19 +147,12 @@ void Light::render_clip(Rect object){
          
     }
     
-
-    if (clip_edges.size() == 0) {
-        return ;
+    //now we have all the points ready
+    std::vector<Point> final;
+    for ( std::vector<Edge> ::iterator it  = clip_edges.begin(); it != clip_edges.end(); it++) {
+        final.push_back((*it).get_start());
     }
-    
-    glBegin(GL_TRIANGLE_FAN);
-    
-    glColor4f(specular.r, specular.g, specular.b, specular.a);
-    for (int i = 0; i < clip_edges.size(); i++) {
-        glVertex2f(clip_edges[i].get_start().x, clip_edges[i].get_start().y);
-        glColor4f(1.0f, 0.0f, 1.0f, 0.5f);
-    }
-    glEnd();
+    return final;
 }
 
 void Light::update(SDL_Event event){

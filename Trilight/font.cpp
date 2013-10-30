@@ -8,11 +8,14 @@
 
 #include "font.h"
 #include "texture.h"
-
+#include "scene.h"
+#include "rect.h"
 Font::Font(std::string s):Sprite(){
     set_clip();
-    
+    SDL_Rect box;
     for (int i = 0; i < s.size(); i++) {
+ 
+        
         texts.push_back(s[i] - 'A');
     }
     
@@ -33,7 +36,38 @@ void Font::set_clip(){
     }
 }
 
+
 void Font::render(){
+    //std::vector<Edge> map = Scene::Instance().get_clip_edge(<#std::vector<Edge> hidden#>, <#std::vector<Vector> normal_inside#>)
+    //or we can just make a rect, easy peacy
+    return;
+    
+    Rect r;
+    std::vector<Point> clip_point = Scene::Instance().get_clip_edge(r);
+    std::vector<Point> texture_clip;
+    
+    
+    if (!clip_point.empty()) {
+        Point top_left;
+        float ratio_w = r.w / clips[frame].w;
+        float ratio_h = r.h / clips[frame].h;
+        for (Point & p  : clip_point) {
+            p.x = (p.x - top_left.x)/ratio_w + clips[frame].x;
+            p.y = (p.y - top_left.y)/ratio_h + clips[frame].y;
+            texture_clip.push_back(p);
+        }
+    }
+    
+    glBegin(GL_TRIANGLE_FAN);
+    for (int i = 0; i < clip_point.size();i++) {
+        glTexCoord2d(texture_clip[i].x, texture_clip[i].y);
+        glVertex2d(clip_point[i].x, clip_point[i].y);
+    }
+    
+    glEnd();
+    
+    //roughly like this, like need to fix some class hiearchy
+    ///////////////////////////////////
     glPushMatrix();
     
     //get texture

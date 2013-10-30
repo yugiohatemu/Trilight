@@ -41,6 +41,7 @@ public:
     void clear_scene();
     
     std::vector<Edge>get_edge_list();
+    std::vector<Point>get_clip_edge(Rect rect);
     
     Vector get_next_direction(Vector dir, Point anchor);
     float get_current_angel();

@@ -60,7 +60,7 @@ void Scene::create_scene(){
     test_light->size = 100.0f;
     test_light->set_rotate_angel(90);
     
-    text = new Font("HELLO");
+    text = new Font("H");
     text->box.x = 300;
     text->box.y = 300;
     text->box.w = 32;
@@ -76,7 +76,7 @@ void Scene::clear_scene(){
     
     if (test_light) delete test_light;
     
-     if (text) delete text;
+    if (text) delete text;
     
     eyeball = NULL;
     tiles = NULL;
@@ -99,16 +99,21 @@ void Scene::render(){
     
     if (test_light)  test_light->render();
     
-    if (text) text->render();
+    //if (text) text->render();
 }
 
 void Scene::update(SDL_Event event){
     eyeball->update(event);
 }
 
+//do a boundary test when the scene get large~~
 std::vector<Edge> Scene::get_edge_list(){
-    //do a boundary test when the scene get large~~
     return get_edge_from_path(path);
+}
+
+std::vector<Point> Scene::get_clip_edge(Rect rect){
+    //just use test_light for now
+    return test_light->render_clip(rect);
 }
 
 
@@ -130,7 +135,7 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
     //need to modify dir?
     if (path->is_orentation_within(orien, path->to_next)) {
         path_orien = path->to_next;
-//        dir = adjust_vector(path_orien, dir);
+
         if (!path->is_point_within_path(next_anchor)){
             
             if (path->next != NULL ) {
@@ -147,7 +152,8 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
         
     }else if (path->is_orentation_within(orien, path->to_prev)){ //we are going to previous
         path_orien = path->to_prev;
-//        dir = adjust_vector(path_orien, dir);
+
+        //we are going backward from next to prev, so vec has different direction
         vec = vec * -1;
         if (!path->is_point_within_path(next_anchor)) {
             if (path->prev != NULL) {
@@ -163,8 +169,8 @@ Vector Scene::get_next_direction(Vector dir, Point anchor){
     }else{ //do not allow moving unless using the right action
         return Vector();
     }
+    
     //need to adjust orientation based on that
-    //debug(dir);
     dir = adjust_vector(orien, dir, vec);
     return dir;
 }

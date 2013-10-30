@@ -12,9 +12,17 @@
 #include "sprite.h"
 #include <vector>
 #include <string>
-//why do I want to make it a singelton?
-//have this as font center?
-//ignore those feelings for now
+
+
+struct Character{
+    char ch;
+    SDL_Rect box;
+    T_Rect clip;
+    //T_Polygon? clipeed
+    //Polygon box?
+    bool hidden;
+};
+//make a rect and ask it returns necessaries
 
 class Font:public Sprite{
     void set_clip();
@@ -26,7 +34,7 @@ class Font:public Sprite{
         TOTAL_CLIPS,
     }CLIPS;
     std::vector<int> texts;
-    
+   
     T_Rect clips[TOTAL_CLIPS];
 public:
     Font(std::string s);
