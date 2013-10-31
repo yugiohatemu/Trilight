@@ -14,6 +14,7 @@
 #include "utility.h"
 #include "pathBuilder.h"
 #include "font.h"
+#include "autoLight.h"
 
 Scene::Scene(){
    
@@ -53,12 +54,11 @@ void Scene::create_scene(){
     
     path = read_path("/Users/wei/Desktop/Trilight/Trilight/level1.path");
     
-    //test new light
-    test_light = new Light(60.0f);
+    test_light = new AutoLight(60.0f, 150.0f, 3.0f);
     test_light->position = Point(320,220);
     test_light->specular.setRGBA(0xFF000066);
-    test_light->size = 100.0f;
-    test_light->set_rotate_angel(90);
+    test_light->size = 150.0f;
+//    test_light->set_rotate_angel(90);
     
     text = new Font();
     Font * t_text = dynamic_cast<Font *> (text);
@@ -105,6 +105,7 @@ void Scene::render(){
 
 void Scene::update(SDL_Event event){
     eyeball->update(event);
+    test_light->update(event);
 }
 
 //do a boundary test when the scene get large~~

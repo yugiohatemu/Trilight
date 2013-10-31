@@ -22,6 +22,7 @@ public:
 	Rect() ;
 	Rect(int dx, int dy, int dwidth, int dheight);
     Rect(SDL_Rect rect);
+    Rect & operator=(Rect & r);
     
 	void render() ;
     std::vector<Edge> getEdges();

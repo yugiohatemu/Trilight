@@ -27,10 +27,20 @@ Rect::Rect(SDL_Rect rect){
     h = rect.h;
 }
 
+Rect& Rect::operator=(Rect & r){
+    x = r.x;
+    y = r.y;
+    w = r.w;
+    h = r.h;
+    return *this;
+}
+
+
 void Rect::render() {
     glPushMatrix();
     
     glBegin(GL_QUADS);
+    
     glColor4f(color.r,color.g,color.b,color.a );
     glVertex2f(x, y);
     glVertex2f(x, y + h);
@@ -57,7 +67,8 @@ std::vector<Edge> Rect::getEdges() {
     vec.push_back(top);
     return vec;
 }
-//normal facing inside responds to get_edges
+
+//normal facing inside responds to get_edges ordering
 std::vector<Vector> Rect::getNormals(){
     std::vector<Vector> vec;
     vec.push_back(Vector(0, -1)); //bottom
@@ -76,7 +87,6 @@ std::vector<Point> Rect::getPoints(){
     vec.push_back(Point(x + w, y));
     return vec;
 }
-
 
 
 //dirty, if on edge or point, still consdiered as inside

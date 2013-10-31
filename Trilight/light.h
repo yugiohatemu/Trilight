@@ -18,6 +18,8 @@
 #include "SDL/SDL.h"
 
 class Light {
+    
+protected:
     int range;
     float rotate_angle;
     Polygon fan;
@@ -28,11 +30,13 @@ public:
 	Color specular;
 	float size;
     
-    void render();
     std::vector<Point> render_clip(Rect rect);
     void rotate(int x, int y);
-    void update(SDL_Event event);
     void set_rotate_angel(float r);
+    
+    virtual void render();
+    virtual void update(SDL_Event event);
+    
 };
 
 #endif /* defined(__Trilight__light__) */
