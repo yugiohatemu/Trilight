@@ -17,6 +17,7 @@
 Light::Light(int range){
     this->range = range;
     rotate_angle = 0;
+    
 }
 
 void Light::rotate(int x, int y){

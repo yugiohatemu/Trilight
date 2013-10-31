@@ -29,6 +29,7 @@ public:
 	Point position;
 	Color specular;
 	float size;
+    SDL_Rect box;
     
     std::vector<Point> render_clip(Rect rect);
     void rotate(int x, int y);

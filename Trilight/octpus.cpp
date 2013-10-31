@@ -33,7 +33,7 @@ Octpus::Octpus(int x , int y , int w , int h ):Sprite(x,y,w,h){
 }
 
 Octpus::~Octpus(){
-    delete torch;
+    if (torch) delete torch;
 }
 
 void Octpus::set_clip(){
@@ -57,8 +57,10 @@ void Octpus::set_anchor(Point p){
     bot_left.y = bot_right.y = anchor.y;
     
     //update the light
-    torch->position.x = anchor.x;
-    torch->position.y = anchor.y - 48;
+    if (torch) {
+        torch->position.x = anchor.x;
+        torch->position.y = anchor.y - 48;
+    }
 }
 
 void Octpus::render(){
@@ -85,10 +87,8 @@ void Octpus::render(){
     glBindTexture(GL_TEXTURE_2D, 0);
     glPopMatrix();
     
-//    std::vector<Rect> hid_rect = Scene::Instance().get_hidden();
-//    
-    torch->render();
-//    torch->render_clip(hid_rect[0]);
+    if (torch) torch->render();
+
     
 }
 
@@ -101,7 +101,8 @@ void Octpus::update(SDL_Event event){
         if(event.key.keysym.sym == SDLK_a) pressed[1] = true;
         if(event.key.keysym.sym == SDLK_s) pressed[2] = true;
         if(event.key.keysym.sym == SDLK_d) pressed[3] = true;
-        if(event.key.keysym.sym == SDLK_SPACE) pressed[4] = true;
+        if(event.key.keysym.sym == SDLK_SPACE) pressed[4] = true; //stretch
+        if(event.key.keysym.sym == SDLK_f) pressed[5] = true; //pick up/drop/switch light
     }else if(event.type == SDL_KEYUP){
         if (event.key.keysym.sym == SDLK_w) pressed[0] = false;
         if (event.key.keysym.sym == SDLK_a) pressed[1] = false;
@@ -122,6 +123,35 @@ void Octpus::update(SDL_Event event){
             top_right.y += 48;
             top_left.y += 48;
         }
+    }else if (pressed[5]) {
+        std::vector<Light *> light_list = Scene::Instance().get_scene_light();
+        if (torch) {
+            
+            for (int i = 0; i < light_list.size(); i++) {
+                SDL_Rect light_box = light_list[i]->box;
+                //TODO: the box here is ambiguous, may be reconstruct one?
+                //also if has an angel, should use another check_collison?
+                
+                if (check_collision(box, light_box)) {
+                    Scene::Instance().remove_light_from_scene(light_list[i]);
+                    break;
+                }
+            }
+            Scene::Instance().add_light_to_scene(torch);
+            torch = NULL;
+            
+        }else{
+            for (int i = 0; i < light_list.size(); i++) {
+                SDL_Rect light_box = light_list[i]->box;
+                //TODO: the box here is ambiguous, may be reconstruct one?
+                if (check_collision(box, light_box)) {
+                    torch = light_list[i];
+                    Scene::Instance().remove_light_from_scene(light_list[i]);
+                    break;
+                }
+            }
+        }
+        //TODO: do not need to handle more interaction afterwards since this is suppose to be an animation
     }
     
     if (!stretch) {
@@ -153,21 +183,24 @@ void Octpus::update(SDL_Event event){
             Point head = anchor;
             head.y -= 48.0f;
             Vector rotate_dir = (head - anchor).rotate(angel);
-            torch->position = anchor + rotate_dir;
             
-//            debug(next_dir);
+            if (torch) torch->position = anchor + rotate_dir;
+            
         }
     }
-        //reset key press
-    for (int i = 0; i < 5; i++) pressed[i] = false;
+    
+    //reset key press
+    for (int i = 0; i < 6; i++) pressed[i] = false;
     
     int x = 0, y = 0;
     SDL_GetMouseState( &x, &y );
     if (x < 0) x = 0;
     if (y < 0) y = 0;
     
-    torch->update(event);
-    torch->rotate(x, y);
+    if (torch) {
+        torch->update(event);
+        torch->rotate(x, y);
+    }
     
 }
 

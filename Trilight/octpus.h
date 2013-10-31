@@ -21,7 +21,7 @@ class Octpus:public Sprite{
     }CLIPS;
     
     T_Rect clips[TOTAL_CLIPS];
-    bool pressed[5] = {false};
+    bool pressed[6] = {false};
     Light * torch;
 
     float angel;

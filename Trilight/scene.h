@@ -24,14 +24,13 @@ class Scene{
     Scene(Scene const &);
     Scene& operator= (Scene const &);
     
-    std::vector<Rect> rectangles;
-    std::vector<Rect> hidden;
+    std::vector<Light *> scene_light;
     
     Sprite * eyeball;
     Sprite * text;
     TileMap * tiles;
     Path * path;
-    Light * test_light;
+    
 public:
     static Scene& Instance();
    
@@ -40,11 +39,22 @@ public:
     void create_scene();
     void clear_scene();
     
+    //dynamic
     std::vector<Edge>get_edge_list();
-    std::vector<Point>get_clip_point(Rect rect);
     
+    //movement
     Vector get_next_direction(Vector dir, Point anchor);
     float get_current_angel();
+    
+    //clipping
+    std::vector<Point>get_clip_point(Rect rect);
+    
+    //light control
+    const std::vector<Light *>get_scene_light();
+    void add_light_to_scene(Light * l);
+    void remove_light_from_scene(Light * l);
+    
+    
 };
 
 #endif /* defined(__Trilight__scene__) */

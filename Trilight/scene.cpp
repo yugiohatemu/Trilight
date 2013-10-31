@@ -33,19 +33,10 @@ Scene& Scene::Instance(){
     return m_Instance;
 }
 
-////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Scene::create_scene(){
-    Rect background(0,80,640,320);
-    //w 20
-    //h 10
-    background.color.setRGBA(0xFFFFFFFF);
-    rectangles.push_back(background);
-    
-    Rect test(150,250,100,150);
-    test.color.setRGBA(0xFF0000FF);
-    hidden.push_back(test);
-    
+
     eyeball = new Octpus(74,336,32,64); //100-32,400-64
     Octpus * temp = dynamic_cast<Octpus *>(eyeball);
     temp->set_anchor(Point(150,400));
@@ -54,12 +45,13 @@ void Scene::create_scene(){
     
     path = read_path("/Users/wei/Desktop/Trilight/Trilight/level1.path");
     
-    test_light = new AutoLight(60.0f, 150.0f, 3.0f);
+    AutoLight * test_light = new AutoLight(60.0f, 150.0f, 3.0f);
     test_light->position = Point(320,220);
     test_light->specular.setRGBA(0xFF000066);
     test_light->size = 150.0f;
-//    test_light->set_rotate_angel(90);
     
+    scene_light.push_back(test_light);
+        
     text = new Font();
     Font * t_text = dynamic_cast<Font *> (text);
     SDL_Rect t_box;
@@ -77,48 +69,76 @@ void Scene::clear_scene(){
     
     if (path) delete_path(path);
     
-    if (test_light) delete test_light;
+    for (int i = 0; i < scene_light.size();i++) {
+        delete scene_light[i];
+    }
+    scene_light.clear();
     
     if (text) delete text;
     
     eyeball = NULL;
     tiles = NULL;
     path = NULL;
-    test_light = NULL;
     text = NULL;
     
-    if (!rectangles.empty()) rectangles.clear();
-    if (!hidden.empty()) hidden.clear();
     
 }
 
 void Scene::render(){
-    
 
     if (eyeball) eyeball->render();
     if (path) render_path(path);
     
-    if (test_light)  test_light->render();
+    for (int i = 0; i < scene_light.size();i++) {
+        scene_light[i]->render();
+    }
     
     if (text) text->render();
 }
 
 void Scene::update(SDL_Event event){
     eyeball->update(event);
-    test_light->update(event);
+    
+    for (int i = 0; i < scene_light.size();i++) {
+        scene_light[i]->update(event);
+    }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////
+//Light related
+
+const std::vector<Light *> Scene::get_scene_light(){
+    return scene_light;
+}
+
+void Scene::add_light_to_scene(Light * l){
+    scene_light.push_back(l);
+}
+
+void Scene::remove_light_from_scene(Light * l){
+    for (int i = 0; i < scene_light.size();i++){
+        if (&scene_light[i] == &l) {
+            scene_light.erase(scene_light.begin() + i);
+            break ;
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 //do a boundary test when the scene get large~~
 std::vector<Edge> Scene::get_edge_list(){
     return get_edge_from_path(path);
 }
 
+//can only handle one rect now..., but should be able to modified to polygon latter
 std::vector<Point> Scene::get_clip_point(Rect rect){
     //just use test_light for now
-    return test_light->render_clip(rect);
+    return scene_light[0]->render_clip(rect);
 }
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////
 float Scene::get_current_angel(){
     return path->get_angel();
 }
