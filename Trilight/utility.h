@@ -12,6 +12,7 @@
 #include <string>
 #include "SDL/SDL.h"
 #include <iostream>
+#include "SDL/SDL_opengl.h"
 
 template<class PRINT>
 
@@ -47,4 +48,9 @@ bool check_collision( A_Rect A, B_Rect B ){
     //If none of the sides from A are outside B
     return true;
 }
+
+std::string readFile(std::string filename);
+int printOglError(char *file, int line);
+void printShaderInfoLog(GLuint obj);
+void printProgramInfoLog(GLuint obj);
 #endif /* defined(__Trilight__utility__) */

@@ -8,27 +8,19 @@
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_opengl.h"
-#include "stopWatch.h"
-#include "light.h"
-#include "texture.h"
-#include "sprite.h"
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include "scene.h"
 #include <GLUT/GLUT.h>
 #include <OpenGL/glext.h>
-//#include "texture.h"
+#include <string>
+
+#include "texture.h"
+#include "stopWatch.h"
+#include "utility.h"
+#include "scene.h"
+#include "shader.h"
 //Screen attributes
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
-
-//The frame rate
-const int FRAMES_PER_SECOND = 30;
-
-//Event handler
-SDL_Event event;
 
 bool initGL(){
     //Initialize Projection Matrix
@@ -73,7 +65,6 @@ bool init(){
 
 void render(){
     //Clear color buffer
-    
     glEnable (GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     //clear color and depth
@@ -98,14 +89,14 @@ void clean_up(){
     SDL_Quit();
 }
 
-
-
 int main( int argc, char *argv[] ){
     //Quit flag
     bool quit = false;
-//    srand(time(0));
+
     //Initialize
     if( init() == false ) return 1;
+    //shaders~
+    Shader::Instance().init();
     
     Scene &scene = Scene::Instance();
     scene.create_scene();
@@ -127,6 +118,9 @@ int main( int argc, char *argv[] ){
 
     //base
     bool pause = false;
+    //Event handler
+    SDL_Event event;
+
 	while( quit == false ){
         
 		while( SDL_PollEvent( &event ) ){
@@ -152,6 +146,7 @@ int main( int argc, char *argv[] ){
     //do all the cleaning, singelton and ect
 	clean_up();
     scene.clear_scene();
+    Shader::Instance().clear();
     
 	return 0;
 }
