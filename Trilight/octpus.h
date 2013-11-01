@@ -31,6 +31,7 @@ class Octpus:public Sprite{
 public:
     Octpus(int x = 0, int y = 0, int w = 0, int h = 0);
     void set_anchor(Point p);
+    void set_light(Light * l);
     ~Octpus();
     void render();
     void update(SDL_Event event);

@@ -16,7 +16,8 @@
 #include <iostream>
 #include <fstream>
 #include "scene.h"
-
+#include <GLUT/GLUT.h>
+#include <OpenGL/glext.h>
 //#include "texture.h"
 //Screen attributes
 const int SCREEN_WIDTH = 640;
@@ -70,14 +71,6 @@ bool init(){
     return true;
 }
 
-void handleKeys( unsigned char key, int x, int y ){
-    
-}
-
-void update(){
-    
-}
-
 void render(){
     //Clear color buffer
     
@@ -110,7 +103,7 @@ void clean_up(){
 int main( int argc, char *argv[] ){
     //Quit flag
     bool quit = false;
-    srand(time(0));
+//    srand(time(0));
     //Initialize
     if( init() == false ) return 1;
     

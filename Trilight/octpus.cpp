@@ -49,6 +49,10 @@ void Octpus::set_clip(){
     
 }
 
+void Octpus::set_light(Light * l){
+    
+}
+
 void Octpus::set_anchor(Point p){
     anchor = p;
     top_left.x = bot_left.x = anchor.x - box.w/2;
@@ -102,7 +106,7 @@ void Octpus::update(SDL_Event event){
         if(event.key.keysym.sym == SDLK_s) pressed[2] = true;
         if(event.key.keysym.sym == SDLK_d) pressed[3] = true;
         if(event.key.keysym.sym == SDLK_SPACE) pressed[4] = true; //stretch
-        if(event.key.keysym.sym == SDLK_f) pressed[5] = true; //pick up/drop/switch light
+        //if(event.key.keysym.sym == SDLK_f) pressed[5] = true; //pick up/drop/switch light
     }else if(event.type == SDL_KEYUP){
         if (event.key.keysym.sym == SDLK_w) pressed[0] = false;
         if (event.key.keysym.sym == SDLK_a) pressed[1] = false;
