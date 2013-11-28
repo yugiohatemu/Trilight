@@ -32,8 +32,8 @@ void Shader::init(){
 	v = glCreateShader(GL_VERTEX_SHADER);
 	f = glCreateShader(GL_FRAGMENT_SHADER);
     
-	std::string vs = readFile("/Users/wei/Desktop/Trilight/Trilight/minimal.vert");
-    std::string fs = readFile("/Users/wei/Desktop/Trilight/Trilight/minimal.frag");
+	std::string vs = readFile("/Users/wei/Desktop/Trilight/Trilight/smoke.vert");
+    std::string fs = readFile("/Users/wei/Desktop/Trilight/Trilight/smoke.frag");
     
 	const char * vv = vs.c_str();
 	const char * ff = fs.c_str();
@@ -43,7 +43,7 @@ void Shader::init(){
     
 	glCompileShader(v);
 	glCompileShader(f);
-    //
+    
 	printShaderInfoLog(v);
 	printShaderInfoLog(f);
     
@@ -52,7 +52,6 @@ void Shader::init(){
 	glAttachShader(program,v);
 	glAttachShader(program,f);
     
-
 	glLinkProgram(program);
 	printProgramInfoLog(program);
     
@@ -62,10 +61,10 @@ void Shader::init(){
     glDeleteShader(v);
     glDeleteShader(f);
     
-    
-    //TODO:seperate it afterwrads
-	glUseProgram(program);
-    
+}
+
+void Shader::use_shader(){
+    glUseProgram(program);
 }
 
 void Shader::clear(){

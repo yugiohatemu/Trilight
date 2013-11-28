@@ -40,6 +40,7 @@ void Scene::create_scene(){
     eyeball = new Octpus(74,336,32,64); //100-32,400-64
     Octpus * temp = dynamic_cast<Octpus *>(eyeball);
     temp->set_anchor(Point(150,400));
+    temp->set_light(NULL);
     
     tiles = new TileMap();
     
@@ -59,7 +60,7 @@ void Scene::create_scene(){
     t_box.y = 300;
     t_box.w = 32;
     t_box.h = 48;
-    t_text->make_sentence("H", t_box);
+    t_text->make_sentence("FIND", t_box);
 
 }
 

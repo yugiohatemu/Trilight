@@ -21,6 +21,7 @@ class Shader{
 public:
     static Shader& Instance();
     void init();
+    void use_shader();
     void clear();
 };
 

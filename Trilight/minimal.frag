@@ -1,9 +1,7 @@
-// minimal fragment shader
-// www.lighthouse3d.com
-
 //Fragment Shader
+//uniform sampler2D tex;
+//varying vec4 gl_Color;
 
-void main()
-{
-	gl_FragColor = vec4(1,0,0,1);
+void main(){
+	gl_FragColor = gl_Color;
 }

@@ -22,6 +22,9 @@
 		B627D0F91821DC1A004D3CAB /* autoLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B627D0F71821DC1A004D3CAB /* autoLight.cpp */; };
 		B6666C83180467420002CBBF /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6666C81180467420002CBBF /* texture.cpp */; };
 		B6666C8818046FD00002CBBF /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6666C8618046FD00002CBBF /* utility.cpp */; };
+		B66972E7182B159B00604BA5 /* exit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66972E5182B159B00604BA5 /* exit.cpp */; };
+		B66972E9182B2DE600604BA5 /* smoke.vert in Sources */ = {isa = PBXBuildFile; fileRef = B66972E8182B2DE600604BA5 /* smoke.vert */; };
+		B66972EB182B2DF100604BA5 /* smoke.frag in Sources */ = {isa = PBXBuildFile; fileRef = B66972EA182B2DF100604BA5 /* smoke.frag */; };
 		B6809D111823F251000A0657 /* minimal.frag in Sources */ = {isa = PBXBuildFile; fileRef = B6809D0F1823F251000A0657 /* minimal.frag */; };
 		B6809D121823F251000A0657 /* minimal.vert in Sources */ = {isa = PBXBuildFile; fileRef = B6809D101823F251000A0657 /* minimal.vert */; };
 		B6809D151823F8E8000A0657 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6809D131823F8E8000A0657 /* shader.cpp */; };
@@ -81,6 +84,10 @@
 		B6666C8518046B880002CBBF /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
 		B6666C8618046FD00002CBBF /* utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utility.cpp; sourceTree = "<group>"; };
 		B6666C8718046FD00002CBBF /* utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
+		B66972E5182B159B00604BA5 /* exit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exit.cpp; sourceTree = "<group>"; };
+		B66972E6182B159B00604BA5 /* exit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exit.h; sourceTree = "<group>"; };
+		B66972E8182B2DE600604BA5 /* smoke.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = smoke.vert; sourceTree = "<group>"; };
+		B66972EA182B2DF100604BA5 /* smoke.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = smoke.frag; sourceTree = "<group>"; };
 		B6809D0F1823F251000A0657 /* minimal.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = minimal.frag; sourceTree = "<group>"; };
 		B6809D101823F251000A0657 /* minimal.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = minimal.vert; sourceTree = "<group>"; };
 		B6809D131823F8E8000A0657 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
@@ -221,6 +228,8 @@
 				B6809D101823F251000A0657 /* minimal.vert */,
 				B6809D131823F8E8000A0657 /* shader.cpp */,
 				B6809D141823F8E8000A0657 /* shader.h */,
+				B66972E8182B2DE600604BA5 /* smoke.vert */,
+				B66972EA182B2DF100604BA5 /* smoke.frag */,
 			);
 			name = shader;
 			sourceTree = "<group>";
@@ -276,6 +285,8 @@
 				B6E08F7C18084BDD001ACCB6 /* sprite.h */,
 				B6E08F821809DA0C001ACCB6 /* octpus.cpp */,
 				B6E08F831809DA0C001ACCB6 /* octpus.h */,
+				B66972E5182B159B00604BA5 /* exit.cpp */,
+				B66972E6182B159B00604BA5 /* exit.h */,
 			);
 			name = sprite;
 			sourceTree = "<group>";
@@ -334,9 +345,11 @@
 				B601582517B7CC57003C8FCD /* main.cpp in Sources */,
 				B601582F17B7CC92003C8FCD /* SDLMain.m in Sources */,
 				B627D0F018176955004D3CAB /* font.cpp in Sources */,
+				B66972EB182B2DF100604BA5 /* smoke.frag in Sources */,
 				B601584B17B7D4BC003C8FCD /* stopWatch.cpp in Sources */,
 				B6E08F751805B159001ACCB6 /* loadPNG.cpp in Sources */,
 				B627D0F91821DC1A004D3CAB /* autoLight.cpp in Sources */,
+				B66972E9182B2DE600604BA5 /* smoke.vert in Sources */,
 				B601585217B7D982003C8FCD /* color.cpp in Sources */,
 				B6D186DA180C50780073BEB4 /* tile.cpp in Sources */,
 				B6809D111823F251000A0657 /* minimal.frag in Sources */,
@@ -354,6 +367,7 @@
 				B6666C83180467420002CBBF /* texture.cpp in Sources */,
 				B6809D121823F251000A0657 /* minimal.vert in Sources */,
 				B6CC489917D6439900A6508F /* polygon.cpp in Sources */,
+				B66972E7182B159B00604BA5 /* exit.cpp in Sources */,
 				B6CC489C17D6C01600A6508F /* edge.cpp in Sources */,
 				B6D186E1180DB3790073BEB4 /* path.cpp in Sources */,
 			);

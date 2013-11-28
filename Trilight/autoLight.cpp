@@ -7,6 +7,7 @@
 //
 
 #include "autoLight.h"
+#include "shader.h"
 
 AutoLight::AutoLight( float start_angel, float end_angel, float speed):Light(start_angel){
     this->start_angel = std::min(start_angel, end_angel);
@@ -25,7 +26,9 @@ AutoLight::~AutoLight(){
 }
 
 void AutoLight::render(){
+    Shader::Instance().use_shader();
     Light::render();
+    glUseProgram(0);
 }
 
 void AutoLight::update(SDL_Event event){

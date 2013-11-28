@@ -24,12 +24,13 @@ const int SCREEN_BPP = 32;
 
 bool initGL(){
     //Initialize Projection Matrix
-    glMatrixMode( GL_PROJECTION );
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+    gluPerspective(40, 1.0, 1.0, 10.0);
     
-    //Initialize Modelview Matrix
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
+    //glOrtho(0,SCREEN_WIDTH,SCREEN_HEIGHT,0,1,-1);
+    glMatrixMode(GL_MODELVIEW);
+    gluLookAt(0.0, 0.0, 10.0,0.0, 0.0, 0.0, 0.0, 1.0, 0.);
     
     //Initialize clear color
     glClearColor( 0.f, 0.f, 0.f, 1.f );
@@ -40,6 +41,25 @@ bool initGL(){
         printf( "Error initializing OpenGL! %s\n", gluErrorString( error ) );
         return false;
     }
+    
+    //Clear color buffer
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //clear color and depth
+    glEnable(GL_COLOR_MATERIAL);
+    //enable texture
+    glEnable( GL_TEXTURE_2D );
+    glEnable(GL_DEPTH_TEST);
+    //
+    glShadeModel(GL_SMOOTH);
+    //
+    GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 1.0};  /* Red diffuse light. */
+    GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};  /* Infinite light location. */
+    
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHTING);
     
     return true;
 }
@@ -64,24 +84,9 @@ bool init(){
 }
 
 void render(){
-    //Clear color buffer
-    glEnable (GL_BLEND);
-    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //clear color and depth
-    glEnable(GL_COLOR_MATERIAL);
-    //enable texture
-    glEnable( GL_TEXTURE_2D );
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(255, 255, 255, 0);
-    //orthogonal mode
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0,SCREEN_WIDTH,SCREEN_HEIGHT,0,-1,1);
-    glMatrixMode(GL_MODELVIEW);
-    glShadeModel(GL_SMOOTH);
-    glLoadIdentity();
-    
+    glClearColor( 0.f, 0.f, 0.f, 1.f );
 }
 
 void clean_up(){
@@ -97,7 +102,8 @@ int main( int argc, char *argv[] ){
     if( init() == false ) return 1;
     //shaders~
     Shader::Instance().init();
-    
+    //
+    glUseProgram(0);
     Scene &scene = Scene::Instance();
     scene.create_scene();
     //test texture
@@ -134,9 +140,14 @@ int main( int argc, char *argv[] ){
         if (fps.is_timeup() && !pause) {
             
             render();
-            scene.render();
-            
-            scene.update(event);
+//            scene.render();
+//            
+//            scene.update(event);
+            glPushMatrix();
+            glColor3d(1.0, 0, 0);
+            glRotated(45, 1, 0, 0);
+            glutSolidCube(1.0);
+            glPopMatrix();
             
             SDL_GL_SwapBuffers();
             fps.start();
